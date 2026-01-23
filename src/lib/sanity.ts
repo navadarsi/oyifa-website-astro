@@ -2,10 +2,11 @@ import { createClient } from '@sanity/client';
 import type { Lang } from '../i18n/utils';
 
 export const client = createClient({
-  projectId: 'zxslyc4b',
-  dataset: 'production',
-  apiVersion: '2024-01-01',
+  projectId: import.meta.env.SANITY_PROJECT_ID,
+  dataset: import.meta.env.SANITY_DATASET || 'production',
+  apiVersion: import.meta.env.SANITY_API_VERSION || '2024-01-01',
   useCdn: true, // Enable CDN for faster reads in production
+  token: import.meta.env.SANITY_API_TOKEN || undefined, // Optional: for draft content
 });
 
 // Type definitions for Sanity content

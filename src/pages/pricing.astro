@@ -8,13 +8,16 @@ const t = useTranslations('en');
 
 // Regional pricing data (pre-rendered for SEO, JS switches display)
 const pricing = {
-  AED: { symbol: 'AED', basic: 149, standard: 299, premium: 599 },
-  SAR: { symbol: 'SAR', basic: 149, standard: 299, premium: 599 },
-  USD: { symbol: '$', basic: 39, standard: 79, premium: 159 },
-  KWD: { symbol: 'KWD', basic: 12, standard: 24, premium: 49 },
-  QAR: { symbol: 'QAR', basic: 145, standard: 289, premium: 579 },
-  BHD: { symbol: 'BHD', basic: 15, standard: 30, premium: 60 },
-  OMR: { symbol: 'OMR', basic: 15, standard: 30, premium: 61 },
+  // UAE, Saudi, Qatar - Higher tier
+  AED: { symbol: 'AED', monthly: { basic: 499, standard: 999, premium: 1499 }, yearly: { basic: 4999, standard: 9999, premium: 14999 } },
+  SAR: { symbol: 'SAR', monthly: { basic: 499, standard: 999, premium: 1499 }, yearly: { basic: 4999, standard: 9999, premium: 14999 } },
+  QAR: { symbol: 'QAR', monthly: { basic: 499, standard: 999, premium: 1499 }, yearly: { basic: 4999, standard: 9999, premium: 14999 } },
+  // Bahrain, Kuwait, Oman - Lower tier
+  BHD: { symbol: 'BHD', monthly: { basic: 49, standard: 99, premium: 149 }, yearly: { basic: 499, standard: 999, premium: 1499 } },
+  KWD: { symbol: 'KWD', monthly: { basic: 49, standard: 99, premium: 149 }, yearly: { basic: 499, standard: 999, premium: 1499 } },
+  OMR: { symbol: 'OMR', monthly: { basic: 49, standard: 99, premium: 149 }, yearly: { basic: 499, standard: 999, premium: 1499 } },
+  // USD fallback
+  USD: { symbol: '$', monthly: { basic: 129, standard: 259, premium: 399 }, yearly: { basic: 1299, standard: 2599, premium: 3999 } },
 };
 
 // Default to AED for GCC focus
@@ -24,7 +27,8 @@ const p = pricing[defaultCurrency];
 const plans = [
   {
     name: t('pricing.free'),
-    price: 0,
+    monthlyPrice: 0,
+    yearlyPrice: 0,
     proposals: '0',
     features: [
       t('pricing.features.proposals') + ': 0',
@@ -35,7 +39,8 @@ const plans = [
   },
   {
     name: t('pricing.basic'),
-    price: p.basic,
+    monthlyPrice: p.monthly.basic,
+    yearlyPrice: p.yearly.basic,
     proposals: '10',
     features: [
       t('pricing.features.proposals') + ': 10',
@@ -46,7 +51,8 @@ const plans = [
   },
   {
     name: t('pricing.standard'),
-    price: p.standard,
+    monthlyPrice: p.monthly.standard,
+    yearlyPrice: p.yearly.standard,
     proposals: '50',
     features: [
       t('pricing.features.proposals') + ': 50',
@@ -58,7 +64,8 @@ const plans = [
   },
   {
     name: t('pricing.premium'),
-    price: p.premium,
+    monthlyPrice: p.monthly.premium,
+    yearlyPrice: p.yearly.premium,
     proposals: t('pricing.unlimited'),
     features: [
       t('pricing.features.proposals') + ': ' + t('pricing.unlimited'),
@@ -86,18 +93,30 @@ const plans = [
           {t('pricing.subtitle')}
         </p>
 
-        <!-- Currency selector -->
-        <div class="mt-8 inline-flex items-center gap-2 bg-white rounded-lg shadow-sm p-1">
-          <span class="text-sm text-gray-500 px-2">Currency:</span>
-          <select id="currency-select" class="bg-transparent border-0 text-gray-700 font-medium focus:ring-0 cursor-pointer">
-            <option value="AED">AED (UAE)</option>
-            <option value="SAR">SAR (Saudi)</option>
-            <option value="KWD">KWD (Kuwait)</option>
-            <option value="QAR">QAR (Qatar)</option>
-            <option value="BHD">BHD (Bahrain)</option>
-            <option value="OMR">OMR (Oman)</option>
-            <option value="USD">USD</option>
-          </select>
+        <!-- Billing Toggle -->
+        <div class="mt-8 flex flex-col items-center gap-4">
+          <div class="inline-flex items-center bg-white rounded-full shadow-sm p-1">
+            <button id="monthly-btn" class="px-6 py-2 rounded-full text-sm font-medium transition-colors bg-primary text-white">
+              {t('pricing.monthly')}
+            </button>
+            <button id="yearly-btn" class="px-6 py-2 rounded-full text-sm font-medium transition-colors text-gray-600 hover:text-gray-900">
+              {t('pricing.yearly')} <span class="text-green-600 text-xs ml-1">{t('pricing.save')}</span>
+            </button>
+          </div>
+
+          <!-- Currency selector -->
+          <div class="inline-flex items-center gap-2 bg-white rounded-lg shadow-sm p-1">
+            <span class="text-sm text-gray-500 px-2">Currency:</span>
+            <select id="currency-select" class="bg-transparent border-0 text-gray-700 font-medium focus:ring-0 cursor-pointer">
+              <option value="AED">AED (UAE)</option>
+              <option value="SAR">SAR (Saudi)</option>
+              <option value="QAR">QAR (Qatar)</option>
+              <option value="KWD">KWD (Kuwait)</option>
+              <option value="BHD">BHD (Bahrain)</option>
+              <option value="OMR">OMR (Oman)</option>
+              <option value="USD">USD</option>
+            </select>
+          </div>
         </div>
       </div>
     </section>
@@ -117,16 +136,26 @@ const plans = [
                 <h3 class="text-xl font-semibold text-gray-900 mb-2">{plan.name}</h3>
                 <div class="flex items-baseline justify-center gap-1">
                   <span class="currency-symbol text-2xl font-bold text-gray-900">{p.symbol}</span>
-                  <span class="price text-4xl font-bold text-gray-900" data-prices={JSON.stringify({
-                    AED: index === 0 ? 0 : index === 1 ? 149 : index === 2 ? 299 : 599,
-                    SAR: index === 0 ? 0 : index === 1 ? 149 : index === 2 ? 299 : 599,
-                    USD: index === 0 ? 0 : index === 1 ? 39 : index === 2 ? 79 : 159,
-                    KWD: index === 0 ? 0 : index === 1 ? 12 : index === 2 ? 24 : 49,
-                    QAR: index === 0 ? 0 : index === 1 ? 145 : index === 2 ? 289 : 579,
-                    BHD: index === 0 ? 0 : index === 1 ? 15 : index === 2 ? 30 : 60,
-                    OMR: index === 0 ? 0 : index === 1 ? 15 : index === 2 ? 30 : 61,
-                  })}>{plan.price}</span>
-                  <span class="text-gray-500">{t('pricing.perMonth')}</span>
+                  <span class="price text-4xl font-bold text-gray-900"
+                    data-monthly={JSON.stringify({
+                      AED: index === 0 ? 0 : index === 1 ? 499 : index === 2 ? 999 : 1499,
+                      SAR: index === 0 ? 0 : index === 1 ? 499 : index === 2 ? 999 : 1499,
+                      QAR: index === 0 ? 0 : index === 1 ? 499 : index === 2 ? 999 : 1499,
+                      KWD: index === 0 ? 0 : index === 1 ? 49 : index === 2 ? 99 : 149,
+                      BHD: index === 0 ? 0 : index === 1 ? 49 : index === 2 ? 99 : 149,
+                      OMR: index === 0 ? 0 : index === 1 ? 49 : index === 2 ? 99 : 149,
+                      USD: index === 0 ? 0 : index === 1 ? 129 : index === 2 ? 259 : 399,
+                    })}
+                    data-yearly={JSON.stringify({
+                      AED: index === 0 ? 0 : index === 1 ? 4999 : index === 2 ? 9999 : 14999,
+                      SAR: index === 0 ? 0 : index === 1 ? 4999 : index === 2 ? 9999 : 14999,
+                      QAR: index === 0 ? 0 : index === 1 ? 4999 : index === 2 ? 9999 : 14999,
+                      KWD: index === 0 ? 0 : index === 1 ? 499 : index === 2 ? 999 : 1499,
+                      BHD: index === 0 ? 0 : index === 1 ? 499 : index === 2 ? 999 : 1499,
+                      OMR: index === 0 ? 0 : index === 1 ? 499 : index === 2 ? 999 : 1499,
+                      USD: index === 0 ? 0 : index === 1 ? 1299 : index === 2 ? 2599 : 3999,
+                    })}>{plan.monthlyPrice}</span>
+                  <span class="billing-period text-gray-500">{t('pricing.perMonth')}</span>
                 </div>
                 <p class="text-sm text-gray-500 mt-2">{plan.proposals} {t('pricing.proposals')}</p>
               </div>
@@ -181,26 +210,65 @@ const plans = [
     AED: 'AED', SAR: 'SAR', USD: '$', KWD: 'KWD', QAR: 'QAR', BHD: 'BHD', OMR: 'OMR'
   };
 
+  let currentBilling: 'monthly' | 'yearly' = 'monthly';
+  let currentCurrency = 'AED';
+
   const select = document.getElementById('currency-select') as HTMLSelectElement;
+  const monthlyBtn = document.getElementById('monthly-btn') as HTMLButtonElement;
+  const yearlyBtn = document.getElementById('yearly-btn') as HTMLButtonElement;
   const priceElements = document.querySelectorAll('.price');
   const symbolElements = document.querySelectorAll('.currency-symbol');
+  const billingPeriods = document.querySelectorAll('.billing-period');
 
-  select?.addEventListener('change', (e) => {
-    const currency = (e.target as HTMLSelectElement).value;
+  function updatePrices() {
     priceElements.forEach((el) => {
-      const prices = JSON.parse(el.getAttribute('data-prices') || '{}');
-      el.textContent = prices[currency] || 0;
+      const prices = JSON.parse(el.getAttribute(`data-${currentBilling}`) || '{}');
+      el.textContent = prices[currentCurrency]?.toLocaleString() || '0';
     });
     symbolElements.forEach((el) => {
-      el.textContent = symbols[currency] || currency;
+      el.textContent = symbols[currentCurrency] || currentCurrency;
     });
+    billingPeriods.forEach((el) => {
+      el.textContent = currentBilling === 'monthly' ? '/month' : '/year';
+    });
+  }
+
+  function updateBillingButtons() {
+    if (currentBilling === 'monthly') {
+      monthlyBtn?.classList.add('bg-primary', 'text-white');
+      monthlyBtn?.classList.remove('text-gray-600');
+      yearlyBtn?.classList.remove('bg-primary', 'text-white');
+      yearlyBtn?.classList.add('text-gray-600');
+    } else {
+      yearlyBtn?.classList.add('bg-primary', 'text-white');
+      yearlyBtn?.classList.remove('text-gray-600');
+      monthlyBtn?.classList.remove('bg-primary', 'text-white');
+      monthlyBtn?.classList.add('text-gray-600');
+    }
+  }
+
+  select?.addEventListener('change', (e) => {
+    currentCurrency = (e.target as HTMLSelectElement).value;
+    updatePrices();
+  });
+
+  monthlyBtn?.addEventListener('click', () => {
+    currentBilling = 'monthly';
+    updateBillingButtons();
+    updatePrices();
+  });
+
+  yearlyBtn?.addEventListener('click', () => {
+    currentBilling = 'yearly';
+    updateBillingButtons();
+    updatePrices();
   });
 
   // Auto-detect country (optional enhancement)
   // fetch('https://ipapi.co/json/').then(r => r.json()).then(data => {
   //   const countryToCurrency: Record<string, string> = { AE: 'AED', SA: 'SAR', KW: 'KWD', QA: 'QAR', BH: 'BHD', OM: 'OMR' };
-  //   const currency = countryToCurrency[data.country_code] || 'USD';
-  //   select.value = currency;
-  //   select.dispatchEvent(new Event('change'));
+  //   currentCurrency = countryToCurrency[data.country_code] || 'USD';
+  //   select.value = currentCurrency;
+  //   updatePrices();
   // });
 </script>

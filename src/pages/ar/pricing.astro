@@ -1,0 +1,198 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { useTranslations } from '../../i18n/utils';
+
+const t = useTranslations('ar');
+
+// Regional pricing data (pre-rendered for SEO, JS switches display)
+const pricing = {
+  AED: { symbol: 'د.إ', basic: 149, standard: 299, premium: 599 },
+  SAR: { symbol: 'ر.س', basic: 149, standard: 299, premium: 599 },
+  USD: { symbol: '$', basic: 39, standard: 79, premium: 159 },
+  KWD: { symbol: 'د.ك', basic: 12, standard: 24, premium: 49 },
+  QAR: { symbol: 'ر.ق', basic: 145, standard: 289, premium: 579 },
+  BHD: { symbol: 'د.ب', basic: 15, standard: 30, premium: 60 },
+  OMR: { symbol: 'ر.ع', basic: 15, standard: 30, premium: 61 },
+};
+
+// Default to AED for GCC focus
+const defaultCurrency = 'AED';
+const p = pricing[defaultCurrency];
+
+const plans = [
+  {
+    name: t('pricing.free'),
+    price: 0,
+    proposals: '0',
+    features: [
+      t('pricing.features.proposals') + ': 0',
+      t('pricing.features.support'),
+    ],
+    cta: t('pricing.getStarted'),
+    popular: false,
+  },
+  {
+    name: t('pricing.basic'),
+    price: p.basic,
+    proposals: '10',
+    features: [
+      t('pricing.features.proposals') + ': 10',
+      t('pricing.features.support'),
+    ],
+    cta: t('pricing.getStarted'),
+    popular: false,
+  },
+  {
+    name: t('pricing.standard'),
+    price: p.standard,
+    proposals: '50',
+    features: [
+      t('pricing.features.proposals') + ': 50',
+      t('pricing.features.priority'),
+      t('pricing.features.analytics'),
+    ],
+    cta: t('pricing.getStarted'),
+    popular: true,
+  },
+  {
+    name: t('pricing.premium'),
+    price: p.premium,
+    proposals: t('pricing.unlimited'),
+    features: [
+      t('pricing.features.proposals') + ': ' + t('pricing.unlimited'),
+      t('pricing.features.priority'),
+      t('pricing.features.analytics'),
+      t('pricing.features.dedicated'),
+    ],
+    cta: t('pricing.getStarted'),
+    popular: false,
+  },
+];
+---
+
+<BaseLayout title={t('nav.pricing')} description="أسعار بسيطة وشفافة لـ Oyifa. اختر الخطة التي تناسب احتياجات عملك.">
+  <Header />
+
+  <main class="pt-24">
+    <!-- Hero -->
+    <section class="py-16 px-4 bg-gradient-to-b from-purple-50 to-white">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          {t('pricing.title')}
+        </h1>
+        <p class="text-xl text-gray-600">
+          {t('pricing.subtitle')}
+        </p>
+
+        <!-- Currency selector -->
+        <div class="mt-8 inline-flex items-center gap-2 bg-white rounded-lg shadow-sm p-1">
+          <span class="text-sm text-gray-500 px-2">العملة:</span>
+          <select id="currency-select" class="bg-transparent border-0 text-gray-700 font-medium focus:ring-0 cursor-pointer">
+            <option value="AED">د.إ (الإمارات)</option>
+            <option value="SAR">ر.س (السعودية)</option>
+            <option value="KWD">د.ك (الكويت)</option>
+            <option value="QAR">ر.ق (قطر)</option>
+            <option value="BHD">د.ب (البحرين)</option>
+            <option value="OMR">ر.ع (عمان)</option>
+            <option value="USD">$ (دولار)</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing Cards -->
+    <section class="py-16 px-4">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid md:grid-cols-4 gap-6">
+          {plans.map((plan, index) => (
+            <div class={`relative bg-white rounded-2xl shadow-lg p-6 ${plan.popular ? 'ring-2 ring-primary' : 'border border-gray-200'}`}>
+              {plan.popular && (
+                <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-white text-sm font-medium px-3 py-1 rounded-full">
+                  {t('pricing.popular')}
+                </div>
+              )}
+              <div class="text-center mb-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">{plan.name}</h3>
+                <div class="flex items-baseline justify-center gap-1">
+                  <span class="price text-4xl font-bold text-gray-900" data-prices={JSON.stringify({
+                    AED: index === 0 ? 0 : index === 1 ? 149 : index === 2 ? 299 : 599,
+                    SAR: index === 0 ? 0 : index === 1 ? 149 : index === 2 ? 299 : 599,
+                    USD: index === 0 ? 0 : index === 1 ? 39 : index === 2 ? 79 : 159,
+                    KWD: index === 0 ? 0 : index === 1 ? 12 : index === 2 ? 24 : 49,
+                    QAR: index === 0 ? 0 : index === 1 ? 145 : index === 2 ? 289 : 579,
+                    BHD: index === 0 ? 0 : index === 1 ? 15 : index === 2 ? 30 : 60,
+                    OMR: index === 0 ? 0 : index === 1 ? 15 : index === 2 ? 30 : 61,
+                  })}>{plan.price}</span>
+                  <span class="currency-symbol text-2xl font-bold text-gray-900">{p.symbol}</span>
+                  <span class="text-gray-500">{t('pricing.perMonth')}</span>
+                </div>
+                <p class="text-sm text-gray-500 mt-2">{plan.proposals} {t('pricing.proposals')}</p>
+              </div>
+              <ul class="space-y-3 mb-6">
+                {plan.features.map((feature) => (
+                  <li class="flex items-center gap-2 text-gray-600">
+                    <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+              <a
+                href={`/app/register?plan=${plan.name.toLowerCase()}`}
+                class={`block w-full text-center py-3 rounded-lg font-semibold transition-colors ${
+                  plan.popular
+                    ? 'bg-primary text-white hover:bg-primary-light'
+                    : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
+                }`}
+              >
+                {plan.cta}
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Teaser -->
+    <section class="py-16 px-4 bg-gray-50">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">هل لديك أسئلة؟</h2>
+        <p class="text-gray-600 mb-6">تحقق من الأسئلة الشائعة أو تواصل مع فريق الدعم لدينا.</p>
+        <div class="flex gap-4 justify-center">
+          <a href="/ar/faq" class="bg-white border border-gray-300 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors">
+            الأسئلة الشائعة
+          </a>
+          <a href="/ar/contact" class="bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-light transition-colors">
+            اتصل بنا
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script>
+  const symbols: Record<string, string> = {
+    AED: 'د.إ', SAR: 'ر.س', USD: '$', KWD: 'د.ك', QAR: 'ر.ق', BHD: 'د.ب', OMR: 'ر.ع'
+  };
+
+  const select = document.getElementById('currency-select') as HTMLSelectElement;
+  const priceElements = document.querySelectorAll('.price');
+  const symbolElements = document.querySelectorAll('.currency-symbol');
+
+  select?.addEventListener('change', (e) => {
+    const currency = (e.target as HTMLSelectElement).value;
+    priceElements.forEach((el) => {
+      const prices = JSON.parse(el.getAttribute('data-prices') || '{}');
+      el.textContent = prices[currency] || 0;
+    });
+    symbolElements.forEach((el) => {
+      el.textContent = symbols[currency] || currency;
+    });
+  });
+</script>

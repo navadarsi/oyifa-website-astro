@@ -1,0 +1,60 @@
+---
+import { getLangFromUrl, useTranslations, getLocalizedPath } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const isArabic = lang === 'ar';
+
+const currentPath = Astro.url.pathname.replace(`/${lang}`, '').replace(/^\/ar/, '') || '/';
+const alternateLangPath = isArabic ? currentPath : `/ar${currentPath}`;
+---
+
+<footer class="bg-gray-900 text-white py-12 px-4">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-8">
+    <div>
+      <h3 class="text-2xl font-bold mb-4">Oyifa</h3>
+      <p class="text-gray-400">{t('footer.description')}</p>
+    </div>
+    <div>
+      <h4 class="font-semibold mb-4">{t('footer.links')}</h4>
+      <ul class="space-y-2 text-gray-400">
+        <li><a href={getLocalizedPath('/about', lang)} class="hover:text-white transition-colors">{t('nav.about')}</a></li>
+        <li><a href={getLocalizedPath('/pricing', lang)} class="hover:text-white transition-colors">{t('nav.pricing')}</a></li>
+        <li><a href={getLocalizedPath('/blog', lang)} class="hover:text-white transition-colors">{t('nav.blog')}</a></li>
+        <li><a href={getLocalizedPath('/contact', lang)} class="hover:text-white transition-colors">{t('nav.contact')}</a></li>
+        <li><a href={getLocalizedPath('/faq', lang)} class="hover:text-white transition-colors">FAQ</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-semibold mb-4">{t('footer.legal')}</h4>
+      <ul class="space-y-2 text-gray-400">
+        <li><a href={getLocalizedPath('/terms', lang)} class="hover:text-white transition-colors">{t('footer.terms')}</a></li>
+        <li><a href={getLocalizedPath('/privacy', lang)} class="hover:text-white transition-colors">{t('footer.privacy')}</a></li>
+        <li><a href={getLocalizedPath('/refund', lang)} class="hover:text-white transition-colors">{t('footer.refund')}</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-semibold mb-4">{isArabic ? 'اللغة' : 'Language'}</h4>
+      <div class="flex gap-4">
+        <a href={isArabic ? currentPath : currentPath} class={`${!isArabic ? 'text-white font-medium' : 'text-gray-400 hover:text-white'} transition-colors`}>English</a>
+        <a href={isArabic ? `/ar${currentPath}` : `/ar${currentPath}`} class={`${isArabic ? 'text-white font-medium' : 'text-gray-400 hover:text-white'} transition-colors`}>العربية</a>
+      </div>
+
+      <!-- Social Links -->
+      <div class="mt-6">
+        <h4 class="font-semibold mb-3">{isArabic ? 'تابعنا' : 'Follow Us'}</h4>
+        <div class="flex gap-4">
+          <a href="https://linkedin.com/company/oyifa" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          </a>
+          <a href="https://twitter.com/oyifa" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="max-w-7xl mx-auto mt-8 pt-8 border-t border-gray-800 text-center text-gray-400">
+    {t('footer.copyright')}
+  </div>
+</footer>

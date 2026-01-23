@@ -1,0 +1,73 @@
+---
+import { getLangFromUrl, useTranslations, getLocalizedPath } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const isArabic = lang === 'ar';
+
+// Get current path for language switcher
+const currentPath = Astro.url.pathname.replace(`/${lang}`, '').replace(/^\/ar/, '') || '/';
+const alternateLangPath = isArabic ? currentPath : `/ar${currentPath}`;
+const alternateLangLabel = isArabic ? 'English' : 'العربية';
+---
+
+<nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-100">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <!-- Logo -->
+      <a href={getLocalizedPath('/', lang)} class="text-2xl font-bold text-primary">Oyifa</a>
+
+      <!-- Desktop Nav -->
+      <div class="hidden md:flex items-center gap-8">
+        <a href={getLocalizedPath('/', lang)} class="text-gray-600 hover:text-primary transition-colors">{t('nav.home')}</a>
+        <a href={getLocalizedPath('/about', lang)} class="text-gray-600 hover:text-primary transition-colors">{t('nav.about')}</a>
+        <a href={getLocalizedPath('/pricing', lang)} class="text-gray-600 hover:text-primary transition-colors">{t('nav.pricing')}</a>
+        <a href={getLocalizedPath('/blog', lang)} class="text-gray-600 hover:text-primary transition-colors">{t('nav.blog')}</a>
+        <a href={getLocalizedPath('/contact', lang)} class="text-gray-600 hover:text-primary transition-colors">{t('nav.contact')}</a>
+      </div>
+
+      <!-- Auth & Language -->
+      <div class="flex items-center gap-4">
+        <a href={alternateLangPath} class="text-sm text-gray-500 hover:text-primary transition-colors">
+          {alternateLangLabel}
+        </a>
+        <a href="/app/login" class="text-gray-600 hover:text-primary transition-colors">{t('nav.login')}</a>
+        <a href="/app/register" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-light transition-colors">
+          {t('nav.signup')}
+        </a>
+      </div>
+
+      <!-- Mobile menu button -->
+      <button id="mobile-menu-btn" class="md:hidden p-2 text-gray-600" aria-label="Toggle menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden pb-4">
+      <div class="flex flex-col gap-4">
+        <a href={getLocalizedPath('/', lang)} class="text-gray-600 hover:text-primary">{t('nav.home')}</a>
+        <a href={getLocalizedPath('/about', lang)} class="text-gray-600 hover:text-primary">{t('nav.about')}</a>
+        <a href={getLocalizedPath('/pricing', lang)} class="text-gray-600 hover:text-primary">{t('nav.pricing')}</a>
+        <a href={getLocalizedPath('/blog', lang)} class="text-gray-600 hover:text-primary">{t('nav.blog')}</a>
+        <a href={getLocalizedPath('/contact', lang)} class="text-gray-600 hover:text-primary">{t('nav.contact')}</a>
+        <hr class="border-gray-200" />
+        <a href={alternateLangPath} class="text-gray-500">{alternateLangLabel}</a>
+        <a href="/app/login" class="text-gray-600">{t('nav.login')}</a>
+        <a href="/app/register" class="bg-primary text-white px-4 py-2 rounded-lg text-center">
+          {t('nav.signup')}
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  btn?.addEventListener('click', () => {
+    menu?.classList.toggle('hidden');
+  });
+</script>

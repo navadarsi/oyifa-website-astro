@@ -1,0 +1,241 @@
+export const languages = {
+  en: 'English',
+  ar: 'العربية',
+};
+
+export const defaultLang = 'en';
+
+export const ui = {
+  en: {
+    // Navigation
+    'nav.home': 'Home',
+    'nav.about': 'About',
+    'nav.pricing': 'Pricing',
+    'nav.blog': 'Blog',
+    'nav.contact': 'Contact',
+    'nav.login': 'Login',
+    'nav.signup': 'Sign Up',
+    'nav.dashboard': 'Dashboard',
+    'nav.faq': 'FAQ',
+
+    // Hero
+    'hero.title': 'Outsource Your Innovation From Anywhere',
+    'hero.subtitle': 'The leading IT outsourcing platform connecting businesses with qualified vendors across the Middle East',
+    'hero.cta.client': 'Post a Tender',
+    'hero.cta.vendor': 'Find Opportunities',
+
+    // Features
+    'features.title': 'Why Choose Oyifa?',
+    'features.tender.title': 'Tender Management',
+    'features.tender.desc': 'Create, publish, and manage tenders with ease',
+    'features.vendors.title': 'Qualified Vendors',
+    'features.vendors.desc': 'Connect with verified IT service providers',
+    'features.proposals.title': 'Smart Proposals',
+    'features.proposals.desc': 'Receive and compare proposals efficiently',
+
+    // CTA
+    'cta.title': 'Ready to Transform Your IT Outsourcing?',
+    'cta.subtitle': 'Join thousands of businesses already using Oyifa',
+    'cta.button': 'Get Started Free',
+
+    // Footer
+    'footer.description': 'Streamlining IT outsourcing across the Middle East',
+    'footer.links': 'Quick Links',
+    'footer.legal': 'Legal',
+    'footer.terms': 'Terms of Service',
+    'footer.privacy': 'Privacy Policy',
+    'footer.refund': 'Refund Policy',
+    'footer.copyright': '© 2024 Oyifa. All rights reserved.',
+
+    // Pricing Page
+    'pricing.title': 'Simple, Transparent Pricing',
+    'pricing.subtitle': 'Choose the plan that fits your business needs',
+    'pricing.monthly': 'Monthly',
+    'pricing.yearly': 'Yearly',
+    'pricing.save': 'Save 20%',
+    'pricing.popular': 'Most Popular',
+    'pricing.free': 'Free',
+    'pricing.basic': 'Basic',
+    'pricing.standard': 'Standard',
+    'pricing.premium': 'Premium',
+    'pricing.perMonth': '/month',
+    'pricing.proposals': 'proposals/month',
+    'pricing.unlimited': 'Unlimited',
+    'pricing.getStarted': 'Get Started',
+    'pricing.currentPlan': 'Current Plan',
+    'pricing.features.proposals': 'Proposal submissions',
+    'pricing.features.support': 'Email support',
+    'pricing.features.priority': 'Priority support',
+    'pricing.features.analytics': 'Advanced analytics',
+    'pricing.features.dedicated': 'Dedicated account manager',
+
+    // About Page
+    'about.title': 'About Oyifa',
+    'about.subtitle': 'Transforming IT outsourcing in the Middle East',
+    'about.mission.title': 'Our Mission',
+    'about.mission.desc': 'To simplify and streamline IT outsourcing by connecting businesses with the right technology partners, fostering innovation and growth across the GCC region.',
+    'about.vision.title': 'Our Vision',
+    'about.vision.desc': 'To become the leading platform for IT procurement and vendor management in the Middle East, empowering businesses of all sizes to access world-class technology solutions.',
+    'about.values.title': 'Our Values',
+    'about.values.transparency': 'Transparency',
+    'about.values.transparency.desc': 'Open and honest communication in all our dealings',
+    'about.values.innovation': 'Innovation',
+    'about.values.innovation.desc': 'Continuously improving our platform and services',
+    'about.values.trust': 'Trust',
+    'about.values.trust.desc': 'Building lasting relationships through reliability',
+
+    // Contact Page
+    'contact.title': 'Get in Touch',
+    'contact.subtitle': 'Have questions? We\'d love to hear from you.',
+    'contact.form.name': 'Your Name',
+    'contact.form.email': 'Email Address',
+    'contact.form.subject': 'Subject',
+    'contact.form.message': 'Message',
+    'contact.form.submit': 'Send Message',
+    'contact.form.success': 'Thank you! Your message has been sent.',
+    'contact.info.title': 'Contact Information',
+    'contact.info.email': 'support@oyifa.com',
+    'contact.info.address': 'Dubai, United Arab Emirates',
+
+    // FAQ Page
+    'faq.title': 'Frequently Asked Questions',
+    'faq.subtitle': 'Find answers to common questions about Oyifa',
+    'faq.q1': 'What is Oyifa?',
+    'faq.a1': 'Oyifa is an IT outsourcing platform that connects businesses looking for technology solutions with qualified vendors across the Middle East.',
+    'faq.q2': 'How do I post a tender?',
+    'faq.a2': 'Simply create a client account, fill in your project requirements, and publish your tender. Verified vendors will submit proposals for your consideration.',
+    'faq.q3': 'Is it free to use?',
+    'faq.a3': 'Clients can post tenders for free. Vendors have a free tier with limited proposals, and can upgrade to paid plans for more features.',
+    'faq.q4': 'How are vendors verified?',
+    'faq.a4': 'We verify vendor credentials including business registration, portfolio, and references before they can submit proposals.',
+    'faq.q5': 'What countries do you support?',
+    'faq.a5': 'We currently support businesses in the GCC region including UAE, Saudi Arabia, Kuwait, Qatar, Bahrain, and Oman.',
+    'faq.q6': 'How do I cancel my subscription?',
+    'faq.a6': 'You can cancel your subscription anytime from your account settings. Your access will continue until the end of the billing period.',
+
+    // Blog
+    'blog.title': 'Blog',
+    'blog.subtitle': 'Insights and updates from the Oyifa team',
+    'blog.readMore': 'Read More',
+    'blog.backToBlog': 'Back to Blog',
+    'blog.publishedOn': 'Published on',
+    'blog.by': 'by',
+    'blog.noPosts': 'No posts yet. Check back soon!',
+  },
+  ar: {
+    // Navigation
+    'nav.home': 'الرئيسية',
+    'nav.about': 'من نحن',
+    'nav.pricing': 'الأسعار',
+    'nav.blog': 'المدونة',
+    'nav.contact': 'اتصل بنا',
+    'nav.login': 'تسجيل الدخول',
+    'nav.signup': 'إنشاء حساب',
+    'nav.dashboard': 'لوحة التحكم',
+    'nav.faq': 'الأسئلة الشائعة',
+
+    // Hero
+    'hero.title': 'استعِن بمصادر خارجية لابتكارك من أي مكان',
+    'hero.subtitle': 'المنصة الرائدة للاستعانة بمصادر خارجية لتقنية المعلومات تربط الشركات بالموردين المؤهلين في الشرق الأوسط',
+    'hero.cta.client': 'أنشر مناقصة',
+    'hero.cta.vendor': 'ابحث عن فرص',
+
+    // Features
+    'features.title': 'لماذا تختار أويفا؟',
+    'features.tender.title': 'إدارة المناقصات',
+    'features.tender.desc': 'أنشئ وانشر وأدر المناقصات بسهولة',
+    'features.vendors.title': 'موردون مؤهلون',
+    'features.vendors.desc': 'تواصل مع مزودي خدمات تقنية المعلومات المعتمدين',
+    'features.proposals.title': 'عروض ذكية',
+    'features.proposals.desc': 'استلم وقارن العروض بكفاءة',
+
+    // CTA
+    'cta.title': 'هل أنت مستعد لتحويل استعانتك بمصادر خارجية لتقنية المعلومات؟',
+    'cta.subtitle': 'انضم إلى آلاف الشركات التي تستخدم أويفا بالفعل',
+    'cta.button': 'ابدأ مجاناً',
+
+    // Footer
+    'footer.description': 'تبسيط الاستعانة بمصادر خارجية لتقنية المعلومات في الشرق الأوسط',
+    'footer.links': 'روابط سريعة',
+    'footer.legal': 'قانوني',
+    'footer.terms': 'شروط الخدمة',
+    'footer.privacy': 'سياسة الخصوصية',
+    'footer.refund': 'سياسة الاسترداد',
+    'footer.copyright': '© 2024 أويفا. جميع الحقوق محفوظة.',
+
+    // Pricing Page
+    'pricing.title': 'أسعار بسيطة وشفافة',
+    'pricing.subtitle': 'اختر الخطة التي تناسب احتياجات عملك',
+    'pricing.monthly': 'شهري',
+    'pricing.yearly': 'سنوي',
+    'pricing.save': 'وفر 20%',
+    'pricing.popular': 'الأكثر شعبية',
+    'pricing.free': 'مجاني',
+    'pricing.basic': 'أساسي',
+    'pricing.standard': 'قياسي',
+    'pricing.premium': 'متميز',
+    'pricing.perMonth': '/شهر',
+    'pricing.proposals': 'عرض/شهر',
+    'pricing.unlimited': 'غير محدود',
+    'pricing.getStarted': 'ابدأ الآن',
+    'pricing.currentPlan': 'خطتك الحالية',
+    'pricing.features.proposals': 'تقديم العروض',
+    'pricing.features.support': 'دعم عبر البريد الإلكتروني',
+    'pricing.features.priority': 'دعم ذو أولوية',
+    'pricing.features.analytics': 'تحليلات متقدمة',
+    'pricing.features.dedicated': 'مدير حساب مخصص',
+
+    // About Page
+    'about.title': 'عن أويفا',
+    'about.subtitle': 'تحويل الاستعانة بمصادر خارجية لتقنية المعلومات في الشرق الأوسط',
+    'about.mission.title': 'مهمتنا',
+    'about.mission.desc': 'تبسيط وتسهيل الاستعانة بمصادر خارجية لتقنية المعلومات من خلال ربط الشركات بشركاء التكنولوجيا المناسبين، وتعزيز الابتكار والنمو في منطقة الخليج.',
+    'about.vision.title': 'رؤيتنا',
+    'about.vision.desc': 'أن نصبح المنصة الرائدة لشراء تقنية المعلومات وإدارة الموردين في الشرق الأوسط، لتمكين الشركات من جميع الأحجام من الوصول إلى حلول تقنية عالمية المستوى.',
+    'about.values.title': 'قيمنا',
+    'about.values.transparency': 'الشفافية',
+    'about.values.transparency.desc': 'تواصل مفتوح وصادق في جميع تعاملاتنا',
+    'about.values.innovation': 'الابتكار',
+    'about.values.innovation.desc': 'تحسين مستمر لمنصتنا وخدماتنا',
+    'about.values.trust': 'الثقة',
+    'about.values.trust.desc': 'بناء علاقات دائمة من خلال الموثوقية',
+
+    // Contact Page
+    'contact.title': 'تواصل معنا',
+    'contact.subtitle': 'هل لديك أسئلة؟ يسعدنا سماعك.',
+    'contact.form.name': 'اسمك',
+    'contact.form.email': 'البريد الإلكتروني',
+    'contact.form.subject': 'الموضوع',
+    'contact.form.message': 'الرسالة',
+    'contact.form.submit': 'إرسال الرسالة',
+    'contact.form.success': 'شكراً لك! تم إرسال رسالتك.',
+    'contact.info.title': 'معلومات الاتصال',
+    'contact.info.email': 'support@oyifa.com',
+    'contact.info.address': 'دبي، الإمارات العربية المتحدة',
+
+    // FAQ Page
+    'faq.title': 'الأسئلة الشائعة',
+    'faq.subtitle': 'اعثر على إجابات للأسئلة الشائعة حول أويفا',
+    'faq.q1': 'ما هي أويفا؟',
+    'faq.a1': 'أويفا هي منصة للاستعانة بمصادر خارجية لتقنية المعلومات تربط الشركات التي تبحث عن حلول تقنية بموردين مؤهلين في الشرق الأوسط.',
+    'faq.q2': 'كيف أنشر مناقصة؟',
+    'faq.a2': 'ببساطة قم بإنشاء حساب عميل، واملأ متطلبات مشروعك، وانشر مناقصتك. سيقوم الموردون المعتمدون بتقديم عروض للنظر فيها.',
+    'faq.q3': 'هل الاستخدام مجاني؟',
+    'faq.a3': 'يمكن للعملاء نشر المناقصات مجاناً. الموردون لديهم مستوى مجاني مع عروض محدودة، ويمكنهم الترقية إلى خطط مدفوعة للحصول على المزيد من الميزات.',
+    'faq.q4': 'كيف يتم التحقق من الموردين؟',
+    'faq.a4': 'نتحقق من بيانات اعتماد الموردين بما في ذلك التسجيل التجاري والملف والمراجع قبل أن يتمكنوا من تقديم العروض.',
+    'faq.q5': 'ما هي الدول التي تدعمونها؟',
+    'faq.a5': 'ندعم حالياً الشركات في منطقة الخليج بما في ذلك الإمارات والسعودية والكويت وقطر والبحرين وعمان.',
+    'faq.q6': 'كيف ألغي اشتراكي؟',
+    'faq.a6': 'يمكنك إلغاء اشتراكك في أي وقت من إعدادات حسابك. سيستمر وصولك حتى نهاية فترة الفوترة.',
+
+    // Blog
+    'blog.title': 'المدونة',
+    'blog.subtitle': 'رؤى وتحديثات من فريق أويفا',
+    'blog.readMore': 'اقرأ المزيد',
+    'blog.backToBlog': 'العودة للمدونة',
+    'blog.publishedOn': 'نُشر في',
+    'blog.by': 'بواسطة',
+    'blog.noPosts': 'لا توجد مقالات بعد. تحقق قريباً!',
+  },
+} as const;

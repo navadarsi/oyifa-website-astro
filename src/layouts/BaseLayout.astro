@@ -1,0 +1,73 @@
+---
+import '../styles/global.css';
+import Analytics from '../components/Analytics.astro';
+import { getLangFromUrl, isRTL, useTranslations, getLocalizedPath, languages } from '../i18n/utils';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Oyifa is the leading IT outsourcing platform connecting businesses with qualified vendors across the Middle East.' } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const rtl = isRTL(lang);
+const dir = rtl ? 'rtl' : 'ltr';
+
+// Get current path for language switcher
+const currentPath = Astro.url.pathname.replace(`/${lang}`, '') || '/';
+
+// Alternate language URLs for SEO
+const alternateUrls = Object.keys(languages).map((l) => ({
+  lang: l,
+  url: `https://oyifa.com${getLocalizedPath(currentPath, l as keyof typeof languages)}`,
+}));
+---
+
+<!DOCTYPE html>
+<html lang={lang} dir={dir} class={rtl ? 'rtl' : 'ltr'}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} | Oyifa</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={Astro.url.href} />
+
+    <!-- hreflang tags for SEO -->
+    {alternateUrls.map(({ lang, url }) => (
+      <link rel="alternate" hreflang={lang} href={url} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={`https://oyifa.com${currentPath}`} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url.href} />
+    <meta property="og:title" content={`${title} | Oyifa`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="https://oyifa.com/og-image.png" />
+    <meta property="og:locale" content={lang === 'ar' ? 'ar_SA' : 'en_US'} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${title} | Oyifa`} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Google Fonts for Arabic -->
+    {rtl && (
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    )}
+
+    <!-- Analytics -->
+    <Analytics />
+  </head>
+  <body class="min-h-screen bg-white text-gray-900">
+    <slot />
+  </body>
+</html>

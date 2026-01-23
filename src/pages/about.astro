@@ -1,0 +1,139 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { useTranslations } from '../i18n/utils';
+
+const t = useTranslations('en');
+
+const values = [
+  {
+    title: t('about.values.transparency'),
+    description: t('about.values.transparency.desc'),
+    icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>`,
+  },
+  {
+    title: t('about.values.innovation'),
+    description: t('about.values.innovation.desc'),
+    icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>`,
+  },
+  {
+    title: t('about.values.trust'),
+    description: t('about.values.trust.desc'),
+    icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>`,
+  },
+];
+
+const stats = [
+  { number: '500+', label: 'Businesses Served' },
+  { number: '1,000+', label: 'Successful Tenders' },
+  { number: '6', label: 'GCC Countries' },
+  { number: '98%', label: 'Client Satisfaction' },
+];
+---
+
+<BaseLayout title={t('nav.about')} description="Learn about Oyifa - the leading IT outsourcing platform connecting businesses with qualified vendors across the Middle East.">
+  <Header />
+
+  <main class="pt-24">
+    <!-- Hero -->
+    <section class="py-16 px-4 bg-gradient-to-b from-purple-50 to-white">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          {t('about.title')}
+        </h1>
+        <p class="text-xl text-gray-600">
+          {t('about.subtitle')}
+        </p>
+      </div>
+    </section>
+
+    <!-- Mission & Vision -->
+    <section class="py-16 px-4">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-12">
+          <!-- Mission -->
+          <div class="bg-white rounded-2xl shadow-lg p-8 border-l-4 border-primary">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+              </div>
+              <h2 class="text-2xl font-bold text-gray-900">{t('about.mission.title')}</h2>
+            </div>
+            <p class="text-gray-600 leading-relaxed">
+              {t('about.mission.desc')}
+            </p>
+          </div>
+
+          <!-- Vision -->
+          <div class="bg-white rounded-2xl shadow-lg p-8 border-l-4 border-secondary">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center">
+                <svg class="w-6 h-6 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+              </div>
+              <h2 class="text-2xl font-bold text-gray-900">{t('about.vision.title')}</h2>
+            </div>
+            <p class="text-gray-600 leading-relaxed">
+              {t('about.vision.desc')}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="py-16 px-4 bg-primary">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+          {stats.map((stat) => (
+            <div class="text-center">
+              <div class="text-4xl md:text-5xl font-bold text-white mb-2">{stat.number}</div>
+              <div class="text-primary-light">{stat.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Values -->
+    <section class="py-16 px-4">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-3xl font-bold text-gray-900 text-center mb-12">
+          {t('about.values.title')}
+        </h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          {values.map((value) => (
+            <div class="bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition-shadow">
+              <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 text-primary" set:html={value.icon}></div>
+              <h3 class="text-xl font-semibold text-gray-900 mb-2">{value.title}</h3>
+              <p class="text-gray-600">{value.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-16 px-4 bg-gray-50">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Ready to get started?</h2>
+        <p class="text-gray-600 mb-8">Join thousands of businesses already using Oyifa to streamline their IT outsourcing.</p>
+        <div class="flex gap-4 justify-center flex-wrap">
+          <a href="/app/register?type=client" class="bg-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-light transition-colors">
+            Post a Tender
+          </a>
+          <a href="/app/register?type=vendor" class="bg-white border border-gray-300 text-gray-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors">
+            Become a Vendor
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

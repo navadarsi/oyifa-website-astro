@@ -1,0 +1,121 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { useTranslations } from '../../i18n/utils';
+
+const t = useTranslations('ar');
+
+const faqs = [
+  { question: t('faq.q1'), answer: t('faq.a1') },
+  { question: t('faq.q2'), answer: t('faq.a2') },
+  { question: t('faq.q3'), answer: t('faq.a3') },
+  { question: t('faq.q4'), answer: t('faq.a4') },
+  { question: t('faq.q5'), answer: t('faq.a5') },
+  { question: t('faq.q6'), answer: t('faq.a6') },
+];
+
+// FAQPage Schema for SEO
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<BaseLayout title={t('nav.faq')} description="اعثر على إجابات للأسئلة الشائعة حول أويفا - منصة الاستعانة بمصادر خارجية لتقنية المعلومات في منطقة الخليج.">
+  <Header />
+
+  <!-- FAQPage Schema -->
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>
+
+  <main class="pt-24">
+    <!-- Hero -->
+    <section class="py-16 px-4 bg-gradient-to-b from-purple-50 to-white">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          {t('faq.title')}
+        </h1>
+        <p class="text-xl text-gray-600">
+          {t('faq.subtitle')}
+        </p>
+      </div>
+    </section>
+
+    <!-- FAQ Accordion -->
+    <section class="py-16 px-4">
+      <div class="max-w-3xl mx-auto">
+        <div class="space-y-4">
+          {faqs.map((faq, index) => (
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+              <button
+                class="faq-button w-full px-6 py-4 text-right flex items-center justify-between gap-4 hover:bg-gray-50 transition-colors"
+                aria-expanded="false"
+                aria-controls={`faq-${index}`}
+              >
+                <svg class="faq-icon w-5 h-5 text-gray-500 flex-shrink-0 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+                <span class="font-semibold text-gray-900">{faq.question}</span>
+              </button>
+              <div id={`faq-${index}`} class="faq-content hidden px-6 pb-4">
+                <p class="text-gray-600 leading-relaxed">{faq.answer}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Still have questions? -->
+    <section class="py-16 px-4 bg-gray-50">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">لا تزال لديك أسئلة؟</h2>
+        <p class="text-gray-600 mb-6">لم تجد الإجابة التي تبحث عنها؟ فريق الدعم لدينا هنا للمساعدة.</p>
+        <a href="/ar/contact" class="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-light transition-colors">
+          <svg class="w-5 h-5 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+          </svg>
+          <span>اتصل بالدعم</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script>
+  const buttons = document.querySelectorAll('.faq-button');
+
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const content = button.nextElementSibling as HTMLElement;
+      const icon = button.querySelector('.faq-icon') as HTMLElement;
+      const isExpanded = button.getAttribute('aria-expanded') === 'true';
+
+      // Close all other FAQs
+      buttons.forEach((otherButton) => {
+        if (otherButton !== button) {
+          const otherContent = otherButton.nextElementSibling as HTMLElement;
+          const otherIcon = otherButton.querySelector('.faq-icon') as HTMLElement;
+          otherButton.setAttribute('aria-expanded', 'false');
+          otherContent?.classList.add('hidden');
+          otherIcon?.classList.remove('rotate-180');
+        }
+      });
+
+      // Toggle current FAQ
+      button.setAttribute('aria-expanded', String(!isExpanded));
+      content?.classList.toggle('hidden');
+      icon?.classList.toggle('rotate-180');
+    });
+  });
+</script>

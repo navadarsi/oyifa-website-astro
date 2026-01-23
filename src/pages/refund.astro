@@ -1,0 +1,152 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { useTranslations } from '../i18n/utils';
+
+const t = useTranslations('en');
+const lastUpdated = 'January 1, 2024';
+---
+
+<BaseLayout title="Refund Policy" description="Read Oyifa's Refund Policy. Understand our subscription cancellation and refund procedures.">
+  <Header />
+
+  <main class="pt-24">
+    <!-- Hero -->
+    <section class="py-12 px-4 bg-gradient-to-b from-purple-50 to-white">
+      <div class="max-w-4xl mx-auto">
+        <h1 class="text-4xl font-bold text-gray-900 mb-2">{t('footer.refund')}</h1>
+        <p class="text-gray-600">Last updated: {lastUpdated}</p>
+      </div>
+    </section>
+
+    <!-- Content -->
+    <section class="py-12 px-4">
+      <div class="max-w-4xl mx-auto prose prose-lg">
+        <h2>1. Overview</h2>
+        <p>
+          This Refund Policy outlines the terms and conditions for refunds on Oyifa subscription plans. We strive to be fair and transparent in all our refund decisions.
+        </p>
+
+        <h2>2. Free Plan</h2>
+        <p>
+          Oyifa offers a free plan with limited features. As no payment is required for the free plan, no refunds apply. You can upgrade to a paid plan at any time.
+        </p>
+
+        <h2>3. Paid Subscriptions</h2>
+        <h3>3.1 Subscription Billing</h3>
+        <ul>
+          <li>Subscriptions are billed in advance on a monthly or annual basis</li>
+          <li>Payment is processed through Stripe, our secure payment provider</li>
+          <li>Your subscription automatically renews unless cancelled</li>
+        </ul>
+
+        <h3>3.2 Cancellation</h3>
+        <p>You may cancel your subscription at any time:</p>
+        <ul>
+          <li>Log into your account and go to Settings > Subscription</li>
+          <li>Click "Cancel Subscription"</li>
+          <li>Your access continues until the end of the current billing period</li>
+          <li>No further charges will be made after cancellation</li>
+        </ul>
+
+        <h2>4. Refund Eligibility</h2>
+        <h3>4.1 Full Refunds</h3>
+        <p>You are eligible for a full refund if:</p>
+        <ul>
+          <li>You request a refund within 7 days of your initial subscription</li>
+          <li>You have not used the premium features extensively (less than 3 proposals submitted)</li>
+          <li>This is your first subscription with Oyifa</li>
+        </ul>
+
+        <h3>4.2 Partial Refunds</h3>
+        <p>Partial refunds may be considered for:</p>
+        <ul>
+          <li>Annual subscriptions cancelled within the first 30 days (prorated)</li>
+          <li>Documented service issues that significantly impacted your use</li>
+          <li>Billing errors on our part</li>
+        </ul>
+
+        <h3>4.3 No Refunds</h3>
+        <p>Refunds are generally not provided for:</p>
+        <ul>
+          <li>Requests made after 7 days of subscription for monthly plans</li>
+          <li>Unused proposal credits or features</li>
+          <li>Downgrade to a lower tier plan</li>
+          <li>Accounts terminated for Terms of Service violations</li>
+          <li>Change of business needs or circumstances</li>
+        </ul>
+
+        <h2>5. How to Request a Refund</h2>
+        <p>To request a refund:</p>
+        <ol>
+          <li>Email us at billing@oyifa.com with subject "Refund Request"</li>
+          <li>Include your account email and subscription details</li>
+          <li>Provide the reason for your refund request</li>
+          <li>We will respond within 3 business days</li>
+        </ol>
+
+        <h2>6. Refund Processing</h2>
+        <ul>
+          <li>Approved refunds are processed within 5-10 business days</li>
+          <li>Refunds are credited to the original payment method</li>
+          <li>Processing time may vary depending on your payment provider</li>
+        </ul>
+
+        <h2>7. Annual Subscriptions</h2>
+        <p>For annual subscriptions:</p>
+        <ul>
+          <li>Full refund available within 7 days if criteria met</li>
+          <li>Prorated refund may be available within first 30 days</li>
+          <li>No refunds after 30 days of subscription</li>
+          <li>Cancellation takes effect at the end of the annual period</li>
+        </ul>
+
+        <h2>8. Currency and Exchange Rates</h2>
+        <p>
+          Refunds are processed in the same currency as the original payment. We are not responsible for any exchange rate differences.
+        </p>
+
+        <h2>9. Disputes</h2>
+        <p>
+          If you believe a charge was made in error, please contact us before initiating a chargeback. We are committed to resolving billing issues fairly and promptly.
+        </p>
+
+        <h2>10. Changes to This Policy</h2>
+        <p>
+          We may update this Refund Policy from time to time. Changes will be posted on this page with an updated effective date.
+        </p>
+
+        <h2>11. Contact Us</h2>
+        <p>For refund inquiries or billing questions:</p>
+        <ul>
+          <li>Email: billing@oyifa.com</li>
+          <li>Response time: Within 3 business days</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .prose h2 {
+    @apply text-xl font-bold text-gray-900 mt-8 mb-4;
+  }
+  .prose h3 {
+    @apply text-lg font-semibold text-gray-900 mt-6 mb-3;
+  }
+  .prose p {
+    @apply text-gray-600 mb-4;
+  }
+  .prose ul, .prose ol {
+    @apply list-inside text-gray-600 mb-4 space-y-2;
+  }
+  .prose ul {
+    @apply list-disc;
+  }
+  .prose ol {
+    @apply list-decimal;
+  }
+</style>

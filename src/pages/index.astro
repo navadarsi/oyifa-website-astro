@@ -1,0 +1,146 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { useTranslations, getLocalizedPath, languages } from '../i18n/utils';
+
+const t = useTranslations('en');
+---
+
+<BaseLayout title={t('nav.home')}>
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <!-- Logo -->
+        <a href="/" class="text-2xl font-bold text-primary">Oyifa</a>
+
+        <!-- Desktop Nav -->
+        <div class="hidden md:flex items-center gap-8">
+          <a href="/" class="text-gray-600 hover:text-primary">{t('nav.home')}</a>
+          <a href="/about" class="text-gray-600 hover:text-primary">{t('nav.about')}</a>
+          <a href="/pricing" class="text-gray-600 hover:text-primary">{t('nav.pricing')}</a>
+          <a href="/blog" class="text-gray-600 hover:text-primary">{t('nav.blog')}</a>
+          <a href="/contact" class="text-gray-600 hover:text-primary">{t('nav.contact')}</a>
+        </div>
+
+        <!-- Auth & Language -->
+        <div class="flex items-center gap-4">
+          <a href="/ar" class="text-sm text-gray-500 hover:text-primary">العربية</a>
+          <a href="/app/login" class="text-gray-600 hover:text-primary">{t('nav.login')}</a>
+          <a href="/app/register" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-light transition-colors">
+            {t('nav.signup')}
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 px-4 bg-gradient-to-b from-purple-50 to-white">
+    <div class="max-w-7xl mx-auto text-center">
+      <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+        {t('hero.title')}
+      </h1>
+      <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+        {t('hero.subtitle')}
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/app/register?role=client" class="bg-primary text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-primary-light transition-colors">
+          {t('hero.cta.client')}
+        </a>
+        <a href="/app/register?role=vendor" class="bg-white text-primary border-2 border-primary px-8 py-4 rounded-lg text-lg font-semibold hover:bg-purple-50 transition-colors">
+          {t('hero.cta.vendor')}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="py-20 px-4">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12">
+        {t('features.title')}
+      </h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="text-center p-6">
+          <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">{t('features.tender.title')}</h3>
+          <p class="text-gray-600">{t('features.tender.desc')}</p>
+        </div>
+        <div class="text-center p-6">
+          <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">{t('features.vendors.title')}</h3>
+          <p class="text-gray-600">{t('features.vendors.desc')}</p>
+        </div>
+        <div class="text-center p-6">
+          <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">{t('features.proposals.title')}</h3>
+          <p class="text-gray-600">{t('features.proposals.desc')}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 px-4 bg-primary">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+        {t('cta.title')}
+      </h2>
+      <p class="text-xl text-purple-200 mb-8">
+        {t('cta.subtitle')}
+      </p>
+      <a href="/app/register" class="inline-block bg-white text-primary px-8 py-4 rounded-lg text-lg font-semibold hover:bg-purple-50 transition-colors">
+        {t('cta.button')}
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-12 px-4">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-8">
+      <div>
+        <h3 class="text-2xl font-bold mb-4">Oyifa</h3>
+        <p class="text-gray-400">{t('footer.description')}</p>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-4">{t('footer.links')}</h4>
+        <ul class="space-y-2 text-gray-400">
+          <li><a href="/about" class="hover:text-white">{t('nav.about')}</a></li>
+          <li><a href="/pricing" class="hover:text-white">{t('nav.pricing')}</a></li>
+          <li><a href="/blog" class="hover:text-white">{t('nav.blog')}</a></li>
+          <li><a href="/contact" class="hover:text-white">{t('nav.contact')}</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-4">{t('footer.legal')}</h4>
+        <ul class="space-y-2 text-gray-400">
+          <li><a href="/terms" class="hover:text-white">{t('footer.terms')}</a></li>
+          <li><a href="/privacy" class="hover:text-white">{t('footer.privacy')}</a></li>
+          <li><a href="/refund" class="hover:text-white">{t('footer.refund')}</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-4">Language</h4>
+        <div class="flex gap-4">
+          <a href="/" class="text-white font-medium">English</a>
+          <a href="/ar" class="text-gray-400 hover:text-white">العربية</a>
+        </div>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto mt-8 pt-8 border-t border-gray-800 text-center text-gray-400">
+      {t('footer.copyright')}
+    </div>
+  </footer>
+</BaseLayout>

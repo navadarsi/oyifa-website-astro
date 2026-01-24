@@ -3,138 +3,365 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { useTranslations } from '../i18n/utils';
+import { URLS } from '../config/urls';
 
 const t = useTranslations('en');
-const lastUpdated = 'January 1, 2024';
 ---
 
-<BaseLayout title="Privacy Policy" description="Read Oyifa's Privacy Policy. Learn how we collect, use, and protect your personal information.">
+<BaseLayout
+  title={t('privacy.meta.title')}
+  description={t('privacy.meta.desc')}
+>
   <Header />
 
-  <main class="pt-24">
-    <!-- Hero -->
-    <section class="py-12 px-4 bg-gradient-to-b from-purple-50 to-white">
-      <div class="max-w-4xl mx-auto">
-        <h1 class="text-4xl font-bold text-gray-900 mb-2">{t('footer.privacy')}</h1>
-        <p class="text-gray-600">Last updated: {lastUpdated}</p>
+  <main class="flex-1">
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-primary/10 via-white to-purple-50 py-32">
+      <div class="max-w-7xl mx-auto px-4 text-center">
+        <span class="inline-block mb-4 px-3 py-1 bg-purple-100 text-primary rounded-md text-sm font-medium">
+          {t('privacy.hero.badge')}
+        </span>
+        <h1 class="mb-6 text-5xl font-extrabold tracking-tight md:text-6xl text-gray-900">
+          {t('privacy.hero.title')}
+        </h1>
+        <p class="mx-auto mb-8 max-w-3xl text-xl text-gray-600">
+          {t('privacy.hero.subtitle')}
+        </p>
+        <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <a href="/contact" class="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-md font-semibold hover:bg-primary-light transition-colors">
+            {t('privacy.hero.questions')}
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </a>
+          <a href="/terms" class="bg-white text-primary border border-gray-300 px-6 py-3 rounded-md font-semibold hover:bg-gray-50 transition-colors">
+            {t('privacy.hero.terms')}
+          </a>
+        </div>
       </div>
     </section>
 
-    <!-- Content -->
-    <section class="py-12 px-4">
-      <div class="max-w-4xl mx-auto prose prose-lg">
-        <h2>1. Introduction</h2>
-        <p>
-          Oyifa ("we," "our," or "us") respects your privacy and is committed to protecting your personal data. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our platform.
+    <!-- Last Updated -->
+    <section class="py-8 border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 text-center">
+        <p class="text-gray-600">
+          <strong>Last Updated:</strong> {t('privacy.last_updated')}
         </p>
+      </div>
+    </section>
 
-        <h2>2. Information We Collect</h2>
-        <h3>2.1 Personal Information</h3>
-        <p>We may collect the following personal information:</p>
-        <ul>
-          <li>Name and contact information (email, phone number)</li>
-          <li>Business information (company name, registration details)</li>
-          <li>Account credentials (username, password)</li>
-          <li>Payment information (processed securely via Stripe)</li>
-          <li>Profile information and professional credentials</li>
-        </ul>
+    <!-- Privacy Principles -->
+    <section class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center mb-12">
+          <span class="inline-block mb-4 px-3 py-1 border border-gray-300 text-gray-600 rounded-md text-sm font-medium">
+            {t('privacy.principles.badge')}
+          </span>
+          <h2 class="text-3xl font-bold mb-6 md:text-4xl text-gray-900">
+            {t('privacy.principles.title')}
+          </h2>
+          <p class="mx-auto max-w-2xl text-xl text-gray-600">
+            {t('privacy.principles.subtitle')}
+          </p>
+        </div>
 
-        <h3>2.2 Automatically Collected Information</h3>
-        <p>When you use our platform, we automatically collect:</p>
-        <ul>
-          <li>Device information (browser type, operating system)</li>
-          <li>IP address and location data</li>
-          <li>Usage data (pages visited, features used)</li>
-          <li>Cookies and similar tracking technologies</li>
-        </ul>
+        <div class="grid gap-8 md:grid-cols-4 max-w-5xl mx-auto">
+          <!-- Transparency -->
+          <div class="bg-white border border-gray-200 rounded-md p-6 text-center hover:shadow-lg transition-shadow">
+            <div class="mx-auto mb-4 w-12 h-12 bg-primary/10 rounded-md flex items-center justify-center">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold mb-2 text-gray-900">{t('privacy.principles.transparency.title')}</h3>
+            <p class="text-gray-600 text-sm">{t('privacy.principles.transparency.desc')}</p>
+          </div>
 
-        <h2>3. How We Use Your Information</h2>
-        <p>We use your information to:</p>
-        <ul>
-          <li>Provide and maintain our platform services</li>
-          <li>Process transactions and manage subscriptions</li>
-          <li>Facilitate communication between Clients and Vendors</li>
-          <li>Send important updates and notifications</li>
-          <li>Improve our platform and user experience</li>
-          <li>Ensure platform security and prevent fraud</li>
-          <li>Comply with legal obligations</li>
-          <li>Provide customer support</li>
-        </ul>
+          <!-- Security -->
+          <div class="bg-white border border-gray-200 rounded-md p-6 text-center hover:shadow-lg transition-shadow">
+            <div class="mx-auto mb-4 w-12 h-12 bg-primary/10 rounded-md flex items-center justify-center">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold mb-2 text-gray-900">{t('privacy.principles.security.title')}</h3>
+            <p class="text-gray-600 text-sm">{t('privacy.principles.security.desc')}</p>
+          </div>
 
-        <h2>4. Information Sharing</h2>
-        <p>We may share your information with:</p>
-        <ul>
-          <li><strong>Other Users:</strong> Profile information visible to other platform users as necessary for transactions</li>
-          <li><strong>Service Providers:</strong> Third parties who help us operate our platform (payment processors, hosting providers)</li>
-          <li><strong>Legal Requirements:</strong> When required by law or to protect our rights</li>
-          <li><strong>Business Transfers:</strong> In connection with any merger, sale, or acquisition</li>
-        </ul>
+          <!-- Control -->
+          <div class="bg-white border border-gray-200 rounded-md p-6 text-center hover:shadow-lg transition-shadow">
+            <div class="mx-auto mb-4 w-12 h-12 bg-primary/10 rounded-md flex items-center justify-center">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold mb-2 text-gray-900">{t('privacy.principles.control.title')}</h3>
+            <p class="text-gray-600 text-sm">{t('privacy.principles.control.desc')}</p>
+          </div>
 
-        <h2>5. Data Security</h2>
-        <p>
-          We implement appropriate technical and organizational security measures to protect your personal data, including:
+          <!-- Minimization -->
+          <div class="bg-white border border-gray-200 rounded-md p-6 text-center hover:shadow-lg transition-shadow">
+            <div class="mx-auto mb-4 w-12 h-12 bg-primary/10 rounded-md flex items-center justify-center">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold mb-2 text-gray-900">{t('privacy.principles.minimization.title')}</h3>
+            <p class="text-gray-600 text-sm">{t('privacy.principles.minimization.desc')}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Privacy Policy Content -->
+    <section class="py-20 bg-primary/5">
+      <div class="max-w-4xl mx-auto px-4 space-y-12">
+        <!-- Information We Collect -->
+        <div class="bg-white border border-gray-200 rounded-md p-8">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-12 h-12 bg-primary/10 rounded-md flex items-center justify-center">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+              </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-900">{t('privacy.collection.title')}</h2>
+          </div>
+
+          <div class="space-y-6">
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-primary">{t('privacy.collection.personal.title')}</h3>
+              <p class="text-gray-600 leading-relaxed">{t('privacy.collection.personal.desc')}</p>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-primary">{t('privacy.collection.usage.title')}</h3>
+              <p class="text-gray-600 leading-relaxed">{t('privacy.collection.usage.desc')}</p>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-primary">{t('privacy.collection.business.title')}</h3>
+              <p class="text-gray-600 leading-relaxed">{t('privacy.collection.business.desc')}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- How We Use Your Information -->
+        <div class="bg-white border border-gray-200 rounded-md p-8">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-12 h-12 bg-primary/10 rounded-md flex items-center justify-center">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+              </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-900">{t('privacy.use.title')}</h2>
+          </div>
+
+          <div class="space-y-6">
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-primary">{t('privacy.use.service.title')}</h3>
+              <p class="text-gray-600 leading-relaxed">{t('privacy.use.service.desc')}</p>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-primary">{t('privacy.use.communication.title')}</h3>
+              <p class="text-gray-600 leading-relaxed">{t('privacy.use.communication.desc')}</p>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-primary">{t('privacy.use.improvement.title')}</h3>
+              <p class="text-gray-600 leading-relaxed">{t('privacy.use.improvement.desc')}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Information Sharing -->
+        <div class="bg-white border border-gray-200 rounded-md p-8">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-12 h-12 bg-primary/10 rounded-md flex items-center justify-center">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+              </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-900">{t('privacy.sharing.title')}</h2>
+          </div>
+
+          <div class="space-y-6">
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-primary">{t('privacy.sharing.partners.title')}</h3>
+              <p class="text-gray-600 leading-relaxed">{t('privacy.sharing.partners.desc')}</p>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-primary">{t('privacy.sharing.providers.title')}</h3>
+              <p class="text-gray-600 leading-relaxed">{t('privacy.sharing.providers.desc')}</p>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-primary">{t('privacy.sharing.legal.title')}</h3>
+              <p class="text-gray-600 leading-relaxed">{t('privacy.sharing.legal.desc')}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Data Security -->
+        <div class="bg-white border border-gray-200 rounded-md p-8">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-12 h-12 bg-primary/10 rounded-md flex items-center justify-center">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+              </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-900">{t('privacy.security.title')}</h2>
+          </div>
+
+          <div class="space-y-6">
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-primary">{t('privacy.security.measures.title')}</h3>
+              <p class="text-gray-600 leading-relaxed">{t('privacy.security.measures.desc')}</p>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-primary">{t('privacy.security.access.title')}</h3>
+              <p class="text-gray-600 leading-relaxed">{t('privacy.security.access.desc')}</p>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-primary">{t('privacy.security.retention.title')}</h3>
+              <p class="text-gray-600 leading-relaxed">{t('privacy.security.retention.desc')}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Your Rights -->
+        <div class="bg-white border border-gray-200 rounded-md p-8">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-12 h-12 bg-primary/10 rounded-md flex items-center justify-center">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+              </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-900">{t('privacy.rights.title')}</h2>
+          </div>
+
+          <div class="space-y-6">
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-primary">{t('privacy.rights.access.title')}</h3>
+              <p class="text-gray-600 leading-relaxed">{t('privacy.rights.access.desc')}</p>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-primary">{t('privacy.rights.portability.title')}</h3>
+              <p class="text-gray-600 leading-relaxed">{t('privacy.rights.portability.desc')}</p>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-primary">{t('privacy.rights.deletion.title')}</h3>
+              <p class="text-gray-600 leading-relaxed">{t('privacy.rights.deletion.desc')}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- International Data Transfers -->
+    <section class="py-20 bg-white">
+      <div class="max-w-4xl mx-auto px-4">
+        <div class="bg-white border border-gray-200 rounded-md p-8">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-12 h-12 bg-primary/10 rounded-md flex items-center justify-center">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+              </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-900">{t('privacy.international.title')}</h2>
+          </div>
+
+          <div class="space-y-4">
+            <p class="text-gray-600 leading-relaxed">{t('privacy.international.text1')}</p>
+            <p class="text-gray-600 leading-relaxed">{t('privacy.international.text2')}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cookies and Tracking -->
+    <section class="py-20 bg-purple-50/50">
+      <div class="max-w-4xl mx-auto px-4">
+        <div class="bg-white border border-gray-200 rounded-md p-8">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-12 h-12 bg-primary/10 rounded-md flex items-center justify-center">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+              </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-900">{t('privacy.cookies.title')}</h2>
+          </div>
+
+          <div class="space-y-4">
+            <p class="text-gray-600 leading-relaxed">{t('privacy.cookies.text1')}</p>
+            <p class="text-gray-600 leading-relaxed">{t('privacy.cookies.text2')}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Information -->
+    <section class="py-20 bg-white">
+      <div class="max-w-4xl mx-auto px-4">
+        <div class="bg-white border border-gray-200 rounded-md p-8">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-12 h-12 bg-primary/10 rounded-md flex items-center justify-center">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+              </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-900">{t('privacy.contact.title')}</h2>
+          </div>
+
+          <div class="space-y-4">
+            <p class="text-gray-600 leading-relaxed">{t('privacy.contact.text')}</p>
+            <div class="flex flex-col sm:flex-row gap-4">
+              <a href="/contact" class="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-md font-semibold hover:bg-primary-light transition-colors">
+                {t('privacy.contact.button')}
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                </svg>
+              </a>
+              <a href="mailto:privacy@oyifa.com" class="bg-white text-primary border border-gray-300 px-6 py-3 rounded-md font-semibold hover:bg-gray-50 transition-colors">
+                {t('privacy.contact.email')}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Changes to Policy -->
+    <section class="py-20 bg-primary/5">
+      <div class="max-w-4xl mx-auto px-4">
+        <div class="bg-white border border-gray-200 rounded-md p-8">
+          <h2 class="text-2xl font-bold mb-6 text-gray-900">{t('privacy.changes.title')}</h2>
+          <div class="space-y-4">
+            <p class="text-gray-600 leading-relaxed">{t('privacy.changes.text1')}</p>
+            <p class="text-gray-600 leading-relaxed">{t('privacy.changes.text2')}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold mb-6 md:text-4xl text-gray-900">
+          {t('privacy.cta.title')}
+        </h2>
+        <p class="mx-auto mb-8 max-w-2xl text-xl text-gray-600">
+          {t('privacy.cta.subtitle')}
         </p>
-        <ul>
-          <li>Encryption of data in transit and at rest</li>
-          <li>Regular security assessments</li>
-          <li>Access controls and authentication</li>
-          <li>Secure data centers</li>
-        </ul>
-
-        <h2>6. Your Rights</h2>
-        <p>Depending on your location, you may have the right to:</p>
-        <ul>
-          <li>Access your personal data</li>
-          <li>Correct inaccurate data</li>
-          <li>Request deletion of your data</li>
-          <li>Object to or restrict processing</li>
-          <li>Data portability</li>
-          <li>Withdraw consent</li>
-        </ul>
-
-        <h2>7. Cookies</h2>
-        <p>
-          We use cookies and similar technologies to enhance your experience. You can manage cookie preferences through your browser settings. Essential cookies are required for platform functionality.
-        </p>
-
-        <h2>8. Third-Party Services</h2>
-        <p>Our platform integrates with third-party services including:</p>
-        <ul>
-          <li><strong>Stripe:</strong> Payment processing</li>
-          <li><strong>Supabase:</strong> Data storage and authentication</li>
-          <li><strong>Google Analytics:</strong> Usage analytics</li>
-          <li><strong>PostHog:</strong> Product analytics</li>
-        </ul>
-        <p>These services have their own privacy policies governing their use of your data.</p>
-
-        <h2>9. Data Retention</h2>
-        <p>
-          We retain your personal data for as long as necessary to provide our services and fulfill the purposes described in this policy. When data is no longer needed, we securely delete or anonymize it.
-        </p>
-
-        <h2>10. International Data Transfers</h2>
-        <p>
-          Your data may be transferred to and processed in countries outside your residence. We ensure appropriate safeguards are in place for such transfers.
-        </p>
-
-        <h2>11. Children's Privacy</h2>
-        <p>
-          Our platform is not intended for individuals under 18. We do not knowingly collect personal data from children.
-        </p>
-
-        <h2>12. Changes to This Policy</h2>
-        <p>
-          We may update this Privacy Policy periodically. We will notify you of significant changes via email or platform notification.
-        </p>
-
-        <h2>13. Contact Us</h2>
-        <p>
-          For questions about this Privacy Policy or to exercise your rights, please contact us at:
-        </p>
-        <ul>
-          <li>Email: privacy@oyifa.com</li>
-          <li>Address: Dubai, United Arab Emirates</li>
-        </ul>
+        <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <a href={`${URLS.app}/register`} class="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-md font-semibold hover:bg-primary-light transition-colors">
+            {t('privacy.cta.start')}
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </a>
+          <a href="/about" class="bg-white text-primary border border-gray-300 px-6 py-3 rounded-md font-semibold hover:bg-gray-50 transition-colors">
+            {t('privacy.cta.learn')}
+          </a>
+        </div>
       </div>
     </section>
   </main>

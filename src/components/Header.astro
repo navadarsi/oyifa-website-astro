@@ -1,5 +1,6 @@
 ---
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '../i18n/utils';
+import { URLS } from '../config/urls';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -8,66 +9,297 @@ const isArabic = lang === 'ar';
 // Get current path for language switcher
 const currentPath = Astro.url.pathname.replace(`/${lang}`, '').replace(/^\/ar/, '') || '/';
 const alternateLangPath = isArabic ? currentPath : `/ar${currentPath}`;
-const alternateLangLabel = isArabic ? 'English' : 'العربية';
+
+// Logo based on language
+const logoSrc = isArabic ? '/assets/images/logo_arabic.png' : '/assets/images/logo_english.png';
+const logoAlt = isArabic ? 'شعار أويفا' : 'Oyifa Logo';
 ---
 
-<nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-100">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center h-16">
-      <!-- Logo -->
-      <a href={getLocalizedPath('/', lang)} class="text-2xl font-bold text-primary">Oyifa</a>
+<header class="w-full bg-white py-4 border-b border-gray-200">
+  <div class="container mx-auto flex items-center justify-between px-4">
+    <!-- Logo -->
+    <a href={getLocalizedPath('/', lang)} class="flex items-center">
+      <img
+        src={logoSrc}
+        alt={logoAlt}
+        width="120"
+        height="40"
+        class="object-contain"
+        style="width: 120px; height: 40px;"
+      />
+    </a>
 
-      <!-- Desktop Nav -->
-      <div class="hidden md:flex items-center gap-8">
-        <a href={getLocalizedPath('/', lang)} class="text-gray-600 hover:text-primary transition-colors">{t('nav.home')}</a>
-        <a href={getLocalizedPath('/about', lang)} class="text-gray-600 hover:text-primary transition-colors">{t('nav.about')}</a>
-        <a href={getLocalizedPath('/pricing', lang)} class="text-gray-600 hover:text-primary transition-colors">{t('nav.pricing')}</a>
-        <a href={getLocalizedPath('/blog', lang)} class="text-gray-600 hover:text-primary transition-colors">{t('nav.blog')}</a>
-        <a href={getLocalizedPath('/contact', lang)} class="text-gray-600 hover:text-primary transition-colors">{t('nav.contact')}</a>
+    <!-- Desktop Navigation -->
+    <nav class:list={[
+      "hidden md:flex items-center gap-6",
+      isArabic ? "ml-6" : "mr-6"
+    ]}>
+      <a
+        href={getLocalizedPath('/about', lang)}
+        class="text-muted-foreground hover:text-foreground transition-colors"
+      >
+        {t('nav.about')}
+      </a>
+      <a
+        href={getLocalizedPath('/pricing', lang)}
+        class="text-muted-foreground hover:text-foreground transition-colors"
+      >
+        {t('nav.pricing')}
+      </a>
+      <a
+        href={getLocalizedPath('/blog', lang)}
+        class="text-muted-foreground hover:text-foreground transition-colors"
+      >
+        {t('nav.blog')}
+      </a>
+      <a
+        href={getLocalizedPath('/contact', lang)}
+        class="text-muted-foreground hover:text-foreground transition-colors"
+      >
+        {t('nav.contact')}
+      </a>
+    </nav>
+
+    <!-- Auth & Language (Desktop) -->
+    <div class="hidden md:flex items-center gap-4">
+      <!-- Language Toggle Dropdown -->
+      <div class="relative" id="lang-dropdown-container">
+        <button
+          id="lang-toggle-btn"
+          type="button"
+          class="inline-flex items-center justify-center gap-1 whitespace-nowrap rounded-md text-sm font-medium transition-colors hover:bg-gray-100 h-9 px-3"
+        >
+          <span class="text-sm font-medium">{isArabic ? 'عربي' : 'English'}</span>
+        </button>
+        <div
+          id="lang-dropdown-menu"
+          class="hidden absolute top-full mt-1 w-32 bg-white border border-gray-200 rounded-md shadow-lg z-50"
+          style={isArabic ? "left: 0;" : "right: 0;"}
+        >
+          <a
+            href={isArabic ? currentPath : `/ar${currentPath}`}
+            class="flex items-center justify-between px-3 py-2 text-sm hover:bg-gray-100 cursor-pointer"
+          >
+            <span class="font-medium">English</span>
+            {!isArabic && (
+              <svg class="h-3 w-3 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+            )}
+          </a>
+          <a
+            href={isArabic ? currentPath : `/ar${currentPath}`}
+            class="flex items-center justify-between px-3 py-2 text-sm hover:bg-gray-100 cursor-pointer"
+          >
+            <span class="font-medium">العربية</span>
+            {isArabic && (
+              <svg class="h-3 w-3 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+            )}
+          </a>
+        </div>
       </div>
 
-      <!-- Auth & Language -->
-      <div class="flex items-center gap-4">
-        <a href={alternateLangPath} class="text-sm text-gray-500 hover:text-primary transition-colors">
-          {alternateLangLabel}
-        </a>
-        <a href="/app/login" class="text-gray-600 hover:text-primary transition-colors">{t('nav.login')}</a>
-        <a href="/app/register" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-light transition-colors">
-          {t('nav.signup')}
-        </a>
-      </div>
+      <!-- Login Button (Ghost variant) -->
+      <a
+        href={`${URLS.app}/login`}
+        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors hover:bg-gray-100 h-10 px-4 py-2"
+      >
+        {t('nav.login')}
+      </a>
 
-      <!-- Mobile menu button -->
-      <button id="mobile-menu-btn" class="md:hidden p-2 text-gray-600" aria-label="Toggle menu">
+      <!-- Get Started Button (Primary variant) -->
+      <a
+        href={`${URLS.app}/register`}
+        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors bg-primary text-white hover:bg-primary/90 h-10 px-4 py-2"
+      >
+        {t('nav.signup')}
+      </a>
+    </div>
+
+    <!-- Mobile menu button -->
+    <button
+      id="mobile-menu-btn"
+      class="md:hidden inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors hover:bg-gray-100 h-10 w-10"
+      aria-label="Toggle menu"
+    >
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile menu (Sheet-style overlay) -->
+  <div id="mobile-menu-overlay" class="hidden fixed inset-0 bg-black/50 z-40 md:hidden" aria-hidden="true"></div>
+  <div
+    id="mobile-menu"
+    class:list={[
+      "fixed top-0 h-full w-[280px] bg-white z-50 transform transition-transform duration-300 ease-in-out md:hidden",
+      isArabic ? "left-0 -translate-x-full" : "right-0 translate-x-full"
+    ]}
+  >
+    <!-- Mobile menu header -->
+    <div class="flex items-center justify-between p-4 border-b border-gray-200">
+      <a href={getLocalizedPath('/', lang)} class="flex items-center">
+        <img
+          src={logoSrc}
+          alt={logoAlt}
+          width="100"
+          height="33"
+          class="object-contain"
+          style="width: 100px; height: 33px;"
+        />
+      </a>
+      <button
+        id="mobile-menu-close"
+        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors hover:bg-gray-100 h-10 w-10"
+        aria-label="Close menu"
+      >
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
         </svg>
       </button>
     </div>
 
-    <!-- Mobile menu -->
-    <div id="mobile-menu" class="hidden md:hidden pb-4">
-      <div class="flex flex-col gap-4">
-        <a href={getLocalizedPath('/', lang)} class="text-gray-600 hover:text-primary">{t('nav.home')}</a>
-        <a href={getLocalizedPath('/about', lang)} class="text-gray-600 hover:text-primary">{t('nav.about')}</a>
-        <a href={getLocalizedPath('/pricing', lang)} class="text-gray-600 hover:text-primary">{t('nav.pricing')}</a>
-        <a href={getLocalizedPath('/blog', lang)} class="text-gray-600 hover:text-primary">{t('nav.blog')}</a>
-        <a href={getLocalizedPath('/contact', lang)} class="text-gray-600 hover:text-primary">{t('nav.contact')}</a>
-        <hr class="border-gray-200" />
-        <a href={alternateLangPath} class="text-gray-500">{alternateLangLabel}</a>
-        <a href="/app/login" class="text-gray-600">{t('nav.login')}</a>
-        <a href="/app/register" class="bg-primary text-white px-4 py-2 rounded-lg text-center">
+    <!-- Mobile menu content -->
+    <div class="flex flex-col p-4">
+      <!-- Navigation links -->
+      <nav class="flex flex-col gap-2">
+        <a
+          href={getLocalizedPath('/about', lang)}
+          class="flex items-center px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-gray-100 rounded-md transition-colors"
+        >
+          {t('nav.about')}
+        </a>
+        <a
+          href={getLocalizedPath('/pricing', lang)}
+          class="flex items-center px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-gray-100 rounded-md transition-colors"
+        >
+          {t('nav.pricing')}
+        </a>
+        <a
+          href={getLocalizedPath('/blog', lang)}
+          class="flex items-center px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-gray-100 rounded-md transition-colors"
+        >
+          {t('nav.blog')}
+        </a>
+        <a
+          href={getLocalizedPath('/contact', lang)}
+          class="flex items-center px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-gray-100 rounded-md transition-colors"
+        >
+          {t('nav.contact')}
+        </a>
+      </nav>
+
+      <!-- Divider -->
+      <hr class="my-4 border-gray-200" />
+
+      <!-- Language Toggle -->
+      <div class="flex flex-col gap-2 mb-4">
+        <span class="px-3 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+          {isArabic ? 'اللغة' : 'Language'}
+        </span>
+        <a
+          href={isArabic ? currentPath : `/ar${currentPath}`}
+          class:list={[
+            "flex items-center justify-between px-3 py-2 text-sm font-medium rounded-md transition-colors",
+            !isArabic ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-gray-100"
+          ]}
+        >
+          <span>English</span>
+          {!isArabic && (
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+          )}
+        </a>
+        <a
+          href={isArabic ? currentPath : `/ar${currentPath}`}
+          class:list={[
+            "flex items-center justify-between px-3 py-2 text-sm font-medium rounded-md transition-colors",
+            isArabic ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-gray-100"
+          ]}
+        >
+          <span>العربية</span>
+          {isArabic && (
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+          )}
+        </a>
+      </div>
+
+      <!-- Divider -->
+      <hr class="my-4 border-gray-200" />
+
+      <!-- Auth buttons -->
+      <div class="flex flex-col gap-2">
+        <a
+          href={`${URLS.app}/login`}
+          class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors hover:bg-gray-100 h-10 px-4 py-2 w-full"
+        >
+          {t('nav.login')}
+        </a>
+        <a
+          href={`${URLS.app}/register`}
+          class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors bg-primary text-white hover:bg-primary/90 h-10 px-4 py-2 w-full"
+        >
           {t('nav.signup')}
         </a>
       </div>
     </div>
   </div>
-</nav>
+</header>
 
 <script>
-  const btn = document.getElementById('mobile-menu-btn');
-  const menu = document.getElementById('mobile-menu');
-  btn?.addEventListener('click', () => {
-    menu?.classList.toggle('hidden');
+  // Mobile menu toggle
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenuClose = document.getElementById('mobile-menu-close');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+
+  function openMobileMenu() {
+    mobileMenu?.classList.remove('translate-x-full', '-translate-x-full');
+    mobileMenu?.classList.add('translate-x-0');
+    mobileMenuOverlay?.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMobileMenu() {
+    const isRTL = document.documentElement.dir === 'rtl' || document.documentElement.lang === 'ar';
+    mobileMenu?.classList.remove('translate-x-0');
+    mobileMenu?.classList.add(isRTL ? '-translate-x-full' : 'translate-x-full');
+    mobileMenuOverlay?.classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+
+  mobileMenuBtn?.addEventListener('click', openMobileMenu);
+  mobileMenuClose?.addEventListener('click', closeMobileMenu);
+  mobileMenuOverlay?.addEventListener('click', closeMobileMenu);
+
+  // Language dropdown toggle
+  const langToggleBtn = document.getElementById('lang-toggle-btn');
+  const langDropdownMenu = document.getElementById('lang-dropdown-menu');
+  const langDropdownContainer = document.getElementById('lang-dropdown-container');
+
+  langToggleBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    langDropdownMenu?.classList.toggle('hidden');
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!langDropdownContainer?.contains(e.target as Node)) {
+      langDropdownMenu?.classList.add('hidden');
+    }
+  });
+
+  // Close dropdown on escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      langDropdownMenu?.classList.add('hidden');
+      closeMobileMenu();
+    }
   });
 </script>

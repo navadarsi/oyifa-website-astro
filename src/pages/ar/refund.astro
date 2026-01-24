@@ -3,126 +3,276 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { useTranslations } from '../../i18n/utils';
+import { URLS } from '../../config/urls';
 
 const t = useTranslations('ar');
-const lastUpdated = '1 يناير 2024';
 ---
 
-<BaseLayout title="سياسة الاسترداد" description="اقرأ سياسة الاسترداد لأويفا. افهم إجراءات إلغاء الاشتراك واسترداد الأموال.">
+<BaseLayout
+  title={t('refund.meta.title')}
+  description={t('refund.meta.desc')}
+  lang="ar"
+>
   <Header />
 
-  <main class="pt-24">
-    <!-- Hero -->
-    <section class="py-12 px-4 bg-gradient-to-b from-purple-50 to-white">
-      <div class="max-w-4xl mx-auto">
-        <h1 class="text-4xl font-bold text-gray-900 mb-2">{t('footer.refund')}</h1>
-        <p class="text-gray-600">آخر تحديث: {lastUpdated}</p>
+  <main class="flex-1" dir="rtl">
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-primary/10 via-white to-purple-50 py-32">
+      <div class="max-w-7xl mx-auto px-4 text-center">
+        <span class="inline-block mb-4 px-3 py-1 bg-purple-100 text-primary rounded-full text-sm font-medium">
+          {t('refund.hero.badge')}
+        </span>
+        <h1 class="mb-6 text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900">
+          {t('refund.hero.title')}
+        </h1>
+        <p class="mx-auto mb-8 max-w-3xl text-xl text-gray-600">
+          {t('refund.hero.subtitle')}
+        </p>
+        <p class="text-sm text-gray-500">
+          {t('refund.hero.updated')}
+        </p>
       </div>
     </section>
 
-    <!-- Content -->
-    <section class="py-12 px-4">
-      <div class="max-w-4xl mx-auto prose prose-lg">
-        <h2>1. نظرة عامة</h2>
-        <p>
-          تحدد سياسة الاسترداد هذه الشروط والأحكام الخاصة باسترداد الأموال على خطط اشتراك أويفا. نسعى جاهدين لنكون عادلين وشفافين في جميع قرارات الاسترداد.
+    <!-- Main Policy Section -->
+    <section class="py-20">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <!-- General Refund Policy Card -->
+          <div class="bg-white rounded-md border border-gray-200 shadow-sm mb-12">
+            <div class="pt-6 px-6 pb-6">
+              <div class="flex items-start gap-4 mb-6">
+                <div class="w-12 h-12 bg-primary/10 rounded-md flex items-center justify-center flex-shrink-0">
+                  <svg class="h-6 w-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h2 class="text-2xl font-bold mb-3 text-gray-900">
+                    {t('refund.general.title')}
+                  </h2>
+                  <p class="text-lg text-gray-600 mb-4">
+                    {t('refund.general.desc')}
+                  </p>
+                  <div class="bg-amber-50 border border-amber-200 rounded-md p-4">
+                    <p class="font-semibold text-amber-900">
+                      {t('refund.general.important')}
+                    </p>
+                    <p class="text-amber-800 mt-2">
+                      {t('refund.general.policy')}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Subscription Terms Card -->
+          <div class="bg-white rounded-md border border-gray-200 shadow-sm mb-12">
+            <div class="pt-6 px-6 pb-6">
+              <h3 class="text-xl font-semibold mb-4 text-gray-900">
+                {t('refund.subscription.title')}
+              </h3>
+              <ul class="space-y-3 text-gray-600">
+                <li class="flex items-start gap-3">
+                  <span class="text-primary mt-1">•</span>
+                  <span>{t('refund.subscription.term1')}</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-primary mt-1">•</span>
+                  <span>{t('refund.subscription.term2')}</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-primary mt-1">•</span>
+                  <span>{t('refund.subscription.term3')}</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-primary mt-1">•</span>
+                  <span>{t('refund.subscription.term4')}</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-primary mt-1">•</span>
+                  <span>{t('refund.subscription.term5')}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Exceptional Circumstances Card -->
+          <div class="bg-white rounded-md border border-gray-200 shadow-sm mb-12">
+            <div class="pt-6 px-6 pb-6">
+              <h3 class="text-xl font-semibold mb-4 text-gray-900">
+                {t('refund.exceptions.title')}
+              </h3>
+              <p class="text-gray-600 mb-4">
+                {t('refund.exceptions.desc')}
+              </p>
+              <ul class="space-y-3 text-gray-600">
+                <li class="flex items-start gap-3">
+                  <span class="text-primary mt-1">•</span>
+                  <span>{t('refund.exceptions.case1')}</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-primary mt-1">•</span>
+                  <span>{t('refund.exceptions.case2')}</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-primary mt-1">•</span>
+                  <span>{t('refund.exceptions.case3')}</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-primary mt-1">•</span>
+                  <span>{t('refund.exceptions.case4')}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- How to Request Card -->
+          <div class="bg-white rounded-md border border-gray-200 shadow-sm mb-12">
+            <div class="pt-6 px-6 pb-6">
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 bg-primary/10 rounded-md flex items-center justify-center flex-shrink-0">
+                  <svg class="h-6 w-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                  </svg>
+                </div>
+                <div class="flex-1">
+                  <h3 class="text-xl font-semibold mb-4 text-gray-900">
+                    {t('refund.request.title')}
+                  </h3>
+                  <p class="text-gray-600 mb-4">
+                    {t('refund.request.desc')}
+                  </p>
+                  <ul class="space-y-3 text-gray-600 mb-6">
+                    <li class="flex items-start gap-3">
+                      <span class="text-primary mt-1">١.</span>
+                      <span>{t('refund.request.info1')}</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <span class="text-primary mt-1">٢.</span>
+                      <span>{t('refund.request.info2')}</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <span class="text-primary mt-1">٣.</span>
+                      <span>{t('refund.request.info3')}</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <span class="text-primary mt-1">٤.</span>
+                      <span>{t('refund.request.info4')}</span>
+                    </li>
+                  </ul>
+
+                  <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-purple-50 rounded-md border border-gray-200 p-4">
+                      <div class="flex items-center gap-3 mb-2">
+                        <svg class="h-5 w-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                        <h4 class="font-semibold text-gray-900">
+                          {t('refund.request.email_title')}
+                        </h4>
+                      </div>
+                      <p class="text-sm text-gray-600" dir="ltr">
+                        info@oyifa.com
+                      </p>
+                    </div>
+                    <div class="bg-purple-50 rounded-md border border-gray-200 p-4">
+                      <div class="flex items-center gap-3 mb-2">
+                        <svg class="h-5 w-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                        </svg>
+                        <h4 class="font-semibold text-gray-900">
+                          {t('refund.request.phone_title')}
+                        </h4>
+                      </div>
+                      <p class="text-sm text-gray-600" dir="ltr">
+                        +971 52 476 7569
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Refund Processing Card -->
+          <div class="bg-white rounded-md border border-gray-200 shadow-sm mb-12">
+            <div class="pt-6 px-6 pb-6">
+              <h3 class="text-xl font-semibold mb-4 text-gray-900">
+                {t('refund.processing.title')}
+              </h3>
+              <ul class="space-y-3 text-gray-600">
+                <li class="flex items-start gap-3">
+                  <span class="text-primary mt-1">•</span>
+                  <span>{t('refund.processing.review')}</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-primary mt-1">•</span>
+                  <span>{t('refund.processing.decision')}</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-primary mt-1">•</span>
+                  <span>{t('refund.processing.approval')}</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-primary mt-1">•</span>
+                  <span>{t('refund.processing.method')}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Additional Terms Card -->
+          <div class="bg-white rounded-md border border-gray-200 shadow-sm">
+            <div class="pt-6 px-6 pb-6">
+              <h3 class="text-xl font-semibold mb-4 text-gray-900">
+                {t('refund.additional.title')}
+              </h3>
+              <ul class="space-y-3 text-gray-600">
+                <li class="flex items-start gap-3">
+                  <span class="text-primary mt-1">•</span>
+                  <span>{t('refund.additional.term1')}</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-primary mt-1">•</span>
+                  <span>{t('refund.additional.term2')}</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-primary mt-1">•</span>
+                  <span>{t('refund.additional.term3')}</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-primary mt-1">•</span>
+                  <span>{t('refund.additional.term4')}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="bg-gradient-to-r from-primary/10 to-purple-50 py-20">
+      <div class="max-w-7xl mx-auto px-4 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6 text-gray-900">
+          {t('refund.cta.title')}
+        </h2>
+        <p class="mx-auto mb-8 max-w-2xl text-xl text-gray-600">
+          {t('refund.cta.desc')}
         </p>
-
-        <h2>2. الخطة المجانية</h2>
-        <p>
-          تقدم أويفا خطة مجانية بميزات محدودة. نظراً لعدم الحاجة إلى دفع للخطة المجانية، لا تنطبق المبالغ المستردة. يمكنك الترقية إلى خطة مدفوعة في أي وقت.
-        </p>
-
-        <h2>3. الاشتراكات المدفوعة</h2>
-        <h3>3.1 فوترة الاشتراك</h3>
-        <ul>
-          <li>يتم احتساب الاشتراكات مقدماً على أساس شهري أو سنوي</li>
-          <li>تتم معالجة الدفع من خلال Stripe، مزود الدفع الآمن لدينا</li>
-          <li>يتجدد اشتراكك تلقائياً ما لم يتم إلغاؤه</li>
-        </ul>
-
-        <h3>3.2 الإلغاء</h3>
-        <p>يمكنك إلغاء اشتراكك في أي وقت:</p>
-        <ul>
-          <li>سجل الدخول إلى حسابك وانتقل إلى الإعدادات > الاشتراك</li>
-          <li>انقر على "إلغاء الاشتراك"</li>
-          <li>يستمر وصولك حتى نهاية فترة الفوترة الحالية</li>
-          <li>لن يتم إجراء أي رسوم أخرى بعد الإلغاء</li>
-        </ul>
-
-        <h2>4. أهلية الاسترداد</h2>
-        <h3>4.1 الاسترداد الكامل</h3>
-        <p>أنت مؤهل للاسترداد الكامل إذا:</p>
-        <ul>
-          <li>طلبت استرداد في غضون 7 أيام من اشتراكك الأولي</li>
-          <li>لم تستخدم الميزات المتميزة بشكل مكثف (أقل من 3 عروض مقدمة)</li>
-          <li>هذا هو اشتراكك الأول مع أويفا</li>
-        </ul>
-
-        <h3>4.2 الاسترداد الجزئي</h3>
-        <p>يمكن النظر في الاسترداد الجزئي لـ:</p>
-        <ul>
-          <li>الاشتراكات السنوية الملغاة خلال أول 30 يوماً (نسبي)</li>
-          <li>مشاكل الخدمة الموثقة التي أثرت بشكل كبير على استخدامك</li>
-          <li>أخطاء الفوترة من جانبنا</li>
-        </ul>
-
-        <h3>4.3 لا استرداد</h3>
-        <p>لا تُقدم المبالغ المستردة عموماً لـ:</p>
-        <ul>
-          <li>الطلبات المقدمة بعد 7 أيام من الاشتراك للخطط الشهرية</li>
-          <li>رصيد العروض أو الميزات غير المستخدمة</li>
-          <li>التخفيض إلى خطة أقل مستوى</li>
-          <li>الحسابات المنتهية بسبب انتهاكات شروط الخدمة</li>
-          <li>تغيير احتياجات العمل أو الظروف</li>
-        </ul>
-
-        <h2>5. كيفية طلب استرداد</h2>
-        <p>لطلب استرداد:</p>
-        <ol>
-          <li>أرسل لنا بريداً إلكترونياً على billing@oyifa.com مع موضوع "طلب استرداد"</li>
-          <li>قم بتضمين بريد حسابك الإلكتروني وتفاصيل الاشتراك</li>
-          <li>قدم سبب طلب الاسترداد</li>
-          <li>سنرد في غضون 3 أيام عمل</li>
-        </ol>
-
-        <h2>6. معالجة الاسترداد</h2>
-        <ul>
-          <li>تتم معالجة المبالغ المستردة الموافق عليها في غضون 5-10 أيام عمل</li>
-          <li>يتم إضافة المبالغ المستردة إلى طريقة الدفع الأصلية</li>
-          <li>قد يختلف وقت المعالجة اعتماداً على مزود الدفع الخاص بك</li>
-        </ul>
-
-        <h2>7. الاشتراكات السنوية</h2>
-        <p>للاشتراكات السنوية:</p>
-        <ul>
-          <li>استرداد كامل متاح في غضون 7 أيام إذا تم استيفاء المعايير</li>
-          <li>قد يكون الاسترداد النسبي متاحاً خلال أول 30 يوماً</li>
-          <li>لا استرداد بعد 30 يوماً من الاشتراك</li>
-          <li>يسري الإلغاء في نهاية الفترة السنوية</li>
-        </ul>
-
-        <h2>8. العملة وأسعار الصرف</h2>
-        <p>
-          تتم معالجة المبالغ المستردة بنفس العملة التي تم بها الدفع الأصلي. نحن غير مسؤولين عن أي فروق في سعر الصرف.
-        </p>
-
-        <h2>9. النزاعات</h2>
-        <p>
-          إذا كنت تعتقد أنه تم إجراء رسوم خاطئة، يرجى الاتصال بنا قبل بدء استرداد المبالغ. نحن ملتزمون بحل مشاكل الفوترة بشكل عادل وسريع.
-        </p>
-
-        <h2>10. التغييرات على هذه السياسة</h2>
-        <p>
-          قد نقوم بتحديث سياسة الاسترداد هذه من وقت لآخر. سيتم نشر التغييرات على هذه الصفحة بتاريخ سريان محدث.
-        </p>
-
-        <h2>11. اتصل بنا</h2>
-        <p>لاستفسارات الاسترداد أو أسئلة الفوترة:</p>
-        <ul>
-          <li>البريد الإلكتروني: billing@oyifa.com</li>
-          <li>وقت الاستجابة: خلال 3 أيام عمل</li>
-        </ul>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <a href="/ar/contact" class="inline-flex items-center justify-center gap-2 bg-primary text-white px-6 py-3 rounded-md text-base font-semibold hover:bg-primary-light transition-colors">
+            {t('refund.cta.contact')}
+            <svg class="h-4 w-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </a>
+          <a href="/ar/pricing" class="inline-flex items-center justify-center bg-white text-primary border border-gray-200 px-6 py-3 rounded-md text-base font-semibold hover:bg-gray-50 transition-colors">
+            {t('refund.cta.plans')}
+          </a>
+        </div>
       </div>
     </section>
   </main>

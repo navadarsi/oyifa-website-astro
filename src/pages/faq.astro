@@ -3,88 +3,318 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { useTranslations } from '../i18n/utils';
+import { URLS } from '../config/urls';
 
 const t = useTranslations('en');
 
-const faqs = [
-  { question: t('faq.q1'), answer: t('faq.a1') },
-  { question: t('faq.q2'), answer: t('faq.a2') },
-  { question: t('faq.q3'), answer: t('faq.a3') },
-  { question: t('faq.q4'), answer: t('faq.a4') },
-  { question: t('faq.q5'), answer: t('faq.a5') },
-  { question: t('faq.q6'), answer: t('faq.a6') },
+// FAQ data organized by category
+const generalFaqs = [
+  { q: t('faq.general.q1'), a: t('faq.general.a1') },
+  { q: t('faq.general.q2'), a: t('faq.general.a2') },
+  { q: t('faq.general.q3'), a: t('faq.general.a3') },
+  { q: t('faq.general.q4'), a: t('faq.general.a4') },
+  { q: t('faq.general.q5'), a: t('faq.general.a5') },
+];
+
+const clientFaqs = [
+  { q: t('faq.client.q1'), a: t('faq.client.a1') },
+  { q: t('faq.client.q2'), a: t('faq.client.a2') },
+  { q: t('faq.client.q3'), a: t('faq.client.a3') },
+  { q: t('faq.client.q4'), a: t('faq.client.a4') },
+  { q: t('faq.client.q5'), a: t('faq.client.a5') },
+];
+
+const vendorFaqs = [
+  { q: t('faq.vendor.q1'), a: t('faq.vendor.a1') },
+  { q: t('faq.vendor.q2'), a: t('faq.vendor.a2') },
+  { q: t('faq.vendor.q3'), a: t('faq.vendor.a3') },
+  { q: t('faq.vendor.q4'), a: t('faq.vendor.a4') },
+  { q: t('faq.vendor.q5'), a: t('faq.vendor.a5') },
+];
+
+const pricingFaqs = [
+  { q: t('faq.pricing.q1'), a: t('faq.pricing.a1') },
+  { q: t('faq.pricing.q2'), a: t('faq.pricing.a2') },
+  { q: t('faq.pricing.q3'), a: t('faq.pricing.a3') },
+  { q: t('faq.pricing.q4'), a: t('faq.pricing.a4') },
+  { q: t('faq.pricing.q5'), a: t('faq.pricing.a5') },
+];
+
+const technicalFaqs = [
+  { q: t('faq.technical.q1'), a: t('faq.technical.a1') },
+  { q: t('faq.technical.q2'), a: t('faq.technical.a2') },
+  { q: t('faq.technical.q3'), a: t('faq.technical.a3') },
+  { q: t('faq.technical.q4'), a: t('faq.technical.a4') },
+  { q: t('faq.technical.q5'), a: t('faq.technical.a5') },
 ];
 
 // FAQPage Schema for SEO
+const allQuestions = [...generalFaqs, ...clientFaqs, ...vendorFaqs, ...pricingFaqs, ...technicalFaqs];
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
+  "mainEntity": allQuestions.map(faq => ({
     "@type": "Question",
-    "name": faq.question,
+    "name": faq.q,
     "acceptedAnswer": {
       "@type": "Answer",
-      "text": faq.answer
+      "text": faq.a
     }
   }))
 };
 ---
 
-<BaseLayout title={t('nav.faq')} description="Find answers to frequently asked questions about Oyifa - the IT outsourcing platform for the GCC region.">
+<BaseLayout
+  title={t('faq.meta.title')}
+  description={t('faq.meta.desc')}
+>
   <Header />
 
   <!-- FAQPage Schema -->
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>
 
-  <main class="pt-24">
-    <!-- Hero -->
-    <section class="py-16 px-4 bg-gradient-to-b from-purple-50 to-white">
-      <div class="max-w-4xl mx-auto text-center">
-        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-          {t('faq.title')}
+  <main class="flex-1">
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-primary/10 via-white to-gray-100 py-32">
+      <div class="max-w-7xl mx-auto px-4 text-center">
+        <span class="inline-flex items-center rounded-full border border-transparent bg-gray-100 text-gray-800 px-2.5 py-0.5 text-sm font-semibold mb-4">
+          {t('faq.hero.badge')}
+        </span>
+        <h1 class="mb-6 text-5xl font-extrabold tracking-tight md:text-6xl text-gray-900">
+          {t('faq.hero.title')}
         </h1>
-        <p class="text-xl text-gray-600">
-          {t('faq.subtitle')}
+        <p class="mx-auto mb-8 max-w-3xl text-xl text-gray-600">
+          {t('faq.hero.subtitle')}
         </p>
-      </div>
-    </section>
-
-    <!-- FAQ Accordion -->
-    <section class="py-16 px-4">
-      <div class="max-w-3xl mx-auto">
-        <div class="space-y-4">
-          {faqs.map((faq, index) => (
-            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-              <button
-                class="faq-button w-full px-6 py-4 text-left flex items-center justify-between gap-4 hover:bg-gray-50 transition-colors"
-                aria-expanded="false"
-                aria-controls={`faq-${index}`}
-              >
-                <span class="font-semibold text-gray-900">{faq.question}</span>
-                <svg class="faq-icon w-5 h-5 text-gray-500 flex-shrink-0 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </button>
-              <div id={`faq-${index}`} class="faq-content hidden px-6 pb-4">
-                <p class="text-gray-600 leading-relaxed">{faq.answer}</p>
-              </div>
-            </div>
-          ))}
+        <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <a href="/contact" class="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-md text-base font-medium hover:bg-primary-light transition-colors">
+            {t('faq.hero.contact')}
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
+          </a>
+          <a href={`${URLS.app}/register`} class="inline-flex items-center gap-2 bg-white text-gray-900 border border-gray-300 px-6 py-3 rounded-md text-base font-medium hover:bg-gray-50 transition-colors">
+            {t('faq.hero.start')}
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- Still have questions? -->
-    <section class="py-16 px-4 bg-gray-50">
-      <div class="max-w-3xl mx-auto text-center">
-        <h2 class="text-2xl font-bold text-gray-900 mb-4">Still have questions?</h2>
-        <p class="text-gray-600 mb-6">Can't find the answer you're looking for? Our support team is here to help.</p>
-        <a href="/contact" class="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-light transition-colors">
-          <span>Contact Support</span>
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-          </svg>
-        </a>
+    <!-- General Questions Section -->
+    <section class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="mb-12 text-center">
+          <div class="mb-4 flex items-center justify-center">
+            <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <h2 class="text-3xl font-bold mb-4 md:text-4xl text-gray-900">
+            {t('faq.general.title')}
+          </h2>
+          <p class="mx-auto max-w-2xl text-lg text-gray-600">
+            {t('faq.general.desc')}
+          </p>
+        </div>
+
+        <div class="max-w-4xl mx-auto">
+          <div class="w-full" data-accordion="general">
+            {generalFaqs.map((faq, index) => (
+              <div class="border-b border-gray-200">
+                <button
+                  class="accordion-trigger flex w-full flex-1 items-center justify-between py-4 font-medium transition-all hover:underline text-left text-gray-900"
+                  aria-expanded="false"
+                  data-index={index}
+                >
+                  <span>{faq.q}</span>
+                  <svg class="accordion-icon h-4 w-4 shrink-0 transition-transform duration-200 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </button>
+                <div class="accordion-content overflow-hidden transition-all" style="display: none;">
+                  <div class="pb-4 pt-0">
+                    <p class="text-gray-600 leading-relaxed">{faq.a}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Client Questions Section -->
+    <section class="py-20 bg-primary/5">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="mb-12 text-center">
+          <h2 class="text-3xl font-bold mb-4 md:text-4xl text-gray-900">
+            {t('faq.client.title')}
+          </h2>
+          <p class="mx-auto max-w-2xl text-lg text-gray-600">
+            {t('faq.client.desc')}
+          </p>
+        </div>
+
+        <div class="max-w-4xl mx-auto">
+          <div class="w-full" data-accordion="client">
+            {clientFaqs.map((faq, index) => (
+              <div class="border-b border-gray-200">
+                <button
+                  class="accordion-trigger flex w-full flex-1 items-center justify-between py-4 font-medium transition-all hover:underline text-left text-gray-900"
+                  aria-expanded="false"
+                  data-index={index}
+                >
+                  <span>{faq.q}</span>
+                  <svg class="accordion-icon h-4 w-4 shrink-0 transition-transform duration-200 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </button>
+                <div class="accordion-content overflow-hidden transition-all" style="display: none;">
+                  <div class="pb-4 pt-0">
+                    <p class="text-gray-600 leading-relaxed">{faq.a}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Vendor Questions Section -->
+    <section class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="mb-12 text-center">
+          <h2 class="text-3xl font-bold mb-4 md:text-4xl text-gray-900">
+            {t('faq.vendor.title')}
+          </h2>
+          <p class="mx-auto max-w-2xl text-lg text-gray-600">
+            {t('faq.vendor.desc')}
+          </p>
+        </div>
+
+        <div class="max-w-4xl mx-auto">
+          <div class="w-full" data-accordion="vendor">
+            {vendorFaqs.map((faq, index) => (
+              <div class="border-b border-gray-200">
+                <button
+                  class="accordion-trigger flex w-full flex-1 items-center justify-between py-4 font-medium transition-all hover:underline text-left text-gray-900"
+                  aria-expanded="false"
+                  data-index={index}
+                >
+                  <span>{faq.q}</span>
+                  <svg class="accordion-icon h-4 w-4 shrink-0 transition-transform duration-200 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </button>
+                <div class="accordion-content overflow-hidden transition-all" style="display: none;">
+                  <div class="pb-4 pt-0">
+                    <p class="text-gray-600 leading-relaxed">{faq.a}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing & Billing Section -->
+    <section class="py-20 bg-gray-100/50">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="mb-12 text-center">
+          <h2 class="text-3xl font-bold mb-4 md:text-4xl text-gray-900">
+            {t('faq.pricing.title')}
+          </h2>
+          <p class="mx-auto max-w-2xl text-lg text-gray-600">
+            {t('faq.pricing.desc')}
+          </p>
+        </div>
+
+        <div class="max-w-4xl mx-auto">
+          <div class="w-full" data-accordion="pricing">
+            {pricingFaqs.map((faq, index) => (
+              <div class="border-b border-gray-200">
+                <button
+                  class="accordion-trigger flex w-full flex-1 items-center justify-between py-4 font-medium transition-all hover:underline text-left text-gray-900"
+                  aria-expanded="false"
+                  data-index={index}
+                >
+                  <span>{faq.q}</span>
+                  <svg class="accordion-icon h-4 w-4 shrink-0 transition-transform duration-200 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </button>
+                <div class="accordion-content overflow-hidden transition-all" style="display: none;">
+                  <div class="pb-4 pt-0">
+                    <p class="text-gray-600 leading-relaxed">{faq.a}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Support Section -->
+    <section class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="mb-12 text-center">
+          <h2 class="text-3xl font-bold mb-4 md:text-4xl text-gray-900">
+            {t('faq.technical.title')}
+          </h2>
+          <p class="mx-auto max-w-2xl text-lg text-gray-600">
+            {t('faq.technical.desc')}
+          </p>
+        </div>
+
+        <div class="max-w-4xl mx-auto">
+          <div class="w-full" data-accordion="technical">
+            {technicalFaqs.map((faq, index) => (
+              <div class="border-b border-gray-200">
+                <button
+                  class="accordion-trigger flex w-full flex-1 items-center justify-between py-4 font-medium transition-all hover:underline text-left text-gray-900"
+                  aria-expanded="false"
+                  data-index={index}
+                >
+                  <span>{faq.q}</span>
+                  <svg class="accordion-icon h-4 w-4 shrink-0 transition-transform duration-200 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </button>
+                <div class="accordion-content overflow-hidden transition-all" style="display: none;">
+                  <div class="pb-4 pt-0">
+                    <p class="text-gray-600 leading-relaxed">{faq.a}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="bg-gradient-to-r from-primary/10 to-gray-100 py-20">
+      <div class="max-w-7xl mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold mb-6 md:text-4xl text-gray-900">
+          {t('faq.cta.title')}
+        </h2>
+        <p class="mx-auto mb-8 max-w-2xl text-xl text-gray-600">
+          {t('faq.cta.desc')}
+        </p>
+        <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <a href="/contact" class="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-md text-base font-medium hover:bg-primary-light transition-colors">
+            {t('faq.cta.contact')}
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
+          </a>
+          <a href={`${URLS.app}/register`} class="inline-flex items-center gap-2 bg-white text-gray-900 border border-gray-300 px-6 py-3 rounded-md text-base font-medium hover:bg-gray-50 transition-colors">
+            {t('faq.cta.start')}
+          </a>
+        </div>
       </div>
     </section>
   </main>
@@ -93,29 +323,38 @@ const faqSchema = {
 </BaseLayout>
 
 <script>
-  const buttons = document.querySelectorAll('.faq-button');
+  // Accordion functionality - single item open at a time per section
+  const triggers = document.querySelectorAll('.accordion-trigger');
 
-  buttons.forEach((button) => {
-    button.addEventListener('click', () => {
-      const content = button.nextElementSibling as HTMLElement;
-      const icon = button.querySelector('.faq-icon') as HTMLElement;
-      const isExpanded = button.getAttribute('aria-expanded') === 'true';
+  triggers.forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const content = trigger.nextElementSibling as HTMLElement;
+      const icon = trigger.querySelector('.accordion-icon') as HTMLElement;
+      const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+      const accordion = trigger.closest('[data-accordion]');
 
-      // Close all other FAQs
-      buttons.forEach((otherButton) => {
-        if (otherButton !== button) {
-          const otherContent = otherButton.nextElementSibling as HTMLElement;
-          const otherIcon = otherButton.querySelector('.faq-icon') as HTMLElement;
-          otherButton.setAttribute('aria-expanded', 'false');
-          otherContent?.classList.add('hidden');
-          otherIcon?.classList.remove('rotate-180');
-        }
-      });
+      // Close other items in the same accordion
+      if (accordion) {
+        const otherTriggers = accordion.querySelectorAll('.accordion-trigger');
+        otherTriggers.forEach((otherTrigger) => {
+          if (otherTrigger !== trigger) {
+            const otherContent = otherTrigger.nextElementSibling as HTMLElement;
+            const otherIcon = otherTrigger.querySelector('.accordion-icon') as HTMLElement;
+            otherTrigger.setAttribute('aria-expanded', 'false');
+            if (otherContent) otherContent.style.display = 'none';
+            if (otherIcon) otherIcon.classList.remove('rotate-180');
+          }
+        });
+      }
 
-      // Toggle current FAQ
-      button.setAttribute('aria-expanded', String(!isExpanded));
-      content?.classList.toggle('hidden');
-      icon?.classList.toggle('rotate-180');
+      // Toggle current item
+      trigger.setAttribute('aria-expanded', String(!isExpanded));
+      if (content) {
+        content.style.display = isExpanded ? 'none' : 'block';
+      }
+      if (icon) {
+        icon.classList.toggle('rotate-180', !isExpanded);
+      }
     });
   });
 </script>

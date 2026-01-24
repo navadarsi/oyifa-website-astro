@@ -3,139 +3,382 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { useTranslations } from '../i18n/utils';
+import { URLS } from '../config/urls';
 
 const t = useTranslations('en');
-const lastUpdated = 'January 1, 2024';
 ---
 
-<BaseLayout title="Terms of Service" description="Read Oyifa's Terms of Service. Understand your rights and responsibilities when using our IT outsourcing platform.">
+<BaseLayout
+  title={t('terms.meta.title')}
+  description={t('terms.meta.desc')}
+>
   <Header />
 
-  <main class="pt-24">
-    <!-- Hero -->
-    <section class="py-12 px-4 bg-gradient-to-b from-purple-50 to-white">
-      <div class="max-w-4xl mx-auto">
-        <h1 class="text-4xl font-bold text-gray-900 mb-2">{t('footer.terms')}</h1>
-        <p class="text-gray-600">Last updated: {lastUpdated}</p>
+  <main class="flex-1">
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-primary/10 via-white to-purple-50 py-32">
+      <div class="max-w-7xl mx-auto px-4 text-center">
+        <span class="inline-block mb-4 px-3 py-1 bg-purple-100 text-primary rounded-md text-sm font-medium">
+          {t('terms.hero.badge')}
+        </span>
+        <h1 class="mb-6 text-5xl font-extrabold tracking-tight md:text-6xl text-gray-900">
+          {t('terms.hero.title')}
+        </h1>
+        <p class="mx-auto mb-8 max-w-3xl text-xl text-gray-600">
+          {t('terms.hero.subtitle')}
+        </p>
+        <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <a href="/contact" class="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-md font-semibold hover:bg-primary-light transition-colors">
+            {t('terms.hero.questions')}
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </a>
+          <a href="/privacy" class="bg-white text-primary border border-gray-300 px-6 py-3 rounded-md font-semibold hover:bg-gray-50 transition-colors">
+            {t('terms.hero.privacy')}
+          </a>
+        </div>
       </div>
     </section>
 
-    <!-- Content -->
-    <section class="py-12 px-4">
-      <div class="max-w-4xl mx-auto prose prose-lg">
-        <h2>1. Acceptance of Terms</h2>
-        <p>
-          By accessing or using Oyifa's services, you agree to be bound by these Terms of Service and all applicable laws and regulations. If you do not agree with any of these terms, you are prohibited from using or accessing this platform.
+    <!-- Last Updated -->
+    <section class="py-8 border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 text-center">
+        <p class="text-gray-600">
+          <strong>Last Updated:</strong> {t('terms.last_updated')}
         </p>
+      </div>
+    </section>
 
-        <h2>2. Description of Service</h2>
-        <p>
-          Oyifa is an IT outsourcing platform that connects businesses (Clients) with qualified technology service providers (Vendors) across the Middle East. Our services include:
+    <!-- Key Points -->
+    <section class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center mb-12">
+          <span class="inline-block mb-4 px-3 py-1 border border-gray-300 text-gray-600 rounded-md text-sm font-medium">
+            {t('terms.key_points.badge')}
+          </span>
+          <h2 class="text-3xl font-bold mb-6 md:text-4xl text-gray-900">
+            {t('terms.key_points.title')}
+          </h2>
+          <p class="mx-auto max-w-2xl text-xl text-gray-600">
+            {t('terms.key_points.subtitle')}
+          </p>
+        </div>
+
+        <div class="grid gap-8 md:grid-cols-4 max-w-5xl mx-auto">
+          <!-- Clear Terms -->
+          <div class="bg-white border border-gray-200 rounded-md p-6 text-center hover:shadow-lg transition-shadow">
+            <div class="mx-auto mb-4 w-12 h-12 bg-primary/10 rounded-md flex items-center justify-center">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold mb-2 text-gray-900">{t('terms.key_points.clear_terms.title')}</h3>
+            <p class="text-gray-600 text-sm">{t('terms.key_points.clear_terms.desc')}</p>
+          </div>
+
+          <!-- Fair Practices -->
+          <div class="bg-white border border-gray-200 rounded-md p-6 text-center hover:shadow-lg transition-shadow">
+            <div class="mx-auto mb-4 w-12 h-12 bg-primary/10 rounded-md flex items-center justify-center">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold mb-2 text-gray-900">{t('terms.key_points.fair_practices.title')}</h3>
+            <p class="text-gray-600 text-sm">{t('terms.key_points.fair_practices.desc')}</p>
+          </div>
+
+          <!-- Data Protection -->
+          <div class="bg-white border border-gray-200 rounded-md p-6 text-center hover:shadow-lg transition-shadow">
+            <div class="mx-auto mb-4 w-12 h-12 bg-primary/10 rounded-md flex items-center justify-center">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold mb-2 text-gray-900">{t('terms.key_points.data_protection.title')}</h3>
+            <p class="text-gray-600 text-sm">{t('terms.key_points.data_protection.desc')}</p>
+          </div>
+
+          <!-- User Rights -->
+          <div class="bg-white border border-gray-200 rounded-md p-6 text-center hover:shadow-lg transition-shadow">
+            <div class="mx-auto mb-4 w-12 h-12 bg-primary/10 rounded-md flex items-center justify-center">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold mb-2 text-gray-900">{t('terms.key_points.user_rights.title')}</h3>
+            <p class="text-gray-600 text-sm">{t('terms.key_points.user_rights.desc')}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Terms Content -->
+    <section class="py-20 bg-primary/5">
+      <div class="max-w-4xl mx-auto px-4 space-y-12">
+        <!-- Acceptance of Terms -->
+        <div id="acceptance" class="bg-white border border-gray-200 rounded-md p-8">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-12 h-12 bg-primary/10 rounded-md flex items-center justify-center">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+              </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-900">{t('terms.sections.acceptance.title')}</h2>
+          </div>
+
+          <div class="space-y-6">
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-primary">{t('terms.sections.acceptance.agreement.subtitle')}</h3>
+              <p class="text-gray-600 leading-relaxed">{t('terms.sections.acceptance.agreement.text')}</p>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-primary">{t('terms.sections.acceptance.eligibility.subtitle')}</h3>
+              <p class="text-gray-600 leading-relaxed">{t('terms.sections.acceptance.eligibility.text')}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Description of Services -->
+        <div id="services" class="bg-white border border-gray-200 rounded-md p-8">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-12 h-12 bg-primary/10 rounded-md flex items-center justify-center">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+              </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-900">{t('terms.sections.services.title')}</h2>
+          </div>
+
+          <div class="space-y-6">
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-primary">{t('terms.sections.services.platform.subtitle')}</h3>
+              <p class="text-gray-600 leading-relaxed">{t('terms.sections.services.platform.text')}</p>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-primary">{t('terms.sections.services.availability.subtitle')}</h3>
+              <p class="text-gray-600 leading-relaxed">{t('terms.sections.services.availability.text')}</p>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-primary">{t('terms.sections.services.modifications.subtitle')}</h3>
+              <p class="text-gray-600 leading-relaxed">{t('terms.sections.services.modifications.text')}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- User Responsibilities -->
+        <div id="user-responsibilities" class="bg-white border border-gray-200 rounded-md p-8">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-12 h-12 bg-primary/10 rounded-md flex items-center justify-center">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+              </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-900">{t('terms.sections.user_responsibilities.title')}</h2>
+          </div>
+
+          <div class="space-y-6">
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-primary">{t('terms.sections.user_responsibilities.security.subtitle')}</h3>
+              <p class="text-gray-600 leading-relaxed">{t('terms.sections.user_responsibilities.security.text')}</p>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-primary">{t('terms.sections.user_responsibilities.accurate_info.subtitle')}</h3>
+              <p class="text-gray-600 leading-relaxed">{t('terms.sections.user_responsibilities.accurate_info.text')}</p>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-primary">{t('terms.sections.user_responsibilities.prohibited.subtitle')}</h3>
+              <p class="text-gray-600 leading-relaxed">{t('terms.sections.user_responsibilities.prohibited.text')}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payment Terms -->
+        <div id="payment-terms" class="bg-white border border-gray-200 rounded-md p-8">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-12 h-12 bg-primary/10 rounded-md flex items-center justify-center">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path>
+              </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-900">{t('terms.sections.payment_terms.title')}</h2>
+          </div>
+
+          <div class="space-y-6">
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-primary">{t('terms.sections.payment_terms.subscription.subtitle')}</h3>
+              <p class="text-gray-600 leading-relaxed">{t('terms.sections.payment_terms.subscription.text')}</p>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-primary">{t('terms.sections.payment_terms.processing.subtitle')}</h3>
+              <p class="text-gray-600 leading-relaxed">{t('terms.sections.payment_terms.processing.text')}</p>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-primary">{t('terms.sections.payment_terms.late_payments.subtitle')}</h3>
+              <p class="text-gray-600 leading-relaxed">{t('terms.sections.payment_terms.late_payments.text')}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Intellectual Property -->
+        <div id="intellectual-property" class="bg-white border border-gray-200 rounded-md p-8">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-12 h-12 bg-primary/10 rounded-md flex items-center justify-center">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+              </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-900">{t('terms.sections.intellectual_property.title')}</h2>
+          </div>
+
+          <div class="space-y-6">
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-primary">{t('terms.sections.intellectual_property.platform_ownership.subtitle')}</h3>
+              <p class="text-gray-600 leading-relaxed">{t('terms.sections.intellectual_property.platform_ownership.text')}</p>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-primary">{t('terms.sections.intellectual_property.user_content.subtitle')}</h3>
+              <p class="text-gray-600 leading-relaxed">{t('terms.sections.intellectual_property.user_content.text')}</p>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-primary">{t('terms.sections.intellectual_property.third_party.subtitle')}</h3>
+              <p class="text-gray-600 leading-relaxed">{t('terms.sections.intellectual_property.third_party.text')}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Limitation of Liability -->
+        <div id="limitation-liability" class="bg-white border border-gray-200 rounded-md p-8">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-12 h-12 bg-primary/10 rounded-md flex items-center justify-center">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
+              </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-900">{t('terms.sections.limitation_liability.title')}</h2>
+          </div>
+
+          <div class="space-y-6">
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-primary">{t('terms.sections.limitation_liability.disclaimer.subtitle')}</h3>
+              <p class="text-gray-600 leading-relaxed">{t('terms.sections.limitation_liability.disclaimer.text')}</p>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-primary">{t('terms.sections.limitation_liability.damages.subtitle')}</h3>
+              <p class="text-gray-600 leading-relaxed">{t('terms.sections.limitation_liability.damages.text')}</p>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-primary">{t('terms.sections.limitation_liability.maximum.subtitle')}</h3>
+              <p class="text-gray-600 leading-relaxed">{t('terms.sections.limitation_liability.maximum.text')}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Governing Law -->
+    <section class="py-20 bg-white">
+      <div class="max-w-4xl mx-auto px-4">
+        <div class="bg-white border border-gray-200 rounded-md p-8">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-12 h-12 bg-primary/10 rounded-md flex items-center justify-center">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
+              </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-900">{t('terms.governing_law.title')}</h2>
+          </div>
+
+          <div class="space-y-4">
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-primary">{t('terms.governing_law.applicable.subtitle')}</h3>
+              <p class="text-gray-600 leading-relaxed">{t('terms.governing_law.applicable.text')}</p>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-primary">{t('terms.governing_law.dispute.subtitle')}</h3>
+              <p class="text-gray-600 leading-relaxed">{t('terms.governing_law.dispute.text')}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modifications -->
+    <section class="py-20 bg-purple-50/50">
+      <div class="max-w-4xl mx-auto px-4">
+        <div class="bg-white border border-gray-200 rounded-md p-8">
+          <h2 class="text-2xl font-bold mb-6 text-gray-900">{t('terms.modifications.title')}</h2>
+          <div class="space-y-4">
+            <p class="text-gray-600 leading-relaxed">{t('terms.modifications.text1')}</p>
+            <p class="text-gray-600 leading-relaxed">{t('terms.modifications.text2')}</p>
+            <p class="text-gray-600 leading-relaxed">{t('terms.modifications.text3')}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-20 bg-white">
+      <div class="max-w-4xl mx-auto px-4">
+        <div class="bg-white border border-gray-200 rounded-md p-8">
+          <h2 class="text-2xl font-bold mb-6 text-gray-900">{t('terms.contact.title')}</h2>
+          <div class="space-y-4">
+            <p class="text-gray-600 leading-relaxed">{t('terms.contact.text')}</p>
+            <div class="flex flex-col sm:flex-row gap-4">
+              <a href="/contact" class="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-md font-semibold hover:bg-primary-light transition-colors">
+                {t('terms.contact.button')}
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                </svg>
+              </a>
+              <a href="mailto:legal@oyifa.com" class="bg-white text-primary border border-gray-300 px-6 py-3 rounded-md font-semibold hover:bg-gray-50 transition-colors">
+                {t('terms.contact.email')}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Severability -->
+    <section class="py-20 bg-primary/5">
+      <div class="max-w-4xl mx-auto px-4">
+        <div class="bg-white border border-gray-200 rounded-md p-8">
+          <h2 class="text-2xl font-bold mb-6 text-gray-900">{t('terms.severability.title')}</h2>
+          <div class="space-y-4">
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-primary">{t('terms.severability.severability_text.subtitle')}</h3>
+              <p class="text-gray-600 leading-relaxed">{t('terms.severability.severability_text.text')}</p>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold mb-3 text-primary">{t('terms.severability.entire_agreement.subtitle')}</h3>
+              <p class="text-gray-600 leading-relaxed">{t('terms.severability.entire_agreement.text')}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold mb-6 md:text-4xl text-gray-900">
+          {t('terms.cta.title')}
+        </h2>
+        <p class="mx-auto mb-8 max-w-2xl text-xl text-gray-600">
+          {t('terms.cta.subtitle')}
         </p>
-        <ul>
-          <li>Tender creation and management for Clients</li>
-          <li>Proposal submission capabilities for Vendors</li>
-          <li>Communication tools between parties</li>
-          <li>Subscription management and billing</li>
-        </ul>
-
-        <h2>3. User Accounts</h2>
-        <p>
-          To use certain features of our platform, you must register for an account. You agree to:
-        </p>
-        <ul>
-          <li>Provide accurate, current, and complete information during registration</li>
-          <li>Maintain and update your account information</li>
-          <li>Keep your password secure and confidential</li>
-          <li>Accept responsibility for all activities under your account</li>
-          <li>Notify us immediately of any unauthorized use of your account</li>
-        </ul>
-
-        <h2>4. User Conduct</h2>
-        <p>Users agree not to:</p>
-        <ul>
-          <li>Use the platform for any unlawful purpose</li>
-          <li>Submit false or misleading information</li>
-          <li>Impersonate another person or entity</li>
-          <li>Interfere with or disrupt the platform's functionality</li>
-          <li>Attempt to gain unauthorized access to other accounts or systems</li>
-          <li>Harvest or collect user information without consent</li>
-          <li>Engage in spam or unsolicited communications</li>
-        </ul>
-
-        <h2>5. Client Responsibilities</h2>
-        <p>Clients agree to:</p>
-        <ul>
-          <li>Provide accurate and complete tender requirements</li>
-          <li>Evaluate proposals fairly and objectively</li>
-          <li>Communicate professionally with Vendors</li>
-          <li>Honor any agreements made through the platform</li>
-        </ul>
-
-        <h2>6. Vendor Responsibilities</h2>
-        <p>Vendors agree to:</p>
-        <ul>
-          <li>Submit accurate and honest proposals</li>
-          <li>Maintain valid business registration and credentials</li>
-          <li>Deliver services as proposed and agreed</li>
-          <li>Maintain confidentiality of Client information</li>
-        </ul>
-
-        <h2>7. Subscription and Payments</h2>
-        <p>
-          Vendors may subscribe to paid plans to access additional features. By subscribing:
-        </p>
-        <ul>
-          <li>You authorize us to charge your payment method for recurring fees</li>
-          <li>Subscription fees are billed in advance on a monthly or annual basis</li>
-          <li>You may cancel your subscription at any time through your account settings</li>
-          <li>Refunds are handled according to our Refund Policy</li>
-        </ul>
-
-        <h2>8. Intellectual Property</h2>
-        <p>
-          The Oyifa platform, including its design, features, and content, is protected by intellectual property laws. Users retain ownership of their submitted content but grant Oyifa a license to use such content for platform operations.
-        </p>
-
-        <h2>9. Limitation of Liability</h2>
-        <p>
-          Oyifa serves as a platform connecting Clients and Vendors. We are not responsible for:
-        </p>
-        <ul>
-          <li>The quality or delivery of services between users</li>
-          <li>Disputes arising between Clients and Vendors</li>
-          <li>Any damages resulting from platform use</li>
-          <li>Third-party content or services</li>
-        </ul>
-
-        <h2>10. Disclaimer of Warranties</h2>
-        <p>
-          The platform is provided "as is" without warranties of any kind. We do not guarantee uninterrupted or error-free service, or that the platform will meet your specific requirements.
-        </p>
-
-        <h2>11. Termination</h2>
-        <p>
-          We reserve the right to terminate or suspend your account at any time for violation of these terms or for any other reason at our discretion. Upon termination, your right to use the platform will immediately cease.
-        </p>
-
-        <h2>12. Governing Law</h2>
-        <p>
-          These terms are governed by the laws of the United Arab Emirates. Any disputes shall be resolved in the courts of Dubai, UAE.
-        </p>
-
-        <h2>13. Changes to Terms</h2>
-        <p>
-          We may modify these terms at any time. Continued use of the platform after changes constitutes acceptance of the new terms.
-        </p>
-
-        <h2>14. Contact Information</h2>
-        <p>
-          For questions about these Terms of Service, please contact us at:
-        </p>
-        <ul>
-          <li>Email: legal@oyifa.com</li>
-          <li>Address: Dubai, United Arab Emirates</li>
-        </ul>
+        <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <a href={`${URLS.app}/register`} class="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-md font-semibold hover:bg-primary-light transition-colors">
+            {t('terms.cta.get_started')}
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </a>
+          <a href="/about" class="bg-white text-primary border border-gray-300 px-6 py-3 rounded-md font-semibold hover:bg-gray-50 transition-colors">
+            {t('terms.cta.learn_more')}
+          </a>
+        </div>
       </div>
     </section>
   </main>

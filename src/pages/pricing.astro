@@ -3,200 +3,401 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { useTranslations } from '../i18n/utils';
+import { URLS } from '../config/urls';
 
 const t = useTranslations('en');
 
-// Regional pricing data (pre-rendered for SEO, JS switches display)
+// GCC Country pricing data
+const gccCountries = [
+  { code: 'AE', name: 'United Arab Emirates', currency: 'AED', symbol: 'AED' },
+  { code: 'SA', name: 'Saudi Arabia', currency: 'SAR', symbol: 'SAR' },
+  { code: 'QA', name: 'Qatar', currency: 'QAR', symbol: 'QAR' },
+  { code: 'KW', name: 'Kuwait', currency: 'KWD', symbol: 'KWD' },
+  { code: 'BH', name: 'Bahrain', currency: 'BHD', symbol: 'BHD' },
+  { code: 'OM', name: 'Oman', currency: 'OMR', symbol: 'OMR' },
+];
+
+// Pricing by currency (monthly and yearly)
 const pricing = {
-  // UAE, Saudi, Qatar - Higher tier
-  AED: { symbol: 'AED', monthly: { basic: 499, standard: 999, premium: 1499 }, yearly: { basic: 4999, standard: 9999, premium: 14999 } },
-  SAR: { symbol: 'SAR', monthly: { basic: 499, standard: 999, premium: 1499 }, yearly: { basic: 4999, standard: 9999, premium: 14999 } },
-  QAR: { symbol: 'QAR', monthly: { basic: 499, standard: 999, premium: 1499 }, yearly: { basic: 4999, standard: 9999, premium: 14999 } },
-  // Bahrain, Kuwait, Oman - Lower tier
-  BHD: { symbol: 'BHD', monthly: { basic: 49, standard: 99, premium: 149 }, yearly: { basic: 499, standard: 999, premium: 1499 } },
-  KWD: { symbol: 'KWD', monthly: { basic: 49, standard: 99, premium: 149 }, yearly: { basic: 499, standard: 999, premium: 1499 } },
-  OMR: { symbol: 'OMR', monthly: { basic: 49, standard: 99, premium: 149 }, yearly: { basic: 499, standard: 999, premium: 1499 } },
-  // USD fallback
-  USD: { symbol: '$', monthly: { basic: 129, standard: 259, premium: 399 }, yearly: { basic: 1299, standard: 2599, premium: 3999 } },
+  AED: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 299, yearly: 2990 }, standard: { monthly: 599, yearly: 5990 }, premium: { monthly: 999, yearly: 9990 } },
+  SAR: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 299, yearly: 2990 }, standard: { monthly: 599, yearly: 5990 }, premium: { monthly: 999, yearly: 9990 } },
+  QAR: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 299, yearly: 2990 }, standard: { monthly: 599, yearly: 5990 }, premium: { monthly: 999, yearly: 9990 } },
+  KWD: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 25, yearly: 250 }, standard: { monthly: 49, yearly: 490 }, premium: { monthly: 79, yearly: 790 } },
+  BHD: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 29, yearly: 290 }, standard: { monthly: 59, yearly: 590 }, premium: { monthly: 99, yearly: 990 } },
+  OMR: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 29, yearly: 290 }, standard: { monthly: 59, yearly: 590 }, premium: { monthly: 99, yearly: 990 } },
 };
 
-// Default to AED for GCC focus
-const defaultCurrency = 'AED';
-const p = pricing[defaultCurrency];
+const defaultCountry = gccCountries[0];
+const defaultPricing = pricing.AED;
 
+// Plan features
 const plans = [
   {
-    name: t('pricing.free'),
+    id: 'free',
+    tier: 'free',
+    name: 'Free',
+    description: 'Perfect for exploring the platform',
     monthlyPrice: 0,
     yearlyPrice: 0,
-    proposals: '0',
     features: [
-      t('pricing.features.proposals') + ': 0',
-      t('pricing.features.support'),
+      'Browse all tenders',
+      'Basic company profile',
+      'Email notifications',
+      'Community support',
     ],
-    cta: t('pricing.getStarted'),
+    cta: 'Get Started Free',
     popular: false,
   },
   {
-    name: t('pricing.basic'),
-    monthlyPrice: p.monthly.basic,
-    yearlyPrice: p.yearly.basic,
-    proposals: '10',
+    id: 'basic',
+    tier: 'basic',
+    name: 'Basic',
+    description: 'Great for small businesses',
+    monthlyPrice: defaultPricing.basic.monthly,
+    yearlyPrice: defaultPricing.basic.yearly,
     features: [
-      t('pricing.features.proposals') + ': 10',
-      t('pricing.features.support'),
+      '10 proposals per month',
+      'Enhanced company profile',
+      'View tenders up to AED 100K',
+      'Email & chat support',
+      'Basic analytics',
     ],
-    cta: t('pricing.getStarted'),
+    cta: 'Get Started',
     popular: false,
   },
   {
-    name: t('pricing.standard'),
-    monthlyPrice: p.monthly.standard,
-    yearlyPrice: p.yearly.standard,
-    proposals: '50',
+    id: 'standard',
+    tier: 'standard',
+    name: 'Standard',
+    description: 'Best for growing teams',
+    monthlyPrice: defaultPricing.standard.monthly,
+    yearlyPrice: defaultPricing.standard.yearly,
     features: [
-      t('pricing.features.proposals') + ': 50',
-      t('pricing.features.priority'),
-      t('pricing.features.analytics'),
+      '50 proposals per month',
+      'Featured company profile',
+      'View tenders up to AED 500K',
+      'Priority support',
+      'Advanced analytics',
+      'API access',
     ],
-    cta: t('pricing.getStarted'),
+    cta: 'Get Started',
     popular: true,
   },
   {
-    name: t('pricing.premium'),
-    monthlyPrice: p.monthly.premium,
-    yearlyPrice: p.yearly.premium,
-    proposals: t('pricing.unlimited'),
+    id: 'premium',
+    tier: 'premium',
+    name: 'Premium',
+    description: 'For enterprise-level needs',
+    monthlyPrice: defaultPricing.premium.monthly,
+    yearlyPrice: defaultPricing.premium.yearly,
     features: [
-      t('pricing.features.proposals') + ': ' + t('pricing.unlimited'),
-      t('pricing.features.priority'),
-      t('pricing.features.analytics'),
-      t('pricing.features.dedicated'),
+      'Unlimited proposals',
+      'Premium profile badge',
+      'View tenders without any limits',
+      'Dedicated account manager',
+      'Custom integrations',
+      'White-glove onboarding',
+      'SLA guarantee',
     ],
-    cta: t('pricing.getStarted'),
+    cta: 'Get Started',
     popular: false,
   },
 ];
+
+const features = [
+  t('pricing.features.no_fees'),
+  t('pricing.features.money_back'),
+  t('pricing.features.ssl'),
+  t('pricing.features.support'),
+  t('pricing.features.updates'),
+];
 ---
 
-<BaseLayout title={t('nav.pricing')} description="Simple, transparent pricing for Oyifa. Choose the plan that fits your business needs.">
+<BaseLayout
+  title={t('pricing.meta.title')}
+  description={t('pricing.meta.desc')}
+>
   <Header />
 
-  <main class="pt-24">
-    <!-- Hero -->
-    <section class="py-16 px-4 bg-gradient-to-b from-purple-50 to-white">
-      <div class="max-w-4xl mx-auto text-center">
-        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-          {t('pricing.title')}
+  <main class="flex-1">
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-purple-100 via-white to-purple-50 pt-32 pb-12">
+      <div class="max-w-7xl mx-auto px-4 text-center">
+        <span class="inline-block mb-4 px-4 py-2 bg-purple-100 text-primary rounded-full text-sm font-medium">
+          {t('pricing.hero.badge')}
+        </span>
+        <h1 class="mb-6 text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900">
+          {t('pricing.hero.title.simple')} <span class="text-primary">{t('pricing.hero.title.transparent')}</span> {t('pricing.hero.title.pricing')}
         </h1>
-        <p class="text-xl text-gray-600">
-          {t('pricing.subtitle')}
+        <p class="mx-auto mb-8 max-w-3xl text-xl text-gray-600">
+          {t('pricing.hero.desc')}
         </p>
 
-        <!-- Billing Toggle -->
-        <div class="mt-8 flex flex-col items-center gap-4">
-          <div class="inline-flex items-center bg-white rounded-full shadow-sm p-1">
-            <button id="monthly-btn" class="px-6 py-2 rounded-full text-sm font-medium transition-colors bg-primary text-white">
-              {t('pricing.monthly')}
-            </button>
-            <button id="yearly-btn" class="px-6 py-2 rounded-full text-sm font-medium transition-colors text-gray-600 hover:text-gray-900">
-              {t('pricing.yearly')} <span class="text-green-600 text-xs ml-1">{t('pricing.save')}</span>
-            </button>
-          </div>
-
-          <!-- Currency selector -->
-          <div class="inline-flex items-center gap-2 bg-white rounded-lg shadow-sm p-1">
-            <span class="text-sm text-gray-500 px-2">Currency:</span>
-            <select id="currency-select" class="bg-transparent border-0 text-gray-700 font-medium focus:ring-0 cursor-pointer">
-              <option value="AED">AED (UAE)</option>
-              <option value="SAR">SAR (Saudi)</option>
-              <option value="QAR">QAR (Qatar)</option>
-              <option value="KWD">KWD (Kuwait)</option>
-              <option value="BHD">BHD (Bahrain)</option>
-              <option value="OMR">OMR (Oman)</option>
-              <option value="USD">USD</option>
-            </select>
+        <!-- Free Tier Banner -->
+        <div class="mb-8">
+          <div class="bg-gradient-to-r from-purple-50 via-purple-100 to-purple-50 border border-purple-200 rounded-xl p-6 max-w-4xl mx-auto">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+              <div class="flex items-center gap-4 text-center md:text-left">
+                <div class="hidden md:flex h-12 w-12 items-center justify-center rounded-full bg-purple-100">
+                  <svg class="h-6 w-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-lg font-bold mb-1 text-gray-900">
+                    {t('pricing.free_banner.title')}
+                  </h3>
+                  <p class="text-sm text-gray-600">
+                    {t('pricing.free_banner.subtitle')}
+                  </p>
+                </div>
+              </div>
+              <a href={`${URLS.app}/register/vendor`} class="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-md font-semibold hover:bg-primary-light transition-colors whitespace-nowrap">
+                {t('pricing.free_banner.cta')}
+                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- Pricing Cards -->
-    <section class="py-16 px-4">
-      <div class="max-w-7xl mx-auto">
-        <div class="grid md:grid-cols-4 gap-6">
+        <!-- Location Selector -->
+        <div class="flex flex-col items-center gap-4 mb-8">
+          <div class="flex items-center gap-2 text-sm text-gray-500">
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+            <span>{t('pricing.location.label')}</span>
+          </div>
+          <select
+            id="countrySelect"
+            class="w-64 px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-900 font-medium focus:ring-2 focus:ring-primary focus:border-transparent"
+          >
+            {gccCountries.map((country) => (
+              <option value={country.currency} data-symbol={country.symbol}>
+                {country.name} ({country.currency})
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <!-- Billing Toggle -->
+        <div class="flex justify-center mb-10">
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input type="checkbox" id="billingToggle" class="sr-only peer" />
+            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+          </label>
+          <span class="ml-3 font-semibold text-gray-900">
+            Annual Billing <span class="text-primary">— Pay for 10, get 2 months free!</span>
+          </span>
+        </div>
+
+        <!-- Pricing Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
           {plans.map((plan, index) => (
-            <div class={`relative bg-white rounded-2xl shadow-lg p-6 ${plan.popular ? 'ring-2 ring-primary' : 'border border-gray-200'}`}>
+            <div class={`rounded-2xl p-6 text-center flex flex-col relative transition-shadow duration-200 hover:shadow-lg ${
+              plan.popular
+                ? 'border-0 shadow-lg bg-gradient-to-br from-[#271060] via-[#595cff] to-[#52a8f2] text-white'
+                : 'border border-gray-200 bg-white'
+            }`}>
+              {/* Background decoration for popular plan */}
               {plan.popular && (
-                <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-white text-sm font-medium px-3 py-1 rounded-full">
-                  {t('pricing.popular')}
+                <>
+                  <div class="absolute top-0 right-0 -mt-4 -mr-4 h-24 w-24 rounded-full bg-white/10 blur-2xl"></div>
+                  <div class="absolute bottom-0 left-0 -mb-4 -ml-4 h-20 w-20 rounded-full bg-[#5682f9]/30 blur-xl"></div>
+                </>
+              )}
+              {plan.popular && (
+                <div class="absolute top-0 right-0 bg-white/20 backdrop-blur-sm py-0.5 px-2 rounded-bl-xl rounded-tr-xl flex items-center">
+                  <svg class="text-white h-4 w-4 fill-current" viewBox="0 0 24 24">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                  </svg>
+                  <span class="text-white ml-1 font-semibold text-sm">Popular</span>
                 </div>
               )}
-              <div class="text-center mb-6">
-                <h3 class="text-xl font-semibold text-gray-900 mb-2">{plan.name}</h3>
-                <div class="flex items-baseline justify-center gap-1">
-                  <span class="currency-symbol text-2xl font-bold text-gray-900">{p.symbol}</span>
-                  <span class="price text-4xl font-bold text-gray-900"
-                    data-monthly={JSON.stringify({
-                      AED: index === 0 ? 0 : index === 1 ? 499 : index === 2 ? 999 : 1499,
-                      SAR: index === 0 ? 0 : index === 1 ? 499 : index === 2 ? 999 : 1499,
-                      QAR: index === 0 ? 0 : index === 1 ? 499 : index === 2 ? 999 : 1499,
-                      KWD: index === 0 ? 0 : index === 1 ? 49 : index === 2 ? 99 : 149,
-                      BHD: index === 0 ? 0 : index === 1 ? 49 : index === 2 ? 99 : 149,
-                      OMR: index === 0 ? 0 : index === 1 ? 49 : index === 2 ? 99 : 149,
-                      USD: index === 0 ? 0 : index === 1 ? 129 : index === 2 ? 259 : 399,
-                    })}
-                    data-yearly={JSON.stringify({
-                      AED: index === 0 ? 0 : index === 1 ? 4999 : index === 2 ? 9999 : 14999,
-                      SAR: index === 0 ? 0 : index === 1 ? 4999 : index === 2 ? 9999 : 14999,
-                      QAR: index === 0 ? 0 : index === 1 ? 4999 : index === 2 ? 9999 : 14999,
-                      KWD: index === 0 ? 0 : index === 1 ? 499 : index === 2 ? 999 : 1499,
-                      BHD: index === 0 ? 0 : index === 1 ? 499 : index === 2 ? 999 : 1499,
-                      OMR: index === 0 ? 0 : index === 1 ? 499 : index === 2 ? 999 : 1499,
-                      USD: index === 0 ? 0 : index === 1 ? 1299 : index === 2 ? 2599 : 3999,
-                    })}>{plan.monthlyPrice}</span>
-                  <span class="billing-period text-gray-500">{t('pricing.perMonth')}</span>
+              <div class="flex-1 flex flex-col relative z-10">
+                <p class={`text-base font-semibold uppercase ${plan.popular ? 'text-white/80' : 'text-gray-500'}`}>
+                  {plan.name}
+                </p>
+                <div class="mt-6 flex items-center justify-center gap-x-2">
+                  <span class={`currency-symbol text-lg font-semibold ${plan.popular ? 'text-white/70' : 'text-gray-500'}`}>
+                    {defaultCountry.symbol}
+                  </span>
+                  <span
+                    class={`price text-5xl font-bold tracking-tight ${plan.popular ? 'text-white' : 'text-gray-900'}`}
+                    data-plan={plan.tier}
+                    data-monthly={plan.monthlyPrice}
+                    data-yearly={plan.yearlyPrice}
+                  >
+                    {plan.monthlyPrice}
+                  </span>
+                  <span class={`billing-period text-sm font-semibold leading-6 tracking-wide ${plan.popular ? 'text-white/70' : 'text-gray-500'}`}>
+                    /month
+                  </span>
                 </div>
-                <p class="text-sm text-gray-500 mt-2">{plan.proposals} {t('pricing.proposals')}</p>
+
+                <p class={`billing-note text-xs leading-5 mt-1 ${plan.popular ? 'text-white/70' : 'text-gray-500'}`}>
+                  billed monthly
+                </p>
+
+                <ul class="mt-5 gap-2 flex flex-col">
+                  {plan.features.map((feature) => (
+                    <li class="flex items-start gap-2">
+                      <svg class={`h-4 w-4 mt-1 flex-shrink-0 ${plan.popular ? 'text-white' : 'text-primary'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                      </svg>
+                      <span class={`text-left text-sm ${plan.popular ? 'text-white/90' : 'text-gray-600'}`}>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <hr class={`w-full my-4 ${plan.popular ? 'border-white/20' : 'border-gray-200'}`} />
+
+                <a
+                  href={`${URLS.app}/register/vendor${plan.tier !== 'free' ? `?plan=${plan.id}` : ''}`}
+                  class={`group relative w-full gap-2 overflow-hidden text-lg font-semibold tracking-tighter transition-all duration-200 ease-out hover:ring-2 hover:ring-offset-1 py-3 rounded-md text-center block ${
+                    plan.popular
+                      ? 'bg-white text-[#271060] hover:bg-white/90 hover:ring-white'
+                      : 'bg-white border border-gray-200 text-gray-900 hover:bg-primary hover:text-white hover:ring-primary hover:border-primary'
+                  }`}
+                >
+                  {plan.cta}
+                </a>
+                <p class={`mt-6 text-xs leading-5 ${plan.popular ? 'text-white/70' : 'text-gray-500'}`}>
+                  {plan.description}
+                </p>
               </div>
-              <ul class="space-y-3 mb-6">
-                {plan.features.map((feature) => (
-                  <li class="flex items-center gap-2 text-gray-600">
-                    <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-              <a
-                href={`/app/register?plan=${plan.name.toLowerCase()}`}
-                class={`block w-full text-center py-3 rounded-lg font-semibold transition-colors ${
-                  plan.popular
-                    ? 'bg-primary text-white hover:bg-primary-light'
-                    : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
-                }`}
-              >
-                {plan.cta}
-              </a>
             </div>
           ))}
         </div>
+
+        <!-- Features list below pricing cards -->
+        <div class="mt-12 flex flex-wrap justify-center gap-4 text-sm text-gray-500">
+          {features.map((feature) => (
+            <div class="flex items-center gap-2">
+              <svg class="h-4 w-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span>{feature}</span>
+            </div>
+          ))}
+          <div class="flex items-center gap-2">
+            <svg class="h-4 w-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span>{t('pricing.features.regional')}</span>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- FAQ Teaser -->
-    <section class="py-16 px-4 bg-gray-50">
-      <div class="max-w-3xl mx-auto text-center">
-        <h2 class="text-2xl font-bold text-gray-900 mb-4">Have questions?</h2>
-        <p class="text-gray-600 mb-6">Check out our FAQ or contact our support team.</p>
-        <div class="flex gap-4 justify-center">
-          <a href="/faq" class="bg-white border border-gray-300 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors">
-            View FAQ
-          </a>
-          <a href="/contact" class="bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-light transition-colors">
-            Contact Us
-          </a>
+    <!-- Free First Month Section -->
+    <section class="py-20 bg-gradient-to-br from-purple-100 via-white to-purple-50 relative overflow-hidden">
+      <!-- Decorative background pattern -->
+      <div class="absolute inset-0 opacity-30">
+        <div class="absolute top-0 left-0 w-64 h-64 bg-purple-200 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-purple-100 rounded-full blur-3xl"></div>
+      </div>
+
+      <div class="max-w-7xl mx-auto px-4 relative z-10">
+        <div class="max-w-6xl mx-auto">
+          <div class="text-center mb-12">
+            <span class="inline-block mb-4 px-4 py-2 bg-purple-100 text-primary rounded-full text-sm font-medium">
+              {t('pricing.free_month.badge')}
+            </span>
+            <h2 class="text-4xl md:text-5xl font-extrabold mb-4 text-gray-900">
+              {t('pricing.free_month.title')} <span class="text-primary">{t('pricing.free_month.highlight')}</span>
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+              {t('pricing.free_month.desc')}
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-6 mb-12">
+            <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div class="h-12 w-12 rounded-lg bg-purple-100 flex items-center justify-center mb-4">
+                <svg class="h-6 w-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+              <h3 class="text-lg font-bold mb-2 text-gray-900">
+                {t('pricing.free_month.feature1.title')}
+              </h3>
+              <p class="text-gray-600">
+                {t('pricing.free_month.feature1.desc')}
+              </p>
+            </div>
+
+            <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div class="h-12 w-12 rounded-lg bg-purple-100 flex items-center justify-center mb-4">
+                <svg class="h-6 w-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+              </div>
+              <h3 class="text-lg font-bold mb-2 text-gray-900">
+                {t('pricing.free_month.feature2.title')}
+              </h3>
+              <p class="text-gray-600">
+                {t('pricing.free_month.feature2.desc')}
+              </p>
+            </div>
+
+            <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div class="h-12 w-12 rounded-lg bg-purple-100 flex items-center justify-center mb-4">
+                <svg class="h-6 w-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                </svg>
+              </div>
+              <h3 class="text-lg font-bold mb-2 text-gray-900">
+                {t('pricing.free_month.feature3.title')}
+              </h3>
+              <p class="text-gray-600">
+                {t('pricing.free_month.feature3.desc')}
+              </p>
+            </div>
+          </div>
+
+          <div class="bg-white border-2 border-purple-200 rounded-2xl p-8 md:p-12 text-center shadow-xl">
+            <h3 class="text-2xl md:text-3xl font-bold mb-4 text-gray-900">
+              {t('pricing.free_month.cta.title')}
+            </h3>
+            <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+              {t('pricing.free_month.cta.desc')}
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <a href={`${URLS.app}/register/vendor`} class="inline-flex items-center gap-2 bg-primary text-white px-8 py-4 rounded-md text-lg font-semibold hover:bg-primary-light transition-colors">
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+                {t('pricing.free_month.cta.btn')}
+              </a>
+              <a href="/contact" class="bg-white text-primary border-2 border-primary px-8 py-4 rounded-md text-lg font-semibold hover:bg-purple-50 transition-colors">
+                {t('pricing.free_month.cta.contact')}
+              </a>
+            </div>
+            <div class="mt-6 flex flex-wrap justify-center gap-4 text-sm text-gray-500">
+              <div class="flex items-center gap-1">
+                <svg class="h-4 w-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span>{t('pricing.free_month.benefit1')}</span>
+              </div>
+              <div class="flex items-center gap-1">
+                <svg class="h-4 w-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span>{t('pricing.free_month.benefit2')}</span>
+              </div>
+              <div class="flex items-center gap-1">
+                <svg class="h-4 w-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span>{t('pricing.free_month.benefit3')}</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -206,69 +407,62 @@ const plans = [
 </BaseLayout>
 
 <script>
-  const symbols: Record<string, string> = {
-    AED: 'AED', SAR: 'SAR', USD: '$', KWD: 'KWD', QAR: 'QAR', BHD: 'BHD', OMR: 'OMR'
+  const pricing: Record<string, Record<string, { monthly: number; yearly: number }>> = {
+    AED: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 299, yearly: 2990 }, standard: { monthly: 599, yearly: 5990 }, premium: { monthly: 999, yearly: 9990 } },
+    SAR: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 299, yearly: 2990 }, standard: { monthly: 599, yearly: 5990 }, premium: { monthly: 999, yearly: 9990 } },
+    QAR: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 299, yearly: 2990 }, standard: { monthly: 599, yearly: 5990 }, premium: { monthly: 999, yearly: 9990 } },
+    KWD: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 25, yearly: 250 }, standard: { monthly: 49, yearly: 490 }, premium: { monthly: 79, yearly: 790 } },
+    BHD: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 29, yearly: 290 }, standard: { monthly: 59, yearly: 590 }, premium: { monthly: 99, yearly: 990 } },
+    OMR: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 29, yearly: 290 }, standard: { monthly: 59, yearly: 590 }, premium: { monthly: 99, yearly: 990 } },
   };
 
-  let currentBilling: 'monthly' | 'yearly' = 'monthly';
+  let isYearly = false;
   let currentCurrency = 'AED';
 
-  const select = document.getElementById('currency-select') as HTMLSelectElement;
-  const monthlyBtn = document.getElementById('monthly-btn') as HTMLButtonElement;
-  const yearlyBtn = document.getElementById('yearly-btn') as HTMLButtonElement;
+  const countrySelect = document.getElementById('countrySelect') as HTMLSelectElement;
+  const billingToggle = document.getElementById('billingToggle') as HTMLInputElement;
   const priceElements = document.querySelectorAll('.price');
   const symbolElements = document.querySelectorAll('.currency-symbol');
   const billingPeriods = document.querySelectorAll('.billing-period');
+  const billingNotes = document.querySelectorAll('.billing-note');
 
   function updatePrices() {
+    const prices = pricing[currentCurrency];
+    const selectedOption = countrySelect.querySelector(`option[value="${currentCurrency}"]`) as HTMLOptionElement;
+    const symbol = selectedOption?.dataset.symbol || currentCurrency;
+
     priceElements.forEach((el) => {
-      const prices = JSON.parse(el.getAttribute(`data-${currentBilling}`) || '{}');
-      el.textContent = prices[currentCurrency]?.toLocaleString() || '0';
+      const plan = (el as HTMLElement).dataset.plan;
+      if (plan && prices[plan]) {
+        const price = isYearly ? prices[plan].yearly : prices[plan].monthly;
+        el.textContent = price.toLocaleString();
+      }
     });
+
     symbolElements.forEach((el) => {
-      el.textContent = symbols[currentCurrency] || currentCurrency;
+      el.textContent = symbol;
     });
+
     billingPeriods.forEach((el) => {
-      el.textContent = currentBilling === 'monthly' ? '/month' : '/year';
+      el.textContent = isYearly ? '/year' : '/month';
+    });
+
+    billingNotes.forEach((el) => {
+      if (isYearly) {
+        el.textContent = 'billed annually (save ~17%)';
+      } else {
+        el.textContent = 'billed monthly';
+      }
     });
   }
 
-  function updateBillingButtons() {
-    if (currentBilling === 'monthly') {
-      monthlyBtn?.classList.add('bg-primary', 'text-white');
-      monthlyBtn?.classList.remove('text-gray-600');
-      yearlyBtn?.classList.remove('bg-primary', 'text-white');
-      yearlyBtn?.classList.add('text-gray-600');
-    } else {
-      yearlyBtn?.classList.add('bg-primary', 'text-white');
-      yearlyBtn?.classList.remove('text-gray-600');
-      monthlyBtn?.classList.remove('bg-primary', 'text-white');
-      monthlyBtn?.classList.add('text-gray-600');
-    }
-  }
-
-  select?.addEventListener('change', (e) => {
+  countrySelect?.addEventListener('change', (e) => {
     currentCurrency = (e.target as HTMLSelectElement).value;
     updatePrices();
   });
 
-  monthlyBtn?.addEventListener('click', () => {
-    currentBilling = 'monthly';
-    updateBillingButtons();
+  billingToggle?.addEventListener('change', (e) => {
+    isYearly = (e.target as HTMLInputElement).checked;
     updatePrices();
   });
-
-  yearlyBtn?.addEventListener('click', () => {
-    currentBilling = 'yearly';
-    updateBillingButtons();
-    updatePrices();
-  });
-
-  // Auto-detect country (optional enhancement)
-  // fetch('https://ipapi.co/json/').then(r => r.json()).then(data => {
-  //   const countryToCurrency: Record<string, string> = { AE: 'AED', SA: 'SAR', KW: 'KWD', QA: 'QAR', BH: 'BHD', OM: 'OMR' };
-  //   currentCurrency = countryToCurrency[data.country_code] || 'USD';
-  //   select.value = currentCurrency;
-  //   updatePrices();
-  // });
 </script>

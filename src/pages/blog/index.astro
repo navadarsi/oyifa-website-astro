@@ -3,17 +3,21 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { useTranslations } from '../../i18n/utils';
-import { getAllPosts, getLocalizedText, type Post } from '../../lib/sanity';
+import { getAllPosts, getAllCategories, getLocalizedText, type Post, type Category } from '../../lib/sanity';
 import { URLS } from '../../config/urls';
 
 const t = useTranslations('en');
 const lang = 'en';
 
 let posts: Post[] = [];
+let categories: Category[] = [];
 try {
-  posts = await getAllPosts();
+  [posts, categories] = await Promise.all([
+    getAllPosts(),
+    getAllCategories()
+  ]);
 } catch (error) {
-  console.error('Failed to fetch posts:', error);
+  console.error('Failed to fetch data:', error);
 }
 
 function formatDate(dateString: string): string {
@@ -104,18 +108,15 @@ const articleCount = posts.length > 0 ? `${posts.length}+` : '10+';
             <button class="px-4 py-2 bg-primary text-white rounded-md text-sm font-medium hover:bg-primary/90 transition-colors" data-filter="all">
               {t('blog.filter.all')}
             </button>
-            <button class="px-4 py-2 bg-white text-gray-700 border border-gray-200 rounded-md text-sm font-medium hover:bg-gray-50 hover:border-gray-300 transition-colors" data-filter="industry-news">
-              {t('blog.filter.industryNews')}
-            </button>
-            <button class="px-4 py-2 bg-white text-gray-700 border border-gray-200 rounded-md text-sm font-medium hover:bg-gray-50 hover:border-gray-300 transition-colors" data-filter="tips-guides">
-              {t('blog.filter.tipsGuides')}
-            </button>
-            <button class="px-4 py-2 bg-white text-gray-700 border border-gray-200 rounded-md text-sm font-medium hover:bg-gray-50 hover:border-gray-300 transition-colors" data-filter="case-studies">
-              {t('blog.filter.caseStudies')}
-            </button>
-            <button class="px-4 py-2 bg-white text-gray-700 border border-gray-200 rounded-md text-sm font-medium hover:bg-gray-50 hover:border-gray-300 transition-colors" data-filter="company-updates">
-              {t('blog.filter.companyUpdates')}
-            </button>
+            {categories.map((category) => (
+              <button
+                class="px-4 py-2 bg-white text-gray-700 border border-gray-200 rounded-md text-sm font-medium hover:bg-gray-50 hover:border-gray-300 transition-colors"
+                data-filter={category.slug.current}
+                data-category-id={category._id}
+              >
+                {getLocalizedText(category.title, lang)}
+              </button>
+            ))}
           </div>
         </div>
       </div>
@@ -125,9 +126,12 @@ const articleCount = posts.length > 0 ? `${posts.length}+` : '10+';
     <section class="py-16 px-4">
       <div class="max-w-6xl mx-auto">
         {posts.length > 0 ? (
-          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="posts-container">
             {posts.map((post) => (
-              <article class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow group">
+              <article
+                class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow group post-item"
+                data-categories={post.categories?.map(c => c._id).join(',')}
+              >
                 {post.mainImage?.asset?.url && (
                   <a href={`/blog/${post.slug.current}`} class="block aspect-video overflow-hidden">
                     <img
@@ -135,6 +139,7 @@ const articleCount = posts.length > 0 ? `${posts.length}+` : '10+';
                       alt={getLocalizedText(post.mainImage.alt, lang) || getLocalizedText(post.title, lang)}
                       class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       loading="lazy"
+                      decoding="async"
                     />
                   </a>
                 )}
@@ -167,7 +172,11 @@ const articleCount = posts.length > 0 ? `${posts.length}+` : '10+';
                         <img
                           src={post.author.image.asset.url}
                           alt={getLocalizedText(post.author.name, lang)}
+                          width="24"
+                          height="24"
                           class="w-6 h-6 rounded-full object-cover"
+                          loading="lazy"
+                          decoding="async"
                         />
                       )}
                       <span>{post.author ? getLocalizedText(post.author.name, lang) : 'Oyifa Team'}</span>
@@ -292,6 +301,7 @@ const articleCount = posts.length > 0 ? `${posts.length}+` : '10+';
   // Filter functionality
   document.addEventListener('DOMContentLoaded', () => {
     const filterButtons = document.querySelectorAll('[data-filter]');
+    const posts = document.querySelectorAll('.post-item');
 
     filterButtons.forEach(button => {
       button.addEventListener('click', () => {
@@ -305,9 +315,22 @@ const articleCount = posts.length > 0 ? `${posts.length}+` : '10+';
         button.classList.remove('bg-white', 'text-gray-700', 'border', 'border-gray-200');
         button.classList.add('bg-primary', 'text-white');
 
-        // Filter logic can be implemented here when categories are available
+        // Filter posts by category
         const filter = button.getAttribute('data-filter');
-        console.log('Filter selected:', filter);
+        const categoryId = button.getAttribute('data-category-id');
+
+        posts.forEach(post => {
+          if (filter === 'all') {
+            post.style.display = 'block';
+          } else {
+            const postCategories = post.getAttribute('data-categories')?.split(',') || [];
+            if (categoryId && postCategories.includes(categoryId)) {
+              post.style.display = 'block';
+            } else {
+              post.style.display = 'none';
+            }
+          }
+        });
       });
     });
 

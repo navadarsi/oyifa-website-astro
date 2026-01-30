@@ -79,33 +79,17 @@ const t = useTranslations('en');
                 <div class="absolute top-0 left-0 w-20 h-20 border-l-4 border-t-4 border-primary/30 rounded-tl-2xl -translate-x-2 -translate-y-2 pointer-events-none"></div>
                 <div class="absolute bottom-0 right-0 w-20 h-20 border-r-4 border-b-4 border-primary/30 rounded-br-2xl translate-x-2 translate-y-2 pointer-events-none"></div>
 
-                <!-- YouTube Video with click overlay -->
-                <div class="aspect-video bg-gradient-to-br from-primary/5 to-secondary/5 relative group">
-                  <!-- Video thumbnail/poster -->
-                  <img
-                    src="https://img.youtube.com/vi/PBEse58Fz7s/maxresdefault.jpg"
-                    alt="Oyifa Demo Video"
-                    class="w-full h-full object-cover"
-                  />
-                  <!-- Click overlay -->
-                  <a
-                    href="https://www.youtube.com/watch?v=PBEse58Fz7s"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="absolute inset-0 flex items-center justify-center bg-black/40 hover:bg-black/50 transition-all cursor-pointer"
+                <!-- YouTube Video (lite-youtube-embed: loads iframe only on click) -->
+                <div class="aspect-video bg-gradient-to-br from-primary/5 to-secondary/5">
+                  <lite-youtube
+                    videoid="PBEse58Fz7s"
+                    playlabel="Play Oyifa Demo Video"
+                    style="background-image: url('https://i.ytimg.com/vi/PBEse58Fz7s/hqdefault.jpg');"
                   >
-                    <div class="text-center">
-                      <!-- Play button -->
-                      <div class="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform">
-                        <svg class="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M8 5v14l11-7z" />
-                        </svg>
-                      </div>
-                      <span class="text-white font-semibold text-lg drop-shadow-lg">
-                        Click to view Demo
-                      </span>
-                    </div>
-                  </a>
+                    <button type="button" class="lty-playbtn">
+                      <span class="lyt-visually-hidden">Play Video</span>
+                    </button>
+                  </lite-youtube>
                 </div>
               </div>
 

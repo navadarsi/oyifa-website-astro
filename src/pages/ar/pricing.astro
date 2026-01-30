@@ -149,9 +149,9 @@ const features = [
                   </svg>
                 </div>
                 <div>
-                  <h3 class="text-lg font-bold mb-1 text-gray-900">
+                  <p class="text-lg font-bold mb-1 text-gray-900">
                     {t('pricing.free_banner.title')}
-                  </h3>
+                  </p>
                   <p class="text-sm text-gray-600">
                     {t('pricing.free_banner.subtitle')}
                   </p>
@@ -176,10 +176,12 @@ const features = [
             </svg>
             <span>{t('pricing.location.label')}</span>
           </div>
+          <label for="countrySelect" class="sr-only">اختر بلدك</label>
           <select
             id="countrySelect"
             class="w-64 px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-900 font-medium focus:ring-2 focus:ring-primary focus:border-transparent"
             dir="rtl"
+            aria-label="اختر البلد"
           >
             {gccCountries.map((country) => (
               <option value={country.currency} data-symbol={country.symbol}>
@@ -191,12 +193,12 @@ const features = [
 
         <!-- Billing Toggle -->
         <div class="flex justify-center mb-10">
-          <span class="ml-3 font-semibold text-gray-900">
-            الفوترة السنوية <span class="text-primary">— ادفع 10 واحصل على شهرين مجاناً!</span>
-          </span>
-          <label class="relative inline-flex items-center cursor-pointer mr-3">
+          <label for="billingToggle" class="relative inline-flex items-center cursor-pointer">
+            <span class="ml-3 font-semibold text-gray-900">
+              الفوترة السنوية <span class="text-primary">— ادفع 10 واحصل على شهرين مجاناً!</span>
+            </span>
             <input type="checkbox" id="billingToggle" class="sr-only peer" />
-            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary mr-3"></div>
           </label>
         </div>
 

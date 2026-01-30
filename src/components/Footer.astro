@@ -18,7 +18,7 @@ const currentYear = new Date().getFullYear();
 ---
 
 <footer
-  class="bg-white dark:bg-gray-900 py-12 border-t border-gray-200 dark:border-gray-800"
+  class="bg-white py-12 border-t border-gray-200"
   role="contentinfo"
   aria-label={isArabic ? 'تذييل الموقع' : 'Site footer'}
 >
@@ -37,7 +37,7 @@ const currentYear = new Date().getFullYear();
             />
           </a>
         </div>
-        <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
+        <p class="text-sm text-gray-500 mb-4">
           {t('footer.description')}
         </p>
         <a
@@ -60,7 +60,7 @@ const currentYear = new Date().getFullYear();
 
       <!-- Platform Column -->
       <div>
-        <h3 class="mb-4 text-lg font-bold text-gray-900 dark:text-white">
+        <h3 class="mb-4 text-lg font-bold text-gray-900">
           {t('footer.platform')}
         </h3>
         <nav aria-label={isArabic ? 'قائمة المنصة' : 'Platform navigation'}>
@@ -68,7 +68,7 @@ const currentYear = new Date().getFullYear();
             <li>
               <a
                 href={`${URLS.app}/register/client`}
-                class="text-gray-500 dark:text-gray-400 hover:text-primary transition-colors"
+                class="text-gray-500 hover:text-primary transition-colors"
               >
                 {t('footer.platform.post')}
               </a>
@@ -76,7 +76,7 @@ const currentYear = new Date().getFullYear();
             <li>
               <a
                 href={`${URLS.app}/register/vendor`}
-                class="text-gray-500 dark:text-gray-400 hover:text-primary transition-colors"
+                class="text-gray-500 hover:text-primary transition-colors"
               >
                 {t('footer.platform.find')}
               </a>
@@ -84,7 +84,7 @@ const currentYear = new Date().getFullYear();
             <li>
               <a
                 href={getLocalizedPath('/pricing', lang)}
-                class="text-gray-500 dark:text-gray-400 hover:text-primary transition-colors"
+                class="text-gray-500 hover:text-primary transition-colors"
               >
                 {t('footer.platform.pricing')}
               </a>
@@ -95,7 +95,7 @@ const currentYear = new Date().getFullYear();
 
       <!-- Company Column -->
       <div>
-        <h3 class="mb-4 text-lg font-bold text-gray-900 dark:text-white">
+        <h3 class="mb-4 text-lg font-bold text-gray-900">
           {t('footer.company')}
         </h3>
         <nav aria-label={isArabic ? 'معلومات الشركة' : 'Company information navigation'}>
@@ -103,7 +103,7 @@ const currentYear = new Date().getFullYear();
             <li>
               <a
                 href={getLocalizedPath('/about', lang)}
-                class="text-gray-500 dark:text-gray-400 hover:text-primary transition-colors"
+                class="text-gray-500 hover:text-primary transition-colors"
               >
                 {t('footer.company.about')}
               </a>
@@ -111,7 +111,7 @@ const currentYear = new Date().getFullYear();
             <li>
               <a
                 href={getLocalizedPath('/contact', lang)}
-                class="text-gray-500 dark:text-gray-400 hover:text-primary transition-colors"
+                class="text-gray-500 hover:text-primary transition-colors"
               >
                 {t('footer.company.contact')}
               </a>
@@ -119,7 +119,7 @@ const currentYear = new Date().getFullYear();
             <li>
               <a
                 href={getLocalizedPath('/faq', lang)}
-                class="text-gray-500 dark:text-gray-400 hover:text-primary transition-colors"
+                class="text-gray-500 hover:text-primary transition-colors"
               >
                 {t('footer.company.faq')}
               </a>
@@ -127,7 +127,7 @@ const currentYear = new Date().getFullYear();
             <li>
               <a
                 href={getLocalizedPath('/refund', lang)}
-                class="text-gray-500 dark:text-gray-400 hover:text-primary transition-colors"
+                class="text-gray-500 hover:text-primary transition-colors"
               >
                 {t('footer.company.refund')}
               </a>
@@ -135,7 +135,7 @@ const currentYear = new Date().getFullYear();
             <li>
               <a
                 href={getLocalizedPath('/privacy', lang)}
-                class="text-gray-500 dark:text-gray-400 hover:text-primary transition-colors"
+                class="text-gray-500 hover:text-primary transition-colors"
               >
                 {t('footer.company.privacy')}
               </a>
@@ -143,7 +143,7 @@ const currentYear = new Date().getFullYear();
             <li>
               <a
                 href={getLocalizedPath('/terms', lang)}
-                class="text-gray-500 dark:text-gray-400 hover:text-primary transition-colors"
+                class="text-gray-500 hover:text-primary transition-colors"
               >
                 {t('footer.company.terms')}
               </a>
@@ -154,19 +154,19 @@ const currentYear = new Date().getFullYear();
     </div>
 
     <!-- Bottom bar -->
-    <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-800">
+    <div class="mt-8 pt-8 border-t border-gray-200">
       <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-        <div class="text-sm text-gray-500 dark:text-gray-400 mb-4 md:mb-0">
+        <div class="text-sm text-gray-500 mb-4 md:mb-0">
           {t('footer.copyright')}
         </div>
         <div class="flex flex-col md:flex-row items-center gap-4">
           <a
             href={alternateLangPath}
-            class="text-sm text-gray-500 dark:text-gray-400 hover:text-primary transition-colors"
+            class="text-sm text-gray-500 hover:text-primary transition-colors"
           >
             {alternateLangLabel}
           </a>
-          <address class="flex items-center text-sm text-gray-500 dark:text-gray-400 not-italic">
+          <address class="flex items-center text-sm text-gray-500 not-italic">
             <div class="flex items-center gap-1">
               <svg
                 class="w-4 h-4"

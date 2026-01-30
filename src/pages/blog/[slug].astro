@@ -137,6 +137,8 @@ const breadcrumbSchema = {
                   <img
                     src={post.author.image.asset.url}
                     alt={getLocalizedText(post.author.name, lang)}
+                    width="40"
+                    height="40"
                     class="w-10 h-10 rounded-full object-cover"
                   />
                 )}
@@ -156,6 +158,7 @@ const breadcrumbSchema = {
             src={post.mainImage.asset.url}
             alt={getLocalizedText(post.mainImage.alt, lang) || title}
             class="w-full rounded-2xl shadow-lg"
+            decoding="async"
           />
         </div>
       )}
@@ -177,7 +180,7 @@ const breadcrumbSchema = {
             if (block._type === 'image' && block.asset?.url) {
               return (
                 <figure class="my-8">
-                  <img src={block.asset.url} alt={block.alt || ''} class="rounded-lg" />
+                  <img src={block.asset.url} alt={block.alt || ''} class="rounded-lg" loading="lazy" decoding="async" />
                   {block.caption && <figcaption class="text-center text-sm text-gray-500 mt-2">{block.caption}</figcaption>}
                 </figure>
               );
@@ -196,7 +199,11 @@ const breadcrumbSchema = {
                 <img
                   src={post.author.image.asset.url}
                   alt={getLocalizedText(post.author.name, lang)}
+                  width="64"
+                  height="64"
                   class="w-16 h-16 rounded-full object-cover"
+                  loading="lazy"
+                  decoding="async"
                 />
               )}
               <div>

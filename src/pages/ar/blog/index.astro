@@ -302,13 +302,13 @@ const articleCount = posts.length > 0 ? `+${posts.length}` : '+10';
       button.addEventListener('click', () => {
         // Remove active state from all buttons
         filterButtons.forEach(btn => {
-          btn.classList.remove('bg-primary', 'text-white');
-          btn.classList.add('bg-white', 'text-gray-700', 'border', 'border-gray-200');
+          btn.classList.remove('bg-primary', 'text-white', 'hover:bg-primary/90');
+          btn.classList.add('bg-white', 'text-gray-700', 'border', 'border-gray-200', 'hover:bg-gray-50', 'hover:border-gray-300');
         });
 
         // Add active state to clicked button
-        button.classList.remove('bg-white', 'text-gray-700', 'border', 'border-gray-200');
-        button.classList.add('bg-primary', 'text-white');
+        button.classList.remove('bg-white', 'text-gray-700', 'border', 'border-gray-200', 'hover:bg-gray-50', 'hover:border-gray-300');
+        button.classList.add('bg-primary', 'text-white', 'hover:bg-primary/90');
 
         // Filter posts by category
         const filter = button.getAttribute('data-filter');

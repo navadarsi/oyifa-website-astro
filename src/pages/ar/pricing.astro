@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import PricingSchema from '../../components/PricingSchema.astro';
 import { useTranslations } from '../../i18n/utils';
 import { URLS } from '../../config/urls';
 
@@ -118,6 +119,9 @@ const features = [
   description={t('pricing.meta.desc')}
   lang="ar"
 >
+  <!-- Pricing Schema for SEO -->
+  <PricingSchema />
+
   <Header />
 
   <main class="flex-1" dir="rtl">

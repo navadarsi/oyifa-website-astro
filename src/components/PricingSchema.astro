@@ -1,0 +1,306 @@
+---
+/**
+ * Product and Offer Schema for Pricing Page
+ * Following 2026 best practices for e-commerce schema
+ */
+
+// Define pricing tiers as Products with Offers
+const pricingSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    // Free Plan
+    {
+      "@type": "Product",
+      "@id": "https://oyifa.com/pricing#free",
+      "name": "Oyifa Free Plan",
+      "description": "Perfect for exploring the platform. Browse all tenders, basic company profile, email notifications, and community support.",
+      "brand": {
+        "@type": "Brand",
+        "name": "Oyifa"
+      },
+      "category": "SaaS Platform",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock",
+        "url": "https://app.oyifa.com/register/vendor",
+        "priceValidUntil": "2027-12-31",
+        "eligibleRegion": ["AE", "SA", "QA", "KW", "BH", "OM"]
+      }
+    },
+    // Basic Plan (AED/SAR/QAR)
+    {
+      "@type": "Product",
+      "@id": "https://oyifa.com/pricing#basic-high",
+      "name": "Oyifa Basic Plan (SAR/AED/QAR)",
+      "description": "Great for small businesses. 10 proposals per month, enhanced company profile, view tenders up to 100K, email & chat support, basic analytics.",
+      "brand": {
+        "@type": "Brand",
+        "name": "Oyifa"
+      },
+      "category": "SaaS Platform",
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Monthly Subscription",
+          "price": "499",
+          "priceCurrency": "AED",
+          "availability": "https://schema.org/InStock",
+          "url": "https://app.oyifa.com/register/vendor?plan=basic",
+          "priceValidUntil": "2027-12-31",
+          "billingIncrement": {
+            "@type": "UnitPriceSpecification",
+            "billingDuration": "P1M",
+            "billingStart": "0"
+          },
+          "eligibleRegion": ["AE", "SA", "QA"]
+        },
+        {
+          "@type": "Offer",
+          "name": "Annual Subscription",
+          "price": "4999",
+          "priceCurrency": "AED",
+          "availability": "https://schema.org/InStock",
+          "url": "https://app.oyifa.com/register/vendor?plan=basic",
+          "priceValidUntil": "2027-12-31",
+          "billingIncrement": {
+            "@type": "UnitPriceSpecification",
+            "billingDuration": "P1Y",
+            "billingStart": "0"
+          },
+          "eligibleRegion": ["AE", "SA", "QA"]
+        }
+      ]
+    },
+    // Basic Plan (BHD/KWD/OMR)
+    {
+      "@type": "Product",
+      "@id": "https://oyifa.com/pricing#basic-low",
+      "name": "Oyifa Basic Plan (BHD/KWD/OMR)",
+      "description": "Great for small businesses. 10 proposals per month, enhanced company profile, view tenders up to 100K, email & chat support, basic analytics.",
+      "brand": {
+        "@type": "Brand",
+        "name": "Oyifa"
+      },
+      "category": "SaaS Platform",
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Monthly Subscription",
+          "price": "49",
+          "priceCurrency": "BHD",
+          "availability": "https://schema.org/InStock",
+          "url": "https://app.oyifa.com/register/vendor?plan=basic",
+          "priceValidUntil": "2027-12-31",
+          "billingIncrement": {
+            "@type": "UnitPriceSpecification",
+            "billingDuration": "P1M",
+            "billingStart": "0"
+          },
+          "eligibleRegion": ["BH", "KW", "OM"]
+        },
+        {
+          "@type": "Offer",
+          "name": "Annual Subscription",
+          "price": "499",
+          "priceCurrency": "BHD",
+          "availability": "https://schema.org/InStock",
+          "url": "https://app.oyifa.com/register/vendor?plan=basic",
+          "priceValidUntil": "2027-12-31",
+          "billingIncrement": {
+            "@type": "UnitPriceSpecification",
+            "billingDuration": "P1Y",
+            "billingStart": "0"
+          },
+          "eligibleRegion": ["BH", "KW", "OM"]
+        }
+      ]
+    },
+    // Standard Plan (AED/SAR/QAR) - Most Popular
+    {
+      "@type": "Product",
+      "@id": "https://oyifa.com/pricing#standard-high",
+      "name": "Oyifa Standard Plan (SAR/AED/QAR)",
+      "description": "Best for growing teams. 50 proposals per month, featured company profile, view tenders up to 500K, priority support, advanced analytics, API access.",
+      "brand": {
+        "@type": "Brand",
+        "name": "Oyifa"
+      },
+      "category": "SaaS Platform",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "150"
+      },
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Monthly Subscription",
+          "price": "999",
+          "priceCurrency": "AED",
+          "availability": "https://schema.org/InStock",
+          "url": "https://app.oyifa.com/register/vendor?plan=standard",
+          "priceValidUntil": "2027-12-31",
+          "billingIncrement": {
+            "@type": "UnitPriceSpecification",
+            "billingDuration": "P1M",
+            "billingStart": "0"
+          },
+          "eligibleRegion": ["AE", "SA", "QA"]
+        },
+        {
+          "@type": "Offer",
+          "name": "Annual Subscription",
+          "price": "9999",
+          "priceCurrency": "AED",
+          "availability": "https://schema.org/InStock",
+          "url": "https://app.oyifa.com/register/vendor?plan=standard",
+          "priceValidUntil": "2027-12-31",
+          "billingIncrement": {
+            "@type": "UnitPriceSpecification",
+            "billingDuration": "P1Y",
+            "billingStart": "0"
+          },
+          "eligibleRegion": ["AE", "SA", "QA"]
+        }
+      ]
+    },
+    // Standard Plan (BHD/KWD/OMR)
+    {
+      "@type": "Product",
+      "@id": "https://oyifa.com/pricing#standard-low",
+      "name": "Oyifa Standard Plan (BHD/KWD/OMR)",
+      "description": "Best for growing teams. 50 proposals per month, featured company profile, view tenders up to 500K, priority support, advanced analytics, API access.",
+      "brand": {
+        "@type": "Brand",
+        "name": "Oyifa"
+      },
+      "category": "SaaS Platform",
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Monthly Subscription",
+          "price": "99",
+          "priceCurrency": "BHD",
+          "availability": "https://schema.org/InStock",
+          "url": "https://app.oyifa.com/register/vendor?plan=standard",
+          "priceValidUntil": "2027-12-31",
+          "billingIncrement": {
+            "@type": "UnitPriceSpecification",
+            "billingDuration": "P1M",
+            "billingStart": "0"
+          },
+          "eligibleRegion": ["BH", "KW", "OM"]
+        },
+        {
+          "@type": "Offer",
+          "name": "Annual Subscription",
+          "price": "999",
+          "priceCurrency": "BHD",
+          "availability": "https://schema.org/InStock",
+          "url": "https://app.oyifa.com/register/vendor?plan=standard",
+          "priceValidUntil": "2027-12-31",
+          "billingIncrement": {
+            "@type": "UnitPriceSpecification",
+            "billingDuration": "P1Y",
+            "billingStart": "0"
+          },
+          "eligibleRegion": ["BH", "KW", "OM"]
+        }
+      ]
+    },
+    // Premium Plan (AED/SAR/QAR)
+    {
+      "@type": "Product",
+      "@id": "https://oyifa.com/pricing#premium-high",
+      "name": "Oyifa Premium Plan (SAR/AED/QAR)",
+      "description": "For enterprise-level needs. Unlimited proposals, premium profile badge, view tenders without limits, dedicated account manager, custom integrations, white-glove onboarding, SLA guarantee.",
+      "brand": {
+        "@type": "Brand",
+        "name": "Oyifa"
+      },
+      "category": "SaaS Platform",
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Monthly Subscription",
+          "price": "1499",
+          "priceCurrency": "AED",
+          "availability": "https://schema.org/InStock",
+          "url": "https://app.oyifa.com/register/vendor?plan=premium",
+          "priceValidUntil": "2027-12-31",
+          "billingIncrement": {
+            "@type": "UnitPriceSpecification",
+            "billingDuration": "P1M",
+            "billingStart": "0"
+          },
+          "eligibleRegion": ["AE", "SA", "QA"]
+        },
+        {
+          "@type": "Offer",
+          "name": "Annual Subscription",
+          "price": "14999",
+          "priceCurrency": "AED",
+          "availability": "https://schema.org/InStock",
+          "url": "https://app.oyifa.com/register/vendor?plan=premium",
+          "priceValidUntil": "2027-12-31",
+          "billingIncrement": {
+            "@type": "UnitPriceSpecification",
+            "billingDuration": "P1Y",
+            "billingStart": "0"
+          },
+          "eligibleRegion": ["AE", "SA", "QA"]
+        }
+      ]
+    },
+    // Premium Plan (BHD/KWD/OMR)
+    {
+      "@type": "Product",
+      "@id": "https://oyifa.com/pricing#premium-low",
+      "name": "Oyifa Premium Plan (BHD/KWD/OMR)",
+      "description": "For enterprise-level needs. Unlimited proposals, premium profile badge, view tenders without limits, dedicated account manager, custom integrations, white-glove onboarding, SLA guarantee.",
+      "brand": {
+        "@type": "Brand",
+        "name": "Oyifa"
+      },
+      "category": "SaaS Platform",
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Monthly Subscription",
+          "price": "149",
+          "priceCurrency": "BHD",
+          "availability": "https://schema.org/InStock",
+          "url": "https://app.oyifa.com/register/vendor?plan=premium",
+          "priceValidUntil": "2027-12-31",
+          "billingIncrement": {
+            "@type": "UnitPriceSpecification",
+            "billingDuration": "P1M",
+            "billingStart": "0"
+          },
+          "eligibleRegion": ["BH", "KW", "OM"]
+        },
+        {
+          "@type": "Offer",
+          "name": "Annual Subscription",
+          "price": "1499",
+          "priceCurrency": "BHD",
+          "availability": "https://schema.org/InStock",
+          "url": "https://app.oyifa.com/register/vendor?plan=premium",
+          "priceValidUntil": "2027-12-31",
+          "billingIncrement": {
+            "@type": "UnitPriceSpecification",
+            "billingDuration": "P1Y",
+            "billingStart": "0"
+          },
+          "eligibleRegion": ["BH", "KW", "OM"]
+        }
+      ]
+    }
+  ]
+};
+---
+
+<!-- Product and Offer Schema for Pricing -->
+<script type="application/ld+json" set:html={JSON.stringify(pricingSchema)} />

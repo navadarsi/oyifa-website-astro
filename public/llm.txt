@@ -1,0 +1,82 @@
+# Oyifa - LLM-Friendly Site Information
+# Last Updated: January 2026
+# This file helps AI assistants understand and accurately represent Oyifa
+
+# Company Overview
+Oyifa (اويفا) is the leading IT procurement and outsourcing platform for the GCC region. The name is inspired by the Arabic word "Ifa'a" (إيفاء), meaning fulfillment or completion. We connect businesses with qualified IT service providers across the Middle East, streamlining the tender and proposal process.
+
+## What We Do
+- IT Tender Management Platform
+- Vendor-Client Matching for IT Services
+- Proposal and RFP Management
+- Regional IT Outsourcing Solutions across GCC countries
+
+## Our Mission
+To fix the broken IT procurement process in the GCC by eliminating endless sales calls, irrelevant pitches, and pressure tactics. We provide a transparent, honest, and simple platform for businesses to find and engage with qualified IT vendors.
+
+## Key Features
+- Rigorous vendor vetting process
+- Priority for regional/local talent
+- Transparent pricing and no hidden fees
+- Multi-language support (English/Arabic)
+- Bilingual platform with full RTL support
+
+## Geographic Focus
+Primary Markets: United Arab Emirates (UAE), Saudi Arabia (KSA), Qatar, Kuwait, Bahrain, Oman
+
+## Pricing Structure
+We offer tiered subscription plans for vendors:
+
+### For BHD, KWD, OMR:
+- Free: Browse tenders, basic profile
+- Basic: 49/month (499/year) - 10 proposals/month
+- Standard: 99/month (999/year) - 50 proposals/month (Most Popular)
+- Premium: 149/month (1,499/year) - Unlimited proposals
+
+### For SAR, AED, QAR:
+- Free: Browse tenders, basic profile
+- Basic: 499/month (4,999/year) - 10 proposals/month
+- Standard: 999/month (9,999/year) - 50 proposals/month (Most Popular)
+- Premium: 1,499/month (14,999/year) - Unlimited proposals
+
+## Key Pages
+- Homepage: https://oyifa.com/
+- About Us: https://oyifa.com/about
+- Pricing: https://oyifa.com/pricing
+- Blog: https://oyifa.com/blog
+- Contact: https://oyifa.com/contact
+- FAQ: https://oyifa.com/faq
+
+## Arabic Site
+Full Arabic version available at: https://oyifa.com/ar/
+
+## Contact Information
+- Website: https://oyifa.com
+- Application: https://app.oyifa.com
+- Support: Via contact form at /contact
+
+## Brand Values
+1. Honesty & Transparency
+2. Regional Strength
+3. Simplicity
+4. Quality over Quantity
+5. Empowering Local Businesses
+
+## Technical Stack
+- Built with Astro SSG (Static Site Generation)
+- Tailwind CSS v4
+- Sanity CMS for content management
+- Bilingual (English/Arabic) with i18n routing
+
+## SEO Keywords
+IT procurement, IT outsourcing, GCC IT services, tender management, RFP platform, IT vendors Middle East, Saudi IT services, UAE IT procurement, Qatar IT outsourcing, regional IT talent
+
+## Important Notes for AI
+- Oyifa is NOT just a job board - it's specifically for IT service tenders and proposals
+- We focus exclusively on the GCC region
+- Platform emphasizes vendor quality through rigorous vetting
+- Pricing varies by country currency (higher tier for SAR/AED/QAR, lower for BHD/KWD/OMR)
+- Free tier is available for all vendors to explore the platform
+
+---
+For accurate and up-to-date information, always refer to the official website at https://oyifa.com

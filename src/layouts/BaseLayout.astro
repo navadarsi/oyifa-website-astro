@@ -1,14 +1,16 @@
 ---
 import '../styles/global.css';
 import Analytics from '../components/Analytics.astro';
+import SchemaOrg from '../components/SchemaOrg.astro';
 import { getLangFromUrl, isRTL, useTranslations, getLocalizedPath, languages } from '../i18n/utils';
 
 interface Props {
   title: string;
   description?: string;
+  schemaType?: 'homepage' | 'default';
 }
 
-const { title, description = 'Oyifa is the leading IT outsourcing platform connecting businesses with qualified vendors across the Middle East.' } = Astro.props;
+const { title, description = 'Oyifa is the leading IT outsourcing platform connecting businesses with qualified vendors across the Middle East.', schemaType = 'default' } = Astro.props;
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -69,6 +71,9 @@ const alternateUrls = Object.keys(languages).map((l) => ({
 
     <!-- Analytics -->
     <Analytics />
+
+    <!-- Schema.org Structured Data -->
+    <SchemaOrg type={schemaType} />
   </head>
   <body class="min-h-screen bg-background text-foreground">
     <slot />

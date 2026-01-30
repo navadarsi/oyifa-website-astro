@@ -19,12 +19,12 @@ const gccCountries = [
 
 // Pricing by currency (monthly and yearly)
 const pricing = {
-  AED: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 299, yearly: 2990 }, standard: { monthly: 599, yearly: 5990 }, premium: { monthly: 999, yearly: 9990 } },
-  SAR: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 299, yearly: 2990 }, standard: { monthly: 599, yearly: 5990 }, premium: { monthly: 999, yearly: 9990 } },
-  QAR: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 299, yearly: 2990 }, standard: { monthly: 599, yearly: 5990 }, premium: { monthly: 999, yearly: 9990 } },
-  KWD: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 25, yearly: 250 }, standard: { monthly: 49, yearly: 490 }, premium: { monthly: 79, yearly: 790 } },
-  BHD: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 29, yearly: 290 }, standard: { monthly: 59, yearly: 590 }, premium: { monthly: 99, yearly: 990 } },
-  OMR: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 29, yearly: 290 }, standard: { monthly: 59, yearly: 590 }, premium: { monthly: 99, yearly: 990 } },
+  AED: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 499, yearly: 4999 }, standard: { monthly: 999, yearly: 9999 }, premium: { monthly: 1499, yearly: 14999 } },
+  SAR: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 499, yearly: 4999 }, standard: { monthly: 999, yearly: 9999 }, premium: { monthly: 1499, yearly: 14999 } },
+  QAR: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 499, yearly: 4999 }, standard: { monthly: 999, yearly: 9999 }, premium: { monthly: 1499, yearly: 14999 } },
+  KWD: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 49, yearly: 499 }, standard: { monthly: 99, yearly: 999 }, premium: { monthly: 149, yearly: 1499 } },
+  BHD: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 49, yearly: 499 }, standard: { monthly: 99, yearly: 999 }, premium: { monthly: 149, yearly: 1499 } },
+  OMR: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 49, yearly: 499 }, standard: { monthly: 99, yearly: 999 }, premium: { monthly: 149, yearly: 1499 } },
 };
 
 const defaultCountry = gccCountries[0];
@@ -410,12 +410,12 @@ const features = [
 
 <script>
   const pricing: Record<string, Record<string, { monthly: number; yearly: number }>> = {
-    AED: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 299, yearly: 2990 }, standard: { monthly: 599, yearly: 5990 }, premium: { monthly: 999, yearly: 9990 } },
-    SAR: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 299, yearly: 2990 }, standard: { monthly: 599, yearly: 5990 }, premium: { monthly: 999, yearly: 9990 } },
-    QAR: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 299, yearly: 2990 }, standard: { monthly: 599, yearly: 5990 }, premium: { monthly: 999, yearly: 9990 } },
-    KWD: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 25, yearly: 250 }, standard: { monthly: 49, yearly: 490 }, premium: { monthly: 79, yearly: 790 } },
-    BHD: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 29, yearly: 290 }, standard: { monthly: 59, yearly: 590 }, premium: { monthly: 99, yearly: 990 } },
-    OMR: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 29, yearly: 290 }, standard: { monthly: 59, yearly: 590 }, premium: { monthly: 99, yearly: 990 } },
+    AED: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 499, yearly: 4999 }, standard: { monthly: 999, yearly: 9999 }, premium: { monthly: 1499, yearly: 14999 } },
+    SAR: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 499, yearly: 4999 }, standard: { monthly: 999, yearly: 9999 }, premium: { monthly: 1499, yearly: 14999 } },
+    QAR: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 499, yearly: 4999 }, standard: { monthly: 999, yearly: 9999 }, premium: { monthly: 1499, yearly: 14999 } },
+    KWD: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 49, yearly: 499 }, standard: { monthly: 99, yearly: 999 }, premium: { monthly: 149, yearly: 1499 } },
+    BHD: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 49, yearly: 499 }, standard: { monthly: 99, yearly: 999 }, premium: { monthly: 149, yearly: 1499 } },
+    OMR: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 49, yearly: 499 }, standard: { monthly: 99, yearly: 999 }, premium: { monthly: 149, yearly: 1499 } },
   };
 
   const symbols: Record<string, string> = {

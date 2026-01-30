@@ -34,8 +34,11 @@ const alternateUrls = Object.keys(languages).map((l) => ({
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title} | Oyifa</title>
     <meta name="description" content={description} />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <link rel="canonical" href={Astro.url.href} />
+
+    <!-- AI Engine Optimization (AEO) -->
+    <link rel="author" href="https://oyifa.com/llm.txt" type="text/plain" title="LLM Information" />
 
     <!-- hreflang tags for SEO -->
     {alternateUrls.map(({ lang, url }) => (

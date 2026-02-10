@@ -3,8 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { useTranslations } from '../../i18n/utils';
-import { getAllPosts, getPostBySlug, getLocalizedText, getLocalizedBlock, type Post } from '../../lib/sanity';
-import { PortableText } from '@portabletext/react';
+import { getAllPosts, getPostBySlug, getLocalizedText, getLocalizedBlock, portableTextToHtml, type Post } from '../../lib/sanity';
 
 export async function getStaticPaths() {
   const posts = await getAllPosts();
@@ -165,29 +164,7 @@ const breadcrumbSchema = {
 
       <!-- Content -->
       <div class="py-12 px-4">
-        <div class="max-w-3xl mx-auto prose prose-lg">
-          {body.map((block: any) => {
-            if (block._type === 'block') {
-              const style = block.style || 'normal';
-              const text = block.children?.map((child: any) => child.text).join('') || '';
-
-              if (style === 'h2') return <h2>{text}</h2>;
-              if (style === 'h3') return <h3>{text}</h3>;
-              if (style === 'h4') return <h4>{text}</h4>;
-              if (style === 'blockquote') return <blockquote>{text}</blockquote>;
-              return <p>{text}</p>;
-            }
-            if (block._type === 'image' && block.asset?.url) {
-              return (
-                <figure class="my-8">
-                  <img src={block.asset.url} alt={block.alt || ''} class="rounded-lg" loading="lazy" decoding="async" />
-                  {block.caption && <figcaption class="text-center text-sm text-gray-500 mt-2">{block.caption}</figcaption>}
-                </figure>
-              );
-            }
-            return null;
-          })}
-        </div>
+        <div class="max-w-3xl mx-auto prose prose-lg" set:html={portableTextToHtml(body)} />
       </div>
 
       <!-- Author Bio -->

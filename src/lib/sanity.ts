@@ -1,4 +1,5 @@
 import { createClient } from '@sanity/client';
+import { toHTML } from '@portabletext/to-html';
 import type { Lang } from '../i18n/utils';
 
 export const client = createClient({
@@ -71,6 +72,32 @@ export function getLocalizedText(content: BilingualText | undefined, lang: Lang)
 export function getLocalizedBlock(content: BilingualBlock | undefined, lang: Lang): any[] {
   if (!content) return [];
   return content[lang] || content.en || [];
+}
+
+// Convert Portable Text blocks to HTML with full formatting support
+export function portableTextToHtml(blocks: any[]): string {
+  if (!blocks || blocks.length === 0) return '';
+
+  return toHTML(blocks, {
+    components: {
+      types: {
+        image: ({ value }) => {
+          const url = value.asset?.url || '';
+          if (!url) return '';
+          const alt = value.alt || '';
+          const caption = value.caption || '';
+          return `<figure class="my-8"><img src="${url}" alt="${alt}" class="rounded-lg" loading="lazy" decoding="async" />${caption ? `<figcaption class="text-center text-sm text-gray-500 mt-2">${caption}</figcaption>` : ''}</figure>`;
+        },
+      },
+      marks: {
+        link: ({ children, value }) => {
+          const href = value?.href || '#';
+          const isExternal = !href.startsWith('/');
+          return `<a href="${href}"${isExternal ? ' target="_blank" rel="noopener noreferrer"' : ''}>${children}</a>`;
+        },
+      },
+    },
+  });
 }
 
 // GROQ Queries

@@ -1,0 +1,6 @@
+# Oyifa LLM Information
+# Full details: https://oyifa.com/llm.txt
+
+Oyifa is a B2B IT procurement platform for the GCC region.
+Website: https://oyifa.com
+Full LLM context: https://oyifa.com/llm.txt

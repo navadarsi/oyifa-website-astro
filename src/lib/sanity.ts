@@ -46,6 +46,7 @@ export interface Category {
 
 export interface Post {
   _id: string;
+  _updatedAt?: string;
   title: BilingualText;
   slug: { current: string };
   author?: Author;
@@ -100,6 +101,21 @@ export function portableTextToHtml(blocks: any[]): string {
   });
 }
 
+// Calculate word count from Portable Text blocks
+export function calculateWordCount(blocks: any[]): number {
+  if (!blocks || blocks.length === 0) return 0;
+  return blocks.reduce((count, block) => {
+    if (block._type === 'block' && block.children) {
+      const text = block.children
+        .filter((child: any) => child._type === 'span' && child.text)
+        .map((child: any) => child.text)
+        .join(' ');
+      return count + text.split(/\s+/).filter(Boolean).length;
+    }
+    return count;
+  }, 0);
+}
+
 // GROQ Queries
 export const queries = {
   // Get all posts
@@ -130,6 +146,7 @@ export const queries = {
   // Get single post by slug
   postBySlug: `*[_type == "post" && slug.current == $slug][0] {
     _id,
+    _updatedAt,
     title,
     slug,
     excerpt,

@@ -30,10 +30,29 @@ function formatDate(dateString: string): string {
 
 // Calculate article count for stats
 const articleCount = posts.length > 0 ? `+${posts.length}` : '+10';
+
+// CollectionPage Schema for SEO
+const blogCollectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "url": "https://oyifa.com/ar/blog",
+  "name": "مدونة أويفا",
+  "description": "اقرأ أحدث الرؤى حول الاستعانة بمصادر خارجية لتقنية المعلومات في الشرق الأوسط.",
+  "inLanguage": "ar-SA",
+  "isPartOf": { "@type": "WebSite", "@id": "https://oyifa.com/#website" },
+  "hasPart": posts.slice(0, 10).map((post) => ({
+    "@type": "BlogPosting",
+    "headline": getLocalizedText(post.title, lang),
+    "url": `https://oyifa.com/ar/blog/${post.slug.current}`,
+    "datePublished": post.publishedAt
+  }))
+};
 ---
 
 <BaseLayout title={t('blog.title')} description="اقرأ أحدث الرؤى والتحديثات والمقالات من فريق أويفا حول الاستعانة بمصادر خارجية لتقنية المعلومات في الشرق الأوسط.">
   <Header />
+
+  <script type="application/ld+json" set:html={JSON.stringify(blogCollectionSchema)}></script>
 
   <main class="flex-1" dir="rtl">
     <!-- Enhanced Hero Section -->

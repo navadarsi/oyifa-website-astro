@@ -3,7 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Header from '../../../components/Header.astro';
 import Footer from '../../../components/Footer.astro';
 import { useTranslations } from '../../../i18n/utils';
-import { getAllPosts, getPostBySlug, getLocalizedText, getLocalizedBlock, portableTextToHtml, type Post } from '../../../lib/sanity';
+import { getAllPosts, getPostBySlug, getLocalizedText, getLocalizedBlock, portableTextToHtml, calculateWordCount, type Post } from '../../../lib/sanity';
 
 export async function getStaticPaths() {
   const posts = await getAllPosts();
@@ -36,26 +36,41 @@ const metaTitle = post.seo?.metaTitle ? getLocalizedText(post.seo.metaTitle, lan
 const metaDescription = post.seo?.metaDescription ? getLocalizedText(post.seo.metaDescription, lang) : excerpt;
 const body = getLocalizedBlock(post.body, lang);
 
+const wordCount = calculateWordCount(body);
+const postUrl = `https://oyifa.com/ar/blog/${slug}`;
+const authorName = post.author ? getLocalizedText(post.author.name, lang) : 'فريق أويفا';
+const firstCategory = post.categories?.[0] ? getLocalizedText(post.categories[0].title, lang) : undefined;
+const categoryTags = post.categories?.map(cat => getLocalizedText(cat.title, lang)) || [];
+
 // BlogPosting Schema for SEO
 const blogSchema = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
+  "@id": postUrl,
+  "url": postUrl,
   "headline": title,
   "description": excerpt,
   "image": post.mainImage?.asset?.url,
   "datePublished": post.publishedAt,
-  "inLanguage": "ar",
+  "dateModified": post._updatedAt || post.publishedAt,
+  "wordCount": wordCount,
+  "inLanguage": "ar-SA",
+  "keywords": categoryTags.join(', '),
   "author": {
     "@type": "Person",
-    "name": post.author ? getLocalizedText(post.author.name, lang) : "فريق أويفا"
+    "name": authorName
   },
   "publisher": {
     "@type": "Organization",
     "name": "Oyifa",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://oyifa.com/logo.png"
+      "url": "https://oyifa.com/assets/images/logo.png"
     }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": postUrl
   }
 };
 
@@ -86,7 +101,19 @@ const breadcrumbSchema = {
 };
 ---
 
-<BaseLayout title={metaTitle} description={metaDescription}>
+<BaseLayout
+  title={metaTitle}
+  description={metaDescription}
+  ogType="article"
+  ogImage={post.mainImage?.asset?.url}
+  articleMeta={{
+    publishedTime: post.publishedAt,
+    modifiedTime: post._updatedAt,
+    author: authorName,
+    section: firstCategory,
+    tags: categoryTags
+  }}
+>
   <Header />
 
   <!-- Schema Markup -->

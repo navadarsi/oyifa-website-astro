@@ -30,10 +30,29 @@ function formatDate(dateString: string): string {
 
 // Calculate article count for stats
 const articleCount = posts.length > 0 ? `${posts.length}+` : '10+';
+
+// CollectionPage Schema for SEO
+const blogCollectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "url": "https://oyifa.com/blog",
+  "name": "Oyifa Blog",
+  "description": "Read the latest insights about IT outsourcing in the Middle East.",
+  "inLanguage": "en-US",
+  "isPartOf": { "@type": "WebSite", "@id": "https://oyifa.com/#website" },
+  "hasPart": posts.slice(0, 10).map((post) => ({
+    "@type": "BlogPosting",
+    "headline": getLocalizedText(post.title, lang),
+    "url": `https://oyifa.com/blog/${post.slug.current}`,
+    "datePublished": post.publishedAt
+  }))
+};
 ---
 
 <BaseLayout title={t('blog.title')} description="Read the latest insights, updates, and articles from the Oyifa team about IT outsourcing in the Middle East.">
   <Header />
+
+  <script type="application/ld+json" set:html={JSON.stringify(blogCollectionSchema)}></script>
 
   <main class="flex-1">
     <!-- Enhanced Hero Section -->

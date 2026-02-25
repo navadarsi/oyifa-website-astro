@@ -7,7 +7,7 @@ const t = useTranslations(lang);
 const isArabic = lang === 'ar';
 
 const currentPath = Astro.url.pathname.replace(`/${lang}`, '').replace(/^\/ar/, '') || '/';
-const alternateLangPath = isArabic ? currentPath : `/ar${currentPath}`;
+const alternateLangPath = getLocalizedPath(currentPath, isArabic ? 'en' : 'ar');
 const alternateLangLabel = isArabic ? 'English' : 'العربية';
 
 // Logo based on language

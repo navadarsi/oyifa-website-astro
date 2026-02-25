@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<BaseLayout
+  title="الصفحة غير موجودة - 404"
+  description="الصفحة التي تبحث عنها غير موجودة."
+  schemaType="default"
+>
+  <Header />
+
+  <main class="flex-1 flex flex-col items-center justify-center py-20 min-h-[60vh]">
+    <div class="container mx-auto px-4 max-w-2xl text-center">
+      <h1 class="text-6xl md:text-8xl font-extrabold text-primary mb-4">404</h1>
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">الصفحة غير موجودة</h2>
+      <p class="text-xl text-gray-600 mb-8">
+        عذراً، لم نتمكن من العثور على الصفحة التي تبحث عنها. ربما تم نقلها أو أنها غير موجودة.
+      </p>
+      <a href="/ar/" class="btn btn-primary btn-lg inline-flex items-center gap-2">
+        <svg class="w-5 h-5 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+        </svg>
+        العودة للصفحة الرئيسية
+      </a>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

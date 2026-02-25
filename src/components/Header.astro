@@ -77,7 +77,7 @@ const logoAlt = isArabic ? 'شعار أويفا' : 'Oyifa Logo';
           style={isArabic ? "left: 0;" : "right: 0;"}
         >
           <a
-            href={isArabic ? currentPath : `/ar${currentPath}`}
+            href={getLocalizedPath(currentPath, 'en')}
             class="flex items-center justify-between px-3 py-2 text-sm hover:bg-gray-100 cursor-pointer"
           >
             <span class="font-medium">English</span>
@@ -88,7 +88,7 @@ const logoAlt = isArabic ? 'شعار أويفا' : 'Oyifa Logo';
             )}
           </a>
           <a
-            href={isArabic ? currentPath : `/ar${currentPath}`}
+            href={getLocalizedPath(currentPath, 'ar')}
             class="flex items-center justify-between px-3 py-2 text-sm hover:bg-gray-100 cursor-pointer"
           >
             <span class="font-medium">العربية</span>
@@ -201,7 +201,7 @@ const logoAlt = isArabic ? 'شعار أويفا' : 'Oyifa Logo';
           {isArabic ? 'اللغة' : 'Language'}
         </span>
         <a
-          href={isArabic ? currentPath : `/ar${currentPath}`}
+          href={getLocalizedPath(currentPath, 'en')}
           class:list={[
             "flex items-center justify-between px-3 py-2 text-sm font-medium rounded-md transition-colors",
             !isArabic ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-gray-100"
@@ -215,7 +215,7 @@ const logoAlt = isArabic ? 'شعار أويفا' : 'Oyifa Logo';
           )}
         </a>
         <a
-          href={isArabic ? currentPath : `/ar${currentPath}`}
+          href={getLocalizedPath(currentPath, 'ar')}
           class:list={[
             "flex items-center justify-between px-3 py-2 text-sm font-medium rounded-md transition-colors",
             isArabic ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-gray-100"

@@ -1,4 +1,4 @@
-import { ui, defaultLang, languages } from './ui';
+import { defaultLang, languages, ui } from './ui';
 
 export type Lang = keyof typeof ui;
 
@@ -27,14 +27,16 @@ export function getRouteFromUrl(url: URL): string {
 }
 
 export function getLocalizedPath(path: string, lang: Lang): string {
-  if (lang === defaultLang) {
-    return path;
+  let localized = lang === defaultLang ? path : `/${lang}${path === '/' ? '' : path}`;
+  if (!localized.endsWith('/') && !localized.includes('.')) {
+    localized += '/';
   }
-  return `/${lang}${path}`;
+  return localized;
 }
 
 export function isRTL(lang: Lang): boolean {
   return lang === 'ar';
 }
 
-export { languages, defaultLang };
+export { defaultLang, languages };
+

@@ -7,6 +7,7 @@ Allow: /
 Disallow: /api/
 Disallow: /_astro/
 Disallow: /admin/
+Disallow: /cdn-cgi/
 
 # Rate-limit aggressive SEO bots
 User-agent: AhrefsBot

@@ -95,9 +95,6 @@ const alternateUrls = Object.keys(languages).map((l) => ({
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.3.3/src/lite-yt-embed.min.css" />
     <script defer src="https://cdn.jsdelivr.net/npm/lite-youtube-embed@0.3.3/src/lite-yt-embed.min.js"></script>
 
-    <!-- Calendly badge widget -->
-    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
-
     <!-- Analytics -->
     <Analytics />
 
@@ -106,8 +103,5 @@ const alternateUrls = Object.keys(languages).map((l) => ({
   </head>
   <body class="min-h-screen bg-background text-foreground">
     <slot />
-    <!-- Calendly badge widget -->
-    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
-    <script type="text/javascript">window.onload = function() { Calendly.initBadgeWidget({ url: 'https://calendly.com/oyifa/discovery-call', text: 'Schedule a Demo', color: '#421ca4', textColor: '#fcfcfc', branding: true }); }</script>
   </body>
 </html>

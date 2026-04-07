@@ -17,6 +17,7 @@ export const ui = {
     'nav.signup': 'Get Started',
     'nav.dashboard': 'Dashboard',
     'nav.faq': 'FAQ',
+    'nav.demo': 'Schedule a Demo',
 
     // Index Page - Hero Section
     'index.hero.badge': 'Oyifa (اويفا) - Outsource Your Innovation From Anywhere',
@@ -560,6 +561,7 @@ export const ui = {
     'nav.signup': 'ابدأ الآن',
     'nav.dashboard': 'لوحة التحكم',
     'nav.faq': 'الأسئلة الشائعة',
+    'nav.demo': 'احجز عرضًا توضيحيًا',
 
     // Index Page - Hero Section
     'index.hero.badge': 'أويفا (Oyifa) - استعِن بمصادر خارجية لابتكارك من أي مكان',

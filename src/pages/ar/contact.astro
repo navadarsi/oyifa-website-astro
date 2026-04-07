@@ -100,8 +100,31 @@ const t = useTranslations('ar');
       </div>
     </section>
 
-    <!-- Contact Form Section -->
+    <!-- Schedule a Demo Section -->
     <section id="contact-form" class="py-20 bg-primary/5">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <div class="text-center mb-12">
+            <span class="inline-block mb-4 px-3 py-1 border border-gray-300 text-gray-600 rounded-full text-sm font-medium">
+              {t('contact.form.badge')}
+            </span>
+            <h2 class="text-3xl font-bold mb-6 md:text-4xl text-gray-900">
+              احجز عرضًا توضيحيًا
+            </h2>
+            <p class="mx-auto max-w-2xl text-xl text-gray-500">
+              اختر الوقت المناسب لك. سنوضح لك كيف يمكن لـ Oyifa تبسيط عمليات شراء تكنولوجيا المعلومات لديك.
+            </p>
+          </div>
+
+          <div class="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
+            <div class="calendly-inline-widget" data-url="https://calendly.com/oyifa/discovery-call" style="min-width:320px;height:700px;"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section id="contact-form-section" class="py-20 bg-white">
       <div class="max-w-7xl mx-auto px-4">
         <div class="max-w-4xl mx-auto">
           <div class="text-center mb-12">
@@ -249,7 +272,7 @@ const t = useTranslations('ar');
     </section>
 
     <!-- CTA Section -->
-    <section class="py-20 bg-white">
+    <section class="py-20 bg-primary/5">
       <div class="max-w-7xl mx-auto px-4 text-center">
         <h2 class="text-3xl font-bold mb-6 md:text-4xl text-gray-900">
           {t('contact.cta.title')}
@@ -305,3 +328,4 @@ const t = useTranslations('ar');
     }
   });
 </script>
+

@@ -217,3 +217,83 @@ textarea:focus,
 select:focus {
   @apply ring-2 ring-primary border-transparent outline-none;
 }
+
+/* ============================================
+   Microanimations (progressive enhancement)
+   - Hidden state only applies when JS is on (html.js) so content is
+     always visible without JS and for reduced-motion users.
+   ============================================ */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    will-change: opacity, transform;
+  }
+  html.js .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+  .reveal-d1 { transition-delay: 0.08s; }
+  .reveal-d2 { transition-delay: 0.16s; }
+  .reveal-d3 { transition-delay: 0.24s; }
+
+  /* Shimmer sweep for emphasis badges */
+  .badge-shimmer { position: relative; overflow: hidden; }
+  .badge-shimmer::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-160%);
+    background: linear-gradient(110deg, transparent 35%, rgba(255, 255, 255, 0.5) 50%, transparent 65%);
+    animation: oyifa-shimmer 3.4s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes oyifa-shimmer {
+    0%, 55% { transform: translateX(-160%); }
+    100% { transform: translateX(160%); }
+  }
+
+  /* Soft attention pulse for value pills */
+  .value-pulse { animation: oyifa-pulse 2.8s ease-in-out infinite; }
+  @keyframes oyifa-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(86, 130, 249, 0.4); }
+    50% { box-shadow: 0 0 0 7px rgba(86, 130, 249, 0); }
+  }
+}
+
+/* Value-anchor pill (used on hero / founding sections) */
+.value-pill {
+  @apply inline-flex items-center gap-1.5 rounded-full bg-secondary/10 text-primary px-3 py-1 text-sm font-semibold;
+}
+
+/* ============================================
+   Decorative card graphics (subtle textures)
+   Use with a text color + opacity, e.g. `text-red-500/10 gfx-diag`.
+   currentColor drives the pattern colour.
+   ============================================ */
+.gfx-dots {
+  background-image: radial-gradient(currentColor 1.1px, transparent 1.3px);
+  background-size: 13px 13px;
+}
+.gfx-diag {
+  background-image: repeating-linear-gradient(45deg, currentColor 0 1px, transparent 1px 9px);
+}
+.gfx-grid {
+  background-image:
+    linear-gradient(to right, currentColor 1px, transparent 1px),
+    linear-gradient(to bottom, currentColor 1px, transparent 1px);
+  background-size: 26px 26px;
+}
+
+/* Thin gradient-border wrapper: put content in a white inner element */
+.gfx-ring {
+  background-image: linear-gradient(140deg, var(--color-primary), var(--color-accent));
+  padding: 1.5px;
+}
+
+/* Slow rotation for decorative radar/orbit graphics */
+@media (prefers-reduced-motion: no-preference) {
+  .gfx-spin-slow { animation: gfx-spin 26s linear infinite; transform-origin: center; }
+  @keyframes gfx-spin { to { transform: rotate(360deg); } }
+}

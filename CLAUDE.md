@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is the **Oyifa marketing website**, a bilingual (English/Arabic) static site built with Astro SSG and Tailwind CSS v4. The site integrates with Sanity CMS for blog content management and supports i18n routing for English (default) and Arabic with RTL support.
 
-Oyifa is an IT procurement platform for the GCC region that connects businesses with qualified vendors, positioning itself as a solution to broken IT procurement processes.
+Oyifa is both the company and the product — a UAE-first IT procurement marketplace that connects businesses with verified IT vendors, positioning itself as a solution to broken IT procurement processes.
 
 ## Development Commands
 

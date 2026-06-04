@@ -31,79 +31,27 @@ const pricing = {
 const defaultCountry = gccCountries[0];
 const defaultPricing = pricing.AED;
 
-// Plan features
-const plans = [
-  {
-    id: 'free',
-    tier: 'free',
-    name: 'Free',
-    description: 'Perfect for exploring the platform',
-    monthlyPrice: 0,
-    yearlyPrice: 0,
-    features: [
-      'Browse all tenders',
-      'Basic company profile',
-      'Email notifications',
-      'Community support',
-    ],
-    cta: 'Get Started Free',
-    popular: false,
-  },
-  {
-    id: 'basic',
-    tier: 'basic',
-    name: 'Basic',
-    description: 'Great for small businesses',
-    monthlyPrice: defaultPricing.basic.monthly,
-    yearlyPrice: defaultPricing.basic.yearly,
-    features: [
-      '10 proposals per month',
-      'Enhanced company profile',
-      'View tenders up to AED 100K',
-      'Email & chat support',
-      'Basic analytics',
-    ],
-    cta: 'Get Started',
-    popular: false,
-  },
-  {
-    id: 'standard',
-    tier: 'standard',
-    name: 'Standard',
-    description: 'Best for growing teams',
-    monthlyPrice: defaultPricing.standard.monthly,
-    yearlyPrice: defaultPricing.standard.yearly,
-    features: [
-      '50 proposals per month',
-      'Featured company profile',
-      'View tenders up to AED 500K',
-      'Priority support',
-      'Advanced analytics',
-      'API access',
-    ],
-    cta: 'Get Started',
-    popular: true,
-  },
-  {
-    id: 'premium',
-    tier: 'premium',
-    name: 'Premium',
-    description: 'For enterprise-level needs',
-    monthlyPrice: defaultPricing.premium.monthly,
-    yearlyPrice: defaultPricing.premium.yearly,
-    features: [
-      'Unlimited proposals',
-      'Premium profile badge',
-      'View tenders without any limits',
-      'Dedicated account manager',
-      'Custom integrations',
-      'White-glove onboarding',
-      'SLA guarantee',
-    ],
-    cta: 'Get Started',
-    popular: false,
-  },
-];
+// Plan tiers driven by translations (single source of truth: src/i18n/ui.ts)
+const tk = t as unknown as (key: string) => string;
+const planTiers = ['free', 'basic', 'standard', 'premium'] as const;
+const planFeatureKeys: Record<string, string[]> = {
+  free: ['feature1', 'feature2', 'feature3', 'feature4'],
+  basic: ['feature1', 'feature2', 'feature3', 'feature4', 'feature5'],
+  standard: ['feature1', 'feature2', 'feature3', 'feature4', 'feature5'],
+  premium: ['feature1', 'feature2', 'feature3', 'feature4', 'feature5', 'feature6'],
+};
+const plans = planTiers.map((tier) => ({
+  id: tier,
+  tier,
+  name: tk(`pricing.plans.${tier}.name`),
+  description: tk(`pricing.plans.${tier}.description`),
+  badge: tk(`pricing.plans.${tier}.badge`),
+  monthlyPrice: defaultPricing[tier].monthly,
+  yearlyPrice: defaultPricing[tier].yearly,
+  features: planFeatureKeys[tier].map((fk) => tk(`pricing.plans.${tier}.${fk}`)),
+  cta: tk(`pricing.plans.${tier}.cta`),
+  popular: tier === 'standard',
+}));
 
 const features = [
   t('pricing.features.no_fees'),
@@ -195,7 +143,7 @@ const features = [
             <input type="checkbox" id="billingToggle" class="sr-only peer" />
             <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
             <span class="ml-3 font-semibold text-gray-900">
-              Annual Billing <span class="text-primary">— Pay for 10, get 2 months free!</span>
+              {t('pricing.billing.annual_label')} <span class="text-primary">({t('pricing.billing.annual_discount')})</span>
             </span>
           </label>
         </div>
@@ -203,77 +151,80 @@ const features = [
         <!-- Pricing Cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
           {plans.map((plan, index) => (
-            <div class={`rounded-2xl p-6 text-center flex flex-col relative transition-shadow duration-200 hover:shadow-lg ${
+            <div class={`group relative flex flex-col overflow-hidden rounded-2xl p-6 text-center transition-all duration-300 hover:-translate-y-1.5 ${
               plan.popular
-                ? 'border-0 shadow-lg bg-gradient-to-br from-[#271060] via-[#595cff] to-[#52a8f2] text-white'
-                : 'border border-gray-200 bg-white'
+                ? 'bg-gradient-to-br from-[#271060] via-[#595cff] to-[#52a8f2] text-white shadow-2xl ring-1 ring-white/20 md:-translate-y-3 hover:-translate-y-4'
+                : 'border border-gray-200 bg-white shadow-sm hover:border-primary/30 hover:shadow-xl'
             }`}>
-              {/* Background decoration for popular plan */}
+              {/* Subtle dot texture in the header area */}
+              <div class={`pointer-events-none absolute inset-x-0 top-0 h-28 gfx-dots ${plan.popular ? 'text-white/15' : 'text-primary/10'}`} style="-webkit-mask-image:linear-gradient(#000,transparent);mask-image:linear-gradient(#000,transparent)"></div>
               {plan.popular && (
                 <>
-                  <div class="absolute top-0 right-0 -mt-4 -mr-4 h-24 w-24 rounded-full bg-white/10 blur-2xl"></div>
-                  <div class="absolute bottom-0 left-0 -mb-4 -ml-4 h-20 w-20 rounded-full bg-[#5682f9]/30 blur-xl"></div>
+                  <div class="absolute top-0 right-0 -mt-6 -mr-6 h-28 w-28 rounded-full bg-white/10 blur-2xl"></div>
+                  <div class="absolute bottom-0 left-0 -mb-6 -ml-6 h-24 w-24 rounded-full bg-[#5682f9]/30 blur-xl"></div>
                 </>
               )}
-              {plan.popular && (
-                <div class="absolute top-0 right-0 bg-white/20 backdrop-blur-sm py-0.5 px-2 rounded-bl-xl rounded-tr-xl flex items-center">
-                  <svg class="text-white h-4 w-4 fill-current" viewBox="0 0 24 24">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                  </svg>
-                  <span class="text-white ml-1 font-semibold text-sm">Popular</span>
-                </div>
-              )}
-              <div class="flex-1 flex flex-col relative z-10">
-                <p class={`text-base font-semibold uppercase ${plan.popular ? 'text-white/80' : 'text-gray-500'}`}>
+              <div class="relative z-10 flex flex-1 flex-col">
+                {plan.popular && (
+                  <span class="badge-shimmer mx-auto mb-4 inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-1.5 text-xs font-extrabold uppercase tracking-wider text-[#271060] shadow-lg ring-1 ring-black/5">
+                    <svg class="h-3.5 w-3.5 fill-current text-amber-400" viewBox="0 0 24 24">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                    </svg>
+                    {t('pricing.billing.popular_label')}
+                  </span>
+                )}
+                <p class={`text-sm font-bold uppercase tracking-wider ${plan.popular ? 'text-white/80' : 'text-primary'}`}>
                   {plan.name}
                 </p>
-                <div class="mt-6 flex items-center justify-center gap-x-2">
-                  <span class={`currency-symbol text-lg font-semibold ${plan.popular ? 'text-white/70' : 'text-gray-500'}`}>
+                <div class="mt-5 flex items-end justify-center gap-x-1.5">
+                  <span class={`currency-symbol text-base font-semibold ${plan.popular ? 'text-white/70' : 'text-gray-400'}`}>
                     {defaultCountry.symbol}
                   </span>
                   <span
-                    class={`price text-5xl font-bold tracking-tight ${plan.popular ? 'text-white' : 'text-gray-900'}`}
+                    class={`price text-5xl font-extrabold tracking-tight ${plan.popular ? 'text-white' : 'text-gray-900'}`}
                     data-plan={plan.tier}
                     data-monthly={plan.monthlyPrice}
                     data-yearly={plan.yearlyPrice}
                   >
                     {plan.monthlyPrice}
                   </span>
-                  <span class={`billing-period text-sm font-semibold leading-6 tracking-wide ${plan.popular ? 'text-white/70' : 'text-gray-500'}`}>
+                  <span class={`billing-period mb-1 text-sm font-medium ${plan.popular ? 'text-white/70' : 'text-gray-400'}`}>
                     /month
                   </span>
                 </div>
 
-                <p class={`billing-note text-xs leading-5 mt-1 ${plan.popular ? 'text-white/70' : 'text-gray-500'}`}>
-                  billed monthly
+                <p class={`billing-note mt-1 text-xs ${plan.popular ? 'text-white/70' : 'text-gray-400'}`}>
+                  {t('pricing.billing.monthly_note')}
+                </p>
+                <p class={`mt-3 text-xs ${plan.popular ? 'text-white/80' : 'text-gray-500'}`}>
+                  {plan.description}
                 </p>
 
-                <ul class="mt-5 gap-2 flex flex-col">
+                <hr class={`my-5 ${plan.popular ? 'border-white/20' : 'border-gray-100'}`} />
+
+                <ul class="flex flex-1 flex-col gap-2.5 text-start">
                   {plan.features.map((feature) => (
-                    <li class="flex items-start gap-2">
-                      <svg class={`h-4 w-4 mt-1 flex-shrink-0 ${plan.popular ? 'text-white' : 'text-primary'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                      </svg>
-                      <span class={`text-left text-sm ${plan.popular ? 'text-white/90' : 'text-gray-600'}`}>{feature}</span>
+                    <li class="flex items-start gap-2.5">
+                      <span class={`mt-0.5 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full ${plan.popular ? 'bg-white/20 text-white' : 'bg-primary/10 text-primary'}`}>
+                        <svg class="h-2.5 w-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                      </span>
+                      <span class={`text-sm ${plan.popular ? 'text-white/90' : 'text-gray-600'}`}>{feature}</span>
                     </li>
                   ))}
                 </ul>
 
-                <hr class={`w-full my-4 ${plan.popular ? 'border-white/20' : 'border-gray-200'}`} />
-
                 <a
                   href={`${URLS.app}/register/vendor${plan.tier !== 'free' ? `?plan=${plan.id}` : ''}`}
-                  class={`group relative w-full gap-2 overflow-hidden text-lg font-semibold tracking-tighter transition-all duration-200 ease-out hover:ring-2 hover:ring-offset-1 py-3 rounded-md text-center block ${
+                  class={`mt-6 block rounded-lg py-3 text-center text-base font-semibold transition-all duration-200 hover:ring-2 hover:ring-offset-2 ${
                     plan.popular
                       ? 'bg-white text-[#271060] hover:bg-white/90 hover:ring-white'
-                      : 'bg-white border border-gray-200 text-gray-900 hover:bg-primary hover:text-white hover:ring-primary hover:border-primary'
+                      : 'bg-primary text-white hover:bg-primary-dark hover:ring-primary'
                   }`}
                 >
                   {plan.cta}
                 </a>
-                <p class={`mt-6 text-xs leading-5 ${plan.popular ? 'text-white/70' : 'text-gray-500'}`}>
-                  {plan.description}
-                </p>
               </div>
             </div>
           ))}
@@ -295,6 +246,16 @@ const features = [
             </svg>
             <span>{t('pricing.features.regional')}</span>
           </div>
+        </div>
+
+        <!-- Participation disclaimer -->
+        <div class="mt-10 max-w-3xl mx-auto">
+          <p class="flex items-start gap-2 justify-center text-sm text-gray-500 bg-gray-50 border border-gray-200 rounded-lg px-4 py-3">
+            <svg class="h-4 w-4 mt-0.5 flex-shrink-0 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span>{t('pricing.disclaimer')}</span>
+          </p>
         </div>
       </div>
     </section>
@@ -365,42 +326,51 @@ const features = [
             </div>
           </div>
 
-          <div class="bg-white border-2 border-purple-200 rounded-2xl p-8 md:p-12 text-center shadow-xl">
-            <h3 class="text-2xl md:text-3xl font-bold mb-4 text-gray-900">
-              {t('pricing.free_month.cta.title')}
-            </h3>
-            <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-              {t('pricing.free_month.cta.desc')}
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <a href={`${URLS.app}/register/vendor`} class="inline-flex items-center gap-2 bg-primary text-white px-8 py-4 rounded-md text-lg font-semibold hover:bg-primary-light transition-colors">
-                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                </svg>
-                {t('pricing.free_month.cta.btn')}
-              </a>
-              <a href="/contact" class="bg-white text-primary border-2 border-primary px-8 py-4 rounded-md text-lg font-semibold hover:bg-purple-50 transition-colors">
-                {t('pricing.free_month.cta.contact')}
-              </a>
-            </div>
-            <div class="mt-6 flex flex-wrap justify-center gap-4 text-sm text-gray-500">
-              <div class="flex items-center gap-1">
-                <svg class="h-4 w-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                </svg>
-                <span>{t('pricing.free_month.benefit1')}</span>
+          <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#271060] via-primary to-[#3d2a7a] p-8 md:p-12 text-center shadow-2xl">
+            <div class="pointer-events-none absolute inset-0 text-white/[0.06] gfx-grid"></div>
+            <div class="pointer-events-none absolute -top-12 -right-12 h-44 w-44 rounded-full bg-secondary/30 blur-3xl"></div>
+            <div class="pointer-events-none absolute -bottom-12 -left-12 h-44 w-44 rounded-full bg-accent/20 blur-3xl"></div>
+            <div class="relative z-10">
+              <span class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 text-xs font-semibold text-white ring-1 ring-white/20 backdrop-blur">
+                <span class="relative flex h-2 w-2">
+                  <span class="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 motion-safe:animate-ping"></span>
+                  <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-400"></span>
+                </span>
+                Only 50 founding slots
+              </span>
+              <h3 class="mt-5 text-2xl md:text-3xl font-bold text-white">
+                {t('pricing.free_month.cta.title')}
+              </h3>
+              <p class="mx-auto mt-3 max-w-2xl text-lg text-white/80">
+                {t('pricing.free_month.cta.desc')}
+              </p>
+              <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+                <a href={`${URLS.app}/register/vendor`} class="group inline-flex items-center gap-2 rounded-xl bg-white px-8 py-4 text-lg font-bold text-[#271060] shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl">
+                  <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                  </svg>
+                  {t('pricing.free_month.cta.btn')}
+                  <svg class="h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                  </svg>
+                </a>
+                <a href="/contact" class="rounded-xl border-2 border-white/40 px-8 py-4 text-lg font-semibold text-white transition-colors hover:bg-white/10">
+                  {t('pricing.free_month.cta.contact')}
+                </a>
               </div>
-              <div class="flex items-center gap-1">
-                <svg class="h-4 w-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                </svg>
-                <span>{t('pricing.free_month.benefit2')}</span>
-              </div>
-              <div class="flex items-center gap-1">
-                <svg class="h-4 w-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                </svg>
-                <span>{t('pricing.free_month.benefit3')}</span>
+              <div class="mt-7 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-white/70">
+                <div class="flex items-center gap-1.5">
+                  <svg class="h-4 w-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                  <span>{t('pricing.free_month.benefit1')}</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <svg class="h-4 w-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                  <span>{t('pricing.free_month.benefit2')}</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <svg class="h-4 w-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                  <span>{t('pricing.free_month.benefit3')}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -412,8 +382,8 @@ const features = [
   <Footer />
 </BaseLayout>
 
-<script>
-  const pricing: Record<string, Record<string, { monthly: number; yearly: number }>> = {
+<script define:vars={{ monthlyNote: t('pricing.billing.monthly_note'), yearlyNote: t('pricing.billing.yearly_note'), perMonth: t('pricing.per_month'), perYear: t('pricing.per_year') }}>
+  const pricing = {
     AED: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 499, yearly: 4999 }, standard: { monthly: 999, yearly: 9999 }, premium: { monthly: 1499, yearly: 14999 } },
     SAR: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 499, yearly: 4999 }, standard: { monthly: 999, yearly: 9999 }, premium: { monthly: 1499, yearly: 14999 } },
     QAR: { free: { monthly: 0, yearly: 0 }, basic: { monthly: 499, yearly: 4999 }, standard: { monthly: 999, yearly: 9999 }, premium: { monthly: 1499, yearly: 14999 } },
@@ -425,8 +395,8 @@ const features = [
   let isYearly = false;
   let currentCurrency = 'AED';
 
-  const countrySelect = document.getElementById('countrySelect') as HTMLSelectElement;
-  const billingToggle = document.getElementById('billingToggle') as HTMLInputElement;
+  const countrySelect = document.getElementById('countrySelect');
+  const billingToggle = document.getElementById('billingToggle');
   const priceElements = document.querySelectorAll('.price');
   const symbolElements = document.querySelectorAll('.currency-symbol');
   const billingPeriods = document.querySelectorAll('.billing-period');
@@ -434,11 +404,11 @@ const features = [
 
   function updatePrices() {
     const prices = pricing[currentCurrency];
-    const selectedOption = countrySelect.querySelector(`option[value="${currentCurrency}"]`) as HTMLOptionElement;
-    const symbol = selectedOption?.dataset.symbol || currentCurrency;
+    const selectedOption = countrySelect.querySelector('option[value="' + currentCurrency + '"]');
+    const symbol = (selectedOption && selectedOption.dataset.symbol) || currentCurrency;
 
     priceElements.forEach((el) => {
-      const plan = (el as HTMLElement).dataset.plan;
+      const plan = el.dataset.plan;
       if (plan && prices[plan]) {
         const price = isYearly ? prices[plan].yearly : prices[plan].monthly;
         el.textContent = price.toLocaleString();
@@ -450,25 +420,21 @@ const features = [
     });
 
     billingPeriods.forEach((el) => {
-      el.textContent = isYearly ? '/year' : '/month';
+      el.textContent = isYearly ? perYear : perMonth;
     });
 
     billingNotes.forEach((el) => {
-      if (isYearly) {
-        el.textContent = 'billed annually (save ~17%)';
-      } else {
-        el.textContent = 'billed monthly';
-      }
+      el.textContent = isYearly ? yearlyNote : monthlyNote;
     });
   }
 
-  countrySelect?.addEventListener('change', (e) => {
-    currentCurrency = (e.target as HTMLSelectElement).value;
+  countrySelect && countrySelect.addEventListener('change', (e) => {
+    currentCurrency = e.target.value;
     updatePrices();
   });
 
-  billingToggle?.addEventListener('change', (e) => {
-    isYearly = (e.target as HTMLInputElement).checked;
+  billingToggle && billingToggle.addEventListener('change', (e) => {
+    isYearly = e.target.checked;
     updatePrices();
   });
 </script>

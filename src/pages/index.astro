@@ -2,6 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import GccMap from '../components/GccMap.astro';
+import HeroGraphics from '../components/HeroGraphics.astro';
 import { useTranslations } from '../i18n/utils';
 import { URLS } from '../config/urls';
 
@@ -19,9 +21,15 @@ const t = useTranslations('en');
     <!-- Section 1: Hero - Introducing Oyifa Movement -->
     <section class="relative overflow-hidden bg-gradient-to-br from-primary/5 via-white to-secondary/5 py-16 md:py-24 lg:py-32">
       <!-- Background decorative elements -->
-      <div class="absolute inset-0 overflow-hidden">
-        <div class="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-primary/10 blur-3xl"></div>
-        <div class="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-secondary/10 blur-3xl"></div>
+      <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="hidden lg:block absolute -top-40 -right-40 h-80 w-80 rounded-full bg-primary/10 blur-3xl"></div>
+        <div class="hidden lg:block absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-secondary/10 blur-3xl"></div>
+        <!-- GCC map watermark: only graphic on mobile; left (content) side on desktop -->
+        <div class="absolute start-0 end-0 top-1/2 bottom-0 flex items-center justify-center lg:top-0 lg:end-auto lg:w-1/2 lg:justify-start opacity-[0.2]">
+          <GccMap class="w-[72%] max-w-xs sm:max-w-sm lg:w-[86%] lg:max-w-lg lg:ms-[4%]" />
+        </div>
+        <!-- Right-side accent graphics (desktop), sit behind the video -->
+        <HeroGraphics class="hidden lg:block absolute top-1/2 end-0 -translate-y-1/2 me-[-4%] w-[42%] max-w-xl opacity-70" />
       </div>
 
       <div class="container relative mx-auto px-4 max-w-7xl">
@@ -34,11 +42,8 @@ const t = useTranslations('en');
 
             <h1 class="mb-6 text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl text-gray-900">
               {t('index.hero.title.part1')}{" "}
-              <span class="text-primary relative">
+              <span class="text-primary">
                 {t('index.hero.title.highlight')}
-                <svg class="absolute -bottom-2 left-0 w-full h-3 text-primary/30" viewBox="0 0 200 12" preserveAspectRatio="none">
-                  <path d="M0,8 Q50,0 100,8 T200,8" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
-                </svg>
               </span>
             </h1>
 

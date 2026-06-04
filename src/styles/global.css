@@ -267,6 +267,7 @@ select:focus {
   @apply inline-flex items-center gap-1.5 rounded-full bg-secondary/10 text-primary px-3 py-1 text-sm font-semibold;
 }
 
+
 /* ============================================
    Decorative card graphics (subtle textures)
    Use with a text color + opacity, e.g. `text-red-500/10 gfx-diag`.

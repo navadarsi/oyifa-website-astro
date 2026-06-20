@@ -16,8 +16,11 @@ const t = useTranslations('en');
 
   <main class="flex-1">
     <!-- Hero Section -->
-    <section class="bg-gradient-to-br from-primary/10 via-white to-purple-50/50 py-32">
-      <div class="max-w-7xl mx-auto px-4 text-center">
+    <section class="relative overflow-hidden bg-gradient-to-br from-primary/10 via-white to-purple-50/50 py-32">
+      <!-- Faint GCC skyline backdrop (real-world, subtle parallax) -->
+      <img src="/images/gcc/qatar.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" data-parallax="0.1" class="parallax-media opacity-[0.09]" />
+      <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/45 via-white/25 to-white/45"></div>
+      <div class="relative z-10 max-w-7xl mx-auto px-4 text-center">
         <span class="inline-block mb-4 px-3 py-1 bg-purple-100 text-primary rounded-full text-sm font-medium">
           {t('contact.hero.badge')}
         </span>
@@ -46,8 +49,11 @@ const t = useTranslations('en');
     </section>
 
     <!-- Contact Methods Section -->
-    <section class="py-20 bg-white">
-      <div class="max-w-7xl mx-auto px-4">
+    <section class="relative overflow-hidden py-20 bg-white">
+      <!-- Subtle IT backdrop -->
+      <img src="/images/gcc/datacenter.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" data-parallax="0.05" class="parallax-media opacity-[0.05]" />
+      <div class="pointer-events-none absolute inset-0 bg-white/60"></div>
+      <div class="relative z-10 max-w-7xl mx-auto px-4">
         <div class="text-center mb-12">
           <span class="inline-block mb-4 px-3 py-1 border border-gray-300 text-gray-600 rounded-full text-sm font-medium">
             {t('contact.methods.badge')}
@@ -247,23 +253,27 @@ const t = useTranslations('en');
       </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="py-20 bg-primary/5">
-      <div class="max-w-7xl mx-auto px-4 text-center">
-        <h2 class="text-3xl font-bold mb-6 md:text-4xl text-gray-900">
+    <!-- CTA Section (over a real GCC business scene) -->
+    <section class="relative overflow-hidden py-24">
+      <!-- Business / meeting backdrop with subtle parallax -->
+      <img src="/images/gcc/meeting.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" data-parallax="0.12" class="parallax-media" />
+      <div class="absolute inset-0 bg-gradient-to-br from-[#1b0e44]/95 via-primary/85 to-[#271060]/90"></div>
+      <div class="pointer-events-none absolute inset-0 bg-black/25"></div>
+      <div class="relative z-10 max-w-7xl mx-auto px-4 text-center reveal">
+        <h2 class="text-3xl font-bold mb-6 md:text-4xl text-white">
           {t('contact.cta.title')}
         </h2>
-        <p class="mx-auto mb-8 max-w-2xl text-xl text-gray-500">
+        <p class="mx-auto mb-8 max-w-2xl text-xl text-white/80">
           {t('contact.cta.desc')}
         </p>
         <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <a href={`${URLS.app}/register`} class="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-md text-base font-medium hover:bg-primary-light transition-colors">
+          <a href={`${URLS.app}/register`} class="inline-flex items-center gap-2 bg-white text-primary px-6 py-3 rounded-md text-base font-semibold shadow-lg hover:bg-white/90 transition-colors">
             {t('contact.cta.start')}
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
             </svg>
           </a>
-          <a href="/about" class="inline-flex items-center justify-center bg-white text-gray-900 border border-gray-300 px-6 py-3 rounded-md text-base font-medium hover:bg-gray-50 transition-colors">
+          <a href="/about" class="inline-flex items-center justify-center border-2 border-white/50 text-white px-6 py-3 rounded-md text-base font-semibold hover:bg-white/10 transition-colors">
             {t('contact.cta.learn')}
           </a>
         </div>

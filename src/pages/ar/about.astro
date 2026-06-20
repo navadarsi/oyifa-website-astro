@@ -6,6 +6,16 @@ import { useTranslations } from '../../i18n/utils';
 import { URLS } from '../../config/urls';
 
 const t = useTranslations('ar');
+
+// GCC markets — real-world city imagery from across the Gulf (UAE-first rollout)
+const gccPlaces = [
+  { img: 'uae', name: t('about.gcc.uae'), city: t('about.gcc.uae.city'), live: true },
+  { img: 'saudi', name: t('about.gcc.saudi'), city: t('about.gcc.saudi.city'), live: false },
+  { img: 'qatar', name: t('about.gcc.qatar'), city: t('about.gcc.qatar.city'), live: false },
+  { img: 'bahrain', name: t('about.gcc.bahrain'), city: t('about.gcc.bahrain.city'), live: false },
+  { img: 'oman', name: t('about.gcc.oman'), city: t('about.gcc.oman.city'), live: false },
+  { img: 'kuwait', name: t('about.gcc.kuwait'), city: t('about.gcc.kuwait.city'), live: false },
+];
 ---
 
 <BaseLayout
@@ -16,11 +26,18 @@ const t = useTranslations('ar');
 
   <main class="flex-1" dir="rtl">
     <!-- Hero Section -->
-    <section class="bg-gradient-to-br from-primary/10 via-white to-purple-100/10 py-32">
-      <div class="max-w-7xl mx-auto px-4 text-center">
-        <span class="inline-flex items-center mb-6 px-3 py-1 bg-purple-100 text-primary rounded-md text-sm font-medium">
+    <section class="relative overflow-hidden bg-gradient-to-br from-primary/10 via-white to-purple-100/10 pt-28 pb-16">
+      <!-- Faint GCC skyline backdrop (real-world, subtle parallax) -->
+      <img src="/images/gcc/dubai-aerial.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" data-parallax="0.1" class="parallax-media opacity-[0.08]" />
+      <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/40 via-white/20 to-white/40"></div>
+      <div class="relative z-10 max-w-7xl mx-auto px-4 text-center">
+        <span class="inline-flex items-center mb-4 px-3 py-1 bg-purple-100 text-primary rounded-md text-sm font-medium">
           {t('about.hero.badge')}
         </span>
+        <!-- OYIFA, expanded: the name we envisioned -->
+        <p class="mb-6 text-sm sm:text-base font-bold tracking-[0.12em] text-primary">
+          {t('about.hero.tagline')}
+        </p>
         <h1 class="mb-6 text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900">
           {t('about.hero.title.part1')}{" "}
           <span class="text-primary">{t('about.hero.title.highlight')}</span>
@@ -48,7 +65,7 @@ const t = useTranslations('ar');
     </section>
 
     <!-- Our Story Section -->
-    <section class="py-20 bg-white">
+    <section class="pt-12 pb-20 bg-white">
       <div class="max-w-7xl mx-auto px-4">
         <div class="max-w-4xl mx-auto">
           <div class="text-center mb-12">
@@ -151,6 +168,53 @@ const t = useTranslations('ar');
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GCC Presence Section (real-world city imagery from across the Gulf) -->
+    <section class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center mb-12 reveal">
+          <span class="inline-flex items-center mb-4 px-3 py-1 border border-gray-300 text-gray-600 rounded-md text-sm font-medium">
+            {t('about.gcc.badge')}
+          </span>
+          <h2 class="text-3xl md:text-4xl font-bold mb-6 text-gray-900">
+            {t('about.gcc.title')}
+          </h2>
+          <p class="mx-auto max-w-3xl text-xl text-gray-500">
+            {t('about.gcc.desc')}
+          </p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5 max-w-5xl mx-auto">
+          {gccPlaces.map((place, i) => (
+            <div class={`reveal ${i % 3 === 1 ? 'reveal-d1' : i % 3 === 2 ? 'reveal-d2' : ''} group relative aspect-[4/3] overflow-hidden rounded-2xl shadow-sm ring-1 ring-gray-200/70`}>
+              <img
+                src={`/images/gcc/${place.img}.jpg`}
+                alt={`${place.name} — city skyline`}
+                loading="lazy"
+                decoding="async"
+                class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent"></div>
+              <div class="absolute top-3 end-3">
+                <span class={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-semibold text-white backdrop-blur ${place.live ? 'bg-emerald-500/90' : 'bg-white/20 ring-1 ring-white/30'}`}>
+                  {place.live && (
+                    <span class="relative flex h-1.5 w-1.5">
+                      <span class="absolute inline-flex h-full w-full rounded-full bg-white opacity-75 motion-safe:animate-ping"></span>
+                      <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-white"></span>
+                    </span>
+                  )}
+                  {place.live ? t('about.gcc.live') : t('about.gcc.soon')}
+                </span>
+              </div>
+              <div class="absolute inset-x-0 bottom-0 p-4 text-start">
+                <p class="text-base font-bold leading-tight text-white drop-shadow">{place.name}</p>
+                <p class="text-xs text-white/85">{place.city}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

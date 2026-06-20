@@ -1,0 +1,68 @@
+{
+  "dubai-twilight": {
+    "id": 18341554,
+    "photographer": "Dreamer  Dude",
+    "url": "https://www.pexels.com/photo/outstanding-cityscape-of-dubai-across-sea-at-dusk-18341554/",
+    "alt": "Stunning view of Dubai's skyline at twilight featuring the iconic Burj Khalifa."
+  },
+  "dubai-aerial": {
+    "id": 219692,
+    "photographer": "Pixabay",
+    "url": "https://www.pexels.com/photo/high-rise-buildings-during-night-time-photo-219692/",
+    "alt": "A breathtaking aerial view of Dubai's cityscape at night, highlighting the illuminated Burj Khalifa and surrounding skyscrapers."
+  },
+  "datacenter": {
+    "id": 17489157,
+    "photographer": "panumas nikhomkhai",
+    "url": "https://www.pexels.com/photo/close-up-of-computer-hardware-17489157/",
+    "alt": "Detailed view of a server rack with a focus on technology and data storage."
+  },
+  "meeting": {
+    "id": 7693692,
+    "photographer": "Yan Krukau",
+    "url": "https://www.pexels.com/photo/businesspeople-brainstorming-in-a-meeting-7693692/",
+    "alt": "Business professionals engaging in a collaborative meeting with charts and documents."
+  },
+  "team": {
+    "id": 6804068,
+    "photographer": "cottonbro studio",
+    "url": "https://www.pexels.com/photo/men-sitting-at-the-desks-in-an-office-and-using-computers-6804068/",
+    "alt": "Team of developers working together on computers in a modern tech office."
+  },
+  "uae": {
+    "id": 19664340,
+    "photographer": "aboodi vesakaran",
+    "url": "https://www.pexels.com/photo/view-of-dubai-skyline-19664340/",
+    "alt": "A stunning view of Dubai's skyline featuring Burj Khalifa across the sea."
+  },
+  "saudi": {
+    "id": 31849530,
+    "photographer": "Steven Jeffery",
+    "url": "https://www.pexels.com/photo/modern-riyadh-skyline-with-iconic-buildings-31849530/",
+    "alt": "Skyline view of Riyadh's modern architecture with distinctive skyscrapers."
+  },
+  "qatar": {
+    "id": 10742619,
+    "photographer": "Pareekshith Indeever",
+    "url": "https://www.pexels.com/photo/city-skyline-under-blue-sky-10742619/",
+    "alt": "Captivating view of Doha skyline from the Corniche, featuring modern architecture under a clear blue sky."
+  },
+  "bahrain": {
+    "id": 6658660,
+    "photographer": "Satheesh Cholakkal",
+    "url": "https://www.pexels.com/photo/view-bahrain-skyline-from-the-park-6658660/",
+    "alt": "Skyline view of Bahrain's Diplomatic Area showcasing modern architecture and skyscrapers under a clear day sky."
+  },
+  "oman": {
+    "id": 38014484,
+    "photographer": "Tayssir Kadamany",
+    "url": "https://www.pexels.com/photo/bustling-cityscape-against-rugged-mountains-38014484/",
+    "alt": "A vibrant city nestled against rugged mountains under a clear blue sky."
+  },
+  "kuwait": {
+    "id": 38107868,
+    "photographer": "Tayssir Kadamany",
+    "url": "https://www.pexels.com/photo/modern-skyscrapers-and-urban-park-in-kuwait-city-38107868/",
+    "alt": "Kuwait City's skyline featuring skyscrapers and an urban park with a fountain."
+  }
+}

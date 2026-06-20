@@ -298,3 +298,43 @@ select:focus {
   .gfx-spin-slow { animation: gfx-spin 26s linear infinite; transform-origin: center; }
   @keyframes gfx-spin { to { transform: rotate(360deg); } }
 }
+
+/* ============================================
+   Photographic section helpers (real-world GCC / IT imagery)
+   Use a dark gradient overlay on top so text stays readable.
+   ============================================ */
+
+/* Parallax image layer — driven by the tiny scroll script in BaseLayout.
+   Over-sized (130% tall, pulled up 15%) so the translate never reveals an edge.
+   With JS off / reduced-motion it simply shows a centred, cover-cropped photo. */
+.parallax-media {
+  position: absolute;
+  inset: -15% 0 -15% 0;
+  width: 100%;
+  height: 130%;
+  object-fit: cover;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Slow cinematic zoom for static (non-parallax) section photos */
+  .kenburns { animation: oyifa-kenburns 26s ease-in-out infinite alternate; }
+  @keyframes oyifa-kenburns {
+    from { transform: scale(1); }
+    to   { transform: scale(1.09); }
+  }
+
+  /* Gentle float for seals / floating badges */
+  .float-soft { animation: oyifa-float 5.5s ease-in-out infinite; }
+  @keyframes oyifa-float {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-6px); }
+  }
+}
+
+/* Golden certification seal/badge (e.g. "Gulf's First Private IT Tender Board") */
+.badge-gold {
+  background-image: linear-gradient(120deg, #f8e58c 0%, #f4c430 38%, #d9a521 68%, #f8e58c 100%);
+  color: #4a3500;
+  box-shadow: 0 10px 26px -10px rgba(202, 150, 20, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.65);
+}

@@ -64,5 +64,17 @@
     "photographer": "Tayssir Kadamany",
     "url": "https://www.pexels.com/photo/modern-skyscrapers-and-urban-park-in-kuwait-city-38107868/",
     "alt": "Kuwait City's skyline featuring skyscrapers and an urban park with a fountain."
+  },
+  "support": {
+    "id": 7681983,
+    "photographer": "Mikhail Nilov",
+    "url": "https://www.pexels.com/photo/a-man-in-brown-button-up-long-sleeve-shirt-using-a-laptop-7681983/",
+    "alt": "Smiling customer service agent using a laptop and headset indoors."
+  },
+  "support-team": {
+    "id": 8866775,
+    "photographer": "Yan Krukau",
+    "url": "https://www.pexels.com/photo/people-wearing-headset-with-their-arms-crossed-8866775/",
+    "alt": "Diverse group of smiling customer service agents wearing headsets in modern office."
   }
 }

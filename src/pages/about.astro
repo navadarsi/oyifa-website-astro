@@ -27,9 +27,9 @@ const gccPlaces = [
   <main class="flex-1">
     <!-- Hero Section -->
     <section class="relative overflow-hidden bg-gradient-to-br from-primary/10 via-white to-purple-100/10 pt-28 pb-16">
-      <!-- Faint GCC skyline backdrop (real-world, subtle parallax) -->
-      <img src="/images/gcc/dubai-aerial.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" data-parallax="0.1" class="parallax-media opacity-[0.08]" />
-      <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/40 via-white/20 to-white/40"></div>
+      <!-- GCC skyline backdrop (real-world, subtle parallax) -->
+      <img src="/images/gcc/dubai-aerial.webp" alt="Aerial night view of the Dubai skyline" loading="lazy" decoding="async" data-parallax="0.1" class="parallax-media opacity-[0.3]" />
+      <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/35 via-white/10 to-white/40"></div>
       <div class="relative z-10 max-w-7xl mx-auto px-4 text-center">
         <span class="inline-flex items-center mb-4 px-3 py-1 bg-purple-100 text-primary rounded-md text-sm font-medium">
           {t('about.hero.badge')}
@@ -114,8 +114,11 @@ const gccPlaces = [
     </section>
 
     <!-- Mission Section -->
-    <section class="bg-primary/5 py-20">
-      <div class="max-w-7xl mx-auto px-4">
+    <section class="relative overflow-hidden bg-primary/5 py-20">
+      <!-- Skyline backdrop (real-world, subtle parallax) -->
+      <img src="/images/gcc/dubai-twilight.webp" alt="Dubai skyline at twilight in the United Arab Emirates" loading="lazy" decoding="async" data-parallax="0.07" class="parallax-media opacity-[0.16]" />
+      <div class="pointer-events-none absolute inset-0 bg-white/45"></div>
+      <div class="relative z-10 max-w-7xl mx-auto px-4">
         <div class="grid gap-12 lg:grid-cols-2 items-center max-w-6xl mx-auto">
           <div class="reveal">
             <span class="inline-flex items-center mb-4 px-3 py-1 border border-gray-300 text-gray-600 rounded-md text-sm font-medium">
@@ -191,7 +194,7 @@ const gccPlaces = [
           {gccPlaces.map((place, i) => (
             <div class={`reveal ${i % 3 === 1 ? 'reveal-d1' : i % 3 === 2 ? 'reveal-d2' : ''} group relative aspect-[4/3] overflow-hidden rounded-2xl shadow-sm ring-1 ring-gray-200/70`}>
               <img
-                src={`/images/gcc/${place.img}.jpg`}
+                src={`/images/gcc/${place.img}.webp`}
                 alt={`${place.name} — city skyline`}
                 loading="lazy"
                 decoding="async"
@@ -211,7 +214,6 @@ const gccPlaces = [
               </div>
               <div class="absolute inset-x-0 bottom-0 p-4 text-start">
                 <p class="text-base font-bold leading-tight text-white drop-shadow">{place.name}</p>
-                <p class="text-xs text-white/85">{place.city}</p>
               </div>
             </div>
           ))}
@@ -297,6 +299,8 @@ const gccPlaces = [
         <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto items-stretch">
           <!-- Regional Expertise -->
           <div class="reveal reveal-d1 group relative flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl">
+            <img src="/images/gcc/meeting.webp" alt="Business team reviewing IT proposals in a meeting" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover opacity-[0.14] transition-opacity duration-500 group-hover:opacity-[0.22]" />
+            <div class="pointer-events-none absolute inset-0 bg-white/45"></div>
             <div class="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-primary to-secondary"></div>
             <div class="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-primary/5 blur-2xl"></div>
             <div class="relative mb-4 flex items-center gap-4">
@@ -310,6 +314,8 @@ const gccPlaces = [
 
           <!-- Global Standards -->
           <div class="reveal reveal-d2 group relative flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl">
+            <img src="/images/gcc/datacenter.webp" alt="Data center server racks for enterprise IT" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover opacity-[0.14] transition-opacity duration-500 group-hover:opacity-[0.22]" />
+            <div class="pointer-events-none absolute inset-0 bg-white/45"></div>
             <div class="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-accent to-secondary"></div>
             <div class="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-accent/5 blur-2xl"></div>
             <div class="relative mb-4 flex items-center gap-4">

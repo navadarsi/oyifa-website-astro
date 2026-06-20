@@ -18,23 +18,24 @@ const gccCountries = [
   { code: 'KW', name: 'الكويت', currency: 'KWD', symbol: 'د.ك' },
 ];
 
-// Pricing by currency — two plans only (Standard / Premium). Annual = 10× monthly (2 months free).
+// Vendor pricing by currency — Free / Standard / Premium. Annual = 10× monthly (2 months free).
 const pricing = {
-  AED: { standard: { monthly: 499, yearly: 4990 }, premium: { monthly: 999, yearly: 9990 } },
-  SAR: { standard: { monthly: 499, yearly: 4990 }, premium: { monthly: 999, yearly: 9990 } },
-  QAR: { standard: { monthly: 499, yearly: 4990 }, premium: { monthly: 999, yearly: 9990 } },
-  BHD: { standard: { monthly: 49, yearly: 490 }, premium: { monthly: 99, yearly: 990 } },
-  OMR: { standard: { monthly: 49, yearly: 490 }, premium: { monthly: 99, yearly: 990 } },
-  KWD: { standard: { monthly: 39, yearly: 390 }, premium: { monthly: 79, yearly: 790 } },
+  AED: { free: { monthly: 0, yearly: 0 }, standard: { monthly: 499, yearly: 4990 }, premium: { monthly: 999, yearly: 9990 } },
+  SAR: { free: { monthly: 0, yearly: 0 }, standard: { monthly: 499, yearly: 4990 }, premium: { monthly: 999, yearly: 9990 } },
+  QAR: { free: { monthly: 0, yearly: 0 }, standard: { monthly: 499, yearly: 4990 }, premium: { monthly: 999, yearly: 9990 } },
+  BHD: { free: { monthly: 0, yearly: 0 }, standard: { monthly: 49, yearly: 490 }, premium: { monthly: 99, yearly: 990 } },
+  OMR: { free: { monthly: 0, yearly: 0 }, standard: { monthly: 49, yearly: 490 }, premium: { monthly: 99, yearly: 990 } },
+  KWD: { free: { monthly: 0, yearly: 0 }, standard: { monthly: 39, yearly: 390 }, premium: { monthly: 79, yearly: 790 } },
 };
 
 const defaultCountry = gccCountries[0];
 const defaultPricing = pricing.AED;
 
-// Plan tiers driven by translations (single source of truth: src/i18n/ui.ts)
+// Vendor plan tiers driven by translations (single source of truth: src/i18n/ui.ts)
 const tk = t as unknown as (key: string) => string;
-const planTiers = ['standard', 'premium'] as const;
+const planTiers = ['free', 'standard', 'premium'] as const;
 const planFeatureKeys: Record<string, string[]> = {
+  free: ['feature1', 'feature2', 'feature3', 'feature4'],
   standard: ['feature1', 'feature2', 'feature3', 'feature4', 'feature5'],
   premium: ['feature1', 'feature2', 'feature3', 'feature4', 'feature6'],
 };
@@ -79,71 +80,103 @@ const features = [
         <h1 class="mb-6 text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900">
           {t('pricing.hero.title.simple')} <span class="text-primary">{t('pricing.hero.title.transparent')}</span> {t('pricing.hero.title.pricing')}
         </h1>
-        <p class="mx-auto mb-8 max-w-3xl text-xl text-gray-600">
+        <p class="mx-auto mb-8 max-w-2xl text-lg sm:text-xl text-gray-600">
           {t('pricing.hero.desc')}
         </p>
 
-        <!-- Free for clients / Free for vendors banner -->
-        <div class="mb-10 grid gap-4 sm:grid-cols-2 max-w-4xl mx-auto text-start">
-          <!-- Clients: always free -->
-          <div class="flex items-start gap-3.5 rounded-2xl border border-purple-200 bg-purple-50/70 p-5">
-            <span class="mt-0.5 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
-              <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-            </span>
-            <div>
-              <p class="text-base font-extrabold text-gray-900">{t('pricing.free_banner.clients_title')}</p>
-              <p class="mt-1 text-sm text-gray-600">{t('pricing.free_banner.clients_desc')}</p>
-            </div>
+        <!-- Audience tab selector -->
+        <div class="mb-9 flex justify-center">
+          <div role="tablist" aria-label="Pricing audience" class="inline-flex rounded-full border border-gray-200 bg-white p-1 shadow-sm">
+            <button type="button" role="tab" data-ptab="clients" aria-selected="false" class="ptab rounded-full px-6 py-2 text-sm font-semibold text-gray-600 transition-colors">{t('pricing.clients.tag')}</button>
+            <button type="button" role="tab" data-ptab="vendors" aria-selected="true" class="ptab rounded-full bg-primary px-6 py-2 text-sm font-semibold text-white shadow transition-colors">{t('pricing.vendors.tag')}</button>
           </div>
-          <!-- Vendors: free for 90 days (highlighted, gold) -->
-          <div class="relative flex items-start gap-3.5 overflow-hidden rounded-2xl border border-amber-300/80 bg-gradient-to-br from-amber-50 via-white to-amber-50/50 p-5 shadow-sm ring-1 ring-amber-200/60">
-            <div class="pointer-events-none absolute -left-8 -top-8 h-24 w-24 rounded-full bg-amber-200/30 blur-2xl"></div>
-            <span class="badge-gold mt-0.5 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl">
-              <svg class="h-5 w-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-            </span>
-            <div class="relative">
-              <p class="text-base font-extrabold text-gray-900">{t('pricing.free_banner.vendors_title')}</p>
-              <p class="mt-1 text-sm text-gray-600">{t('pricing.free_banner.vendors_desc')}</p>
+        </div>
+
+        <!-- Clients panel -->
+        <div data-ppanel="clients" class="hidden">
+          <!-- Dedicated client plan — always free -->
+          <div class="mx-auto max-w-2xl">
+            <div class="relative overflow-hidden rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/5 via-white to-secondary/5 p-6 text-start shadow-sm sm:p-7">
+            <div class="pointer-events-none absolute -left-10 -top-10 h-28 w-28 rounded-full bg-primary/10 blur-2xl"></div>
+            <div class="relative flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <span class="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-xs font-bold tracking-wide text-primary">
+                  <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                  {t('pricing.clients.tag')}
+                </span>
+                <p class="mt-3 text-3xl font-extrabold text-gray-900">{t('pricing.clients.price')}</p>
+                <ul class="mt-4 space-y-2">
+                  {[t('pricing.clients.feature1'), t('pricing.clients.feature2'), t('pricing.clients.feature3')].map((feature) => (
+                    <li class="flex items-start gap-2.5 text-sm text-gray-600">
+                      <span class="mt-0.5 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                        <svg class="h-2.5 w-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                      </span>
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <a href={`${URLS.app}/register/client`} class="inline-flex flex-shrink-0 items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-base font-semibold text-white shadow-sm transition-all hover:bg-primary-dark hover:ring-2 hover:ring-primary hover:ring-offset-2">
+                {t('pricing.clients.cta')}
+                <svg class="h-4 w-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+              </a>
             </div>
           </div>
         </div>
 
-        <!-- Location Selector -->
-        <div class="flex flex-col items-center gap-4 mb-8">
-          <div class="flex items-center gap-2 text-sm text-gray-500">
-            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        </div><!-- /clients panel -->
+
+        <!-- Vendors panel -->
+        <div data-ppanel="vendors">
+        <!-- Vendor 90-day free highlight (the one paid-side perk worth surfacing up front) -->
+        <div class="relative mx-auto mb-9 flex max-w-xl items-center gap-3.5 overflow-hidden rounded-2xl border border-amber-300/80 bg-gradient-to-br from-amber-50 via-white to-amber-50/60 px-5 py-4 text-start shadow-sm ring-1 ring-amber-200/60">
+          <div class="pointer-events-none absolute -left-8 -top-8 h-24 w-24 rounded-full bg-amber-200/30 blur-2xl"></div>
+          <span class="badge-gold relative flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl">
+            <svg class="h-5 w-5 fill-current" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+          </span>
+          <p class="relative text-sm text-gray-700">
+            <span class="font-extrabold text-gray-900">{t('pricing.free_banner.vendors_title')}</span> — {t('pricing.free_banner.vendors_desc')}
+          </p>
+        </div>
+
+        <!-- Region + billing controls, in a single row -->
+        <div class="mx-auto mb-10 flex max-w-2xl flex-col items-center justify-center gap-4 rounded-2xl border border-gray-200 bg-white/70 px-5 py-4 shadow-sm backdrop-blur sm:flex-row sm:gap-5">
+          <!-- Country selector -->
+          <div class="flex items-center gap-2">
+            <svg class="h-4 w-4 flex-shrink-0 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
             </svg>
-            <span>{t('pricing.location.label')}</span>
+            <label for="countrySelect" class="sr-only">{t('pricing.location.select')}</label>
+            <select
+              id="countrySelect"
+              class="w-56 px-3 py-2 border border-gray-300 rounded-lg bg-white text-sm text-gray-900 font-medium focus:ring-2 focus:ring-primary focus:border-transparent"
+              aria-label={t('pricing.location.select')}
+            >
+              {gccCountries.map((country) => (
+                <option value={country.currency} data-symbol={country.symbol}>
+                  {country.name} ({country.currency})
+                </option>
+              ))}
+            </select>
           </div>
-          <label for="countrySelect" class="sr-only">{t('pricing.location.select')}</label>
-          <select
-            id="countrySelect"
-            class="w-64 px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-900 font-medium focus:ring-2 focus:ring-primary focus:border-transparent"
-            aria-label={t('pricing.location.select')}
-          >
-            {gccCountries.map((country) => (
-              <option value={country.currency} data-symbol={country.symbol}>
-                {country.name} ({country.currency})
-              </option>
-            ))}
-          </select>
+          <!-- Divider -->
+          <span class="hidden h-6 w-px bg-gray-200 sm:block"></span>
+          <!-- Billing toggle + savings pill -->
+          <div class="flex items-center gap-2.5">
+            <label for="billingToggle" class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" id="billingToggle" class="sr-only peer" />
+              <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+              <span class="ms-3 text-sm font-semibold text-gray-900">{t('pricing.billing.annual_label')}</span>
+            </label>
+            <span class="inline-flex items-center rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-bold text-emerald-700 ring-1 ring-emerald-100">{t('pricing.billing.annual_discount')}</span>
+          </div>
         </div>
-
-        <!-- Billing Toggle -->
-        <div class="flex justify-center mb-10">
-          <label for="billingToggle" class="relative inline-flex items-center cursor-pointer">
-            <input type="checkbox" id="billingToggle" class="sr-only peer" />
-            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-            <span class="ms-3 font-semibold text-gray-900">
-              {t('pricing.billing.annual_label')} <span class="text-primary">({t('pricing.billing.annual_discount')})</span>
-            </span>
           </label>
         </div>
 
-        <!-- Pricing Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+        <!-- Vendor Pricing Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto items-stretch">
           {plans.map((plan, index) => (
             <div class={`group relative flex flex-col overflow-hidden rounded-2xl p-6 text-center transition-all duration-300 hover:-translate-y-1.5 ${
               plan.popular
@@ -223,6 +256,7 @@ const features = [
             </div>
           ))}
         </div>
+        </div><!-- /vendors panel -->
 
         <!-- Features list below pricing cards -->
         <div class="mt-12 flex flex-wrap justify-center gap-4 text-sm text-gray-500">
@@ -257,7 +291,7 @@ const features = [
     <!-- Founding Launch Section -->
     <section class="py-20 bg-gradient-to-br from-purple-100 via-white to-purple-50 relative overflow-hidden">
       <!-- GCC skyline backdrop (real-world, subtle parallax) -->
-      <img src="/images/gcc/uae.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" data-parallax="0.08" class="parallax-media opacity-[0.13]" />
+      <img src="/images/gcc/uae.webp" alt="Dubai skyline, United Arab Emirates" loading="lazy" decoding="async" data-parallax="0.08" class="parallax-media opacity-[0.2]" />
       <!-- Decorative background pattern -->
       <div class="absolute inset-0 opacity-30">
         <div class="absolute top-0 left-0 w-64 h-64 bg-purple-200 rounded-full blur-3xl"></div>
@@ -380,12 +414,12 @@ const features = [
 
 <script define:vars={{ monthlyNote: t('pricing.billing.monthly_note'), yearlyNote: t('pricing.billing.yearly_note'), perMonth: t('pricing.per_month'), perYear: t('pricing.per_year') }}>
   const pricing = {
-    AED: { standard: { monthly: 499, yearly: 4990 }, premium: { monthly: 999, yearly: 9990 } },
-    SAR: { standard: { monthly: 499, yearly: 4990 }, premium: { monthly: 999, yearly: 9990 } },
-    QAR: { standard: { monthly: 499, yearly: 4990 }, premium: { monthly: 999, yearly: 9990 } },
-    BHD: { standard: { monthly: 49, yearly: 490 }, premium: { monthly: 99, yearly: 990 } },
-    OMR: { standard: { monthly: 49, yearly: 490 }, premium: { monthly: 99, yearly: 990 } },
-    KWD: { standard: { monthly: 39, yearly: 390 }, premium: { monthly: 79, yearly: 790 } },
+    AED: { free: { monthly: 0, yearly: 0 }, standard: { monthly: 499, yearly: 4990 }, premium: { monthly: 999, yearly: 9990 } },
+    SAR: { free: { monthly: 0, yearly: 0 }, standard: { monthly: 499, yearly: 4990 }, premium: { monthly: 999, yearly: 9990 } },
+    QAR: { free: { monthly: 0, yearly: 0 }, standard: { monthly: 499, yearly: 4990 }, premium: { monthly: 999, yearly: 9990 } },
+    BHD: { free: { monthly: 0, yearly: 0 }, standard: { monthly: 49, yearly: 490 }, premium: { monthly: 99, yearly: 990 } },
+    OMR: { free: { monthly: 0, yearly: 0 }, standard: { monthly: 49, yearly: 490 }, premium: { monthly: 99, yearly: 990 } },
+    KWD: { free: { monthly: 0, yearly: 0 }, standard: { monthly: 39, yearly: 390 }, premium: { monthly: 79, yearly: 790 } },
   };
 
   let isYearly = false;
@@ -433,4 +467,25 @@ const features = [
     isYearly = e.target.checked;
     updatePrices();
   });
+</script>
+
+<script>
+  // Audience tabs: switch between client and vendor pricing
+  (function () {
+    const tabs = document.querySelectorAll('[data-ptab]');
+    const panels = document.querySelectorAll('[data-ppanel]');
+    if (!tabs.length) return;
+    function setTab(name) {
+      tabs.forEach((t) => {
+        const on = t.dataset.ptab === name;
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        t.classList.toggle('bg-primary', on);
+        t.classList.toggle('text-white', on);
+        t.classList.toggle('shadow', on);
+        t.classList.toggle('text-gray-600', !on);
+      });
+      panels.forEach((p) => p.classList.toggle('hidden', p.dataset.ppanel !== name));
+    }
+    tabs.forEach((t) => t.addEventListener('click', () => setTab(t.dataset.ptab)));
+  })();
 </script>

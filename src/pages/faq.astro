@@ -75,8 +75,11 @@ const faqSchema = {
 
   <main class="flex-1">
     <!-- Hero Section -->
-    <section class="bg-gradient-to-br from-primary/10 via-white to-gray-100 py-32">
-      <div class="max-w-7xl mx-auto px-4 text-center">
+    <section class="relative overflow-hidden bg-gradient-to-br from-primary/10 via-white to-gray-100 py-32">
+      <!-- GCC skyline backdrop (real-world, subtle parallax) -->
+      <img src="/images/gcc/oman.webp" alt="Muscat cityscape, Oman" loading="lazy" decoding="async" data-parallax="0.1" class="parallax-media opacity-[0.2]" />
+      <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/40 via-white/15 to-gray-100/50"></div>
+      <div class="relative z-10 max-w-7xl mx-auto px-4 text-center">
         <span class="inline-flex items-center rounded-full border border-transparent bg-gray-100 text-gray-800 px-2.5 py-0.5 text-sm font-semibold mb-4">
           {t('faq.hero.badge')}
         </span>
@@ -295,23 +298,27 @@ const faqSchema = {
       </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="bg-gradient-to-r from-primary/10 to-gray-100 py-20">
-      <div class="max-w-7xl mx-auto px-4 text-center">
-        <h2 class="text-3xl font-bold mb-6 md:text-4xl text-gray-900">
+    <!-- CTA Section (over a real customer-support scene) -->
+    <section class="relative overflow-hidden py-24">
+      <!-- Customer-support backdrop with subtle parallax -->
+      <img src="/images/gcc/support.webp" alt="Customer support agent wearing a headset" loading="lazy" decoding="async" data-parallax="0.12" class="parallax-media" />
+      <div class="absolute inset-0 bg-gradient-to-br from-[#1b0e44]/95 via-primary/85 to-[#271060]/90"></div>
+      <div class="pointer-events-none absolute inset-0 bg-black/25"></div>
+      <div class="relative z-10 max-w-7xl mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold mb-6 md:text-4xl text-white">
           {t('faq.cta.title')}
         </h2>
-        <p class="mx-auto mb-8 max-w-2xl text-xl text-gray-600">
+        <p class="mx-auto mb-8 max-w-2xl text-xl text-white/80">
           {t('faq.cta.desc')}
         </p>
         <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <a href="/contact" class="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-md text-base font-medium hover:bg-primary-light transition-colors">
+          <a href="/contact" class="inline-flex items-center gap-2 bg-white text-primary px-6 py-3 rounded-md text-base font-semibold shadow-lg hover:bg-white/90 transition-colors">
             {t('faq.cta.contact')}
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
             </svg>
           </a>
-          <a href={`${URLS.app}/register`} class="inline-flex items-center gap-2 bg-white text-gray-900 border border-gray-300 px-6 py-3 rounded-md text-base font-medium hover:bg-gray-50 transition-colors">
+          <a href={`${URLS.app}/register`} class="inline-flex items-center gap-2 border-2 border-white/50 text-white px-6 py-3 rounded-md text-base font-semibold hover:bg-white/10 transition-colors">
             {t('faq.cta.start')}
           </a>
         </div>

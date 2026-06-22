@@ -72,8 +72,11 @@ const features = [
 
   <main class="flex-1">
     <!-- Hero Section -->
-    <section class="bg-gradient-to-br from-purple-100 via-white to-purple-50 pt-32 pb-12">
-      <div class="max-w-7xl mx-auto px-4 text-center">
+    <section class="relative overflow-hidden bg-gradient-to-br from-purple-100 via-white to-purple-50 pt-28 pb-10">
+      <!-- GCC skyline backdrop (real-world, subtle parallax) -->
+      <img src="/images/gcc/abudhabi.webp" alt="Abu Dhabi skyline, United Arab Emirates" loading="lazy" decoding="async" data-parallax="0.08" class="parallax-media opacity-[0.1]" />
+      <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/55 via-white/30 to-purple-50/50"></div>
+      <div class="relative z-10 max-w-7xl mx-auto px-4 text-center">
         <span class="inline-block mb-3 px-4 py-1.5 bg-purple-100 text-primary rounded-full text-sm font-medium">
           {t('pricing.hero.badge')}
         </span>
@@ -290,7 +293,6 @@ const features = [
     <!-- Founding Launch Section -->
     <section class="py-20 bg-gradient-to-br from-purple-100 via-white to-purple-50 relative overflow-hidden">
       <!-- GCC skyline backdrop (real-world, subtle parallax) -->
-      <img src="/images/gcc/uae.webp" alt="Dubai skyline, United Arab Emirates" loading="lazy" decoding="async" data-parallax="0.08" class="parallax-media opacity-[0.2]" />
       <!-- Decorative background pattern -->
       <div class="absolute inset-0 opacity-30">
         <div class="absolute top-0 left-0 w-64 h-64 bg-purple-200 rounded-full blur-3xl"></div>

@@ -94,5 +94,17 @@
     "photographer": "Andy  Fotheringham",
     "url": "https://www.pexels.com/photo/modern-skyline-of-abu-dhabi-with-etihad-towers-35862332/",
     "alt": "Stunning view of Abu Dhabi's Etihad Towers and city skyline under clear blue sky."
+  },
+  "collaboration": {
+    "id": 3153207,
+    "photographer": "fauxels",
+    "url": "https://www.pexels.com/photo/a-group-of-professionals-sharing-ideas-3153207/",
+    "alt": "A diverse group of professionals collaborating around laptops in a bright, modern workspace."
+  },
+  "community": {
+    "id": 8866742,
+    "photographer": "Yan Krukau",
+    "url": "https://www.pexels.com/photo/people-putting-their-hands-together-8866742/",
+    "alt": "Diverse office team putting their hands together to symbolise teamwork and unity."
   }
 }

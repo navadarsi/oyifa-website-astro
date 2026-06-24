@@ -36,9 +36,8 @@ const tenderLimits = { AED: '500K', SAR: '500K', QAR: '500K', BHD: '50K', OMR: '
 
 // Vendor plan tiers driven by translations (single source of truth: src/i18n/ui.ts)
 const tk = t as unknown as (key: string) => string;
-const planTiers = ['free', 'standard', 'premium'] as const;
+const planTiers = ['standard', 'premium'] as const;
 const planFeatureKeys: Record<string, string[]> = {
-  free: ['feature1', 'feature2', 'feature3', 'feature4'],
   standard: ['feature1', 'feature2', 'feature3', 'feature4', 'feature5'],
   premium: ['feature1', 'feature2', 'feature3', 'feature4', 'feature6'],
 };
@@ -182,7 +181,7 @@ const features = [
         </div>
 
         <!-- Vendor Pricing Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto items-stretch">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto items-stretch">
           {plans.map((plan, index) => (
             <div class={`group relative flex flex-col overflow-hidden rounded-2xl p-6 text-center transition-all duration-300 hover:-translate-y-1.5 ${
               plan.popular

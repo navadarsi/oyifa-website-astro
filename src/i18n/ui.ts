@@ -336,7 +336,7 @@ export const ui = {
     'faq.vendor.q2': 'How do I submit a proposal?',
     'faq.vendor.a2': 'Click on any tender to view details, then submit your proposal with technical approach, timeline, and commercial terms. You can attach supporting documents and portfolio samples.',
     'faq.vendor.q3': 'How many proposals can I submit?',
-    'faq.vendor.a3': 'Your subscription plan sets your monthly proposal credits: Basic includes 20 per month, Standard 50, and Premium is unlimited (subject to fair use). Higher tiers also give your profile and proposals more visibility to clients.',
+    'faq.vendor.a3': 'Your subscription plan sets your monthly proposal credits: Standard includes 30 per month and Premium is unlimited (subject to fair use). Premium also gives your profile and proposals more visibility to clients.',
     'faq.vendor.q4': 'How can I improve my chances of winning?',
     'faq.vendor.a4': 'Complete your profile fully, maintain updated certifications, respond promptly, and submit detailed, tailored proposals. Higher plan tiers (Standard, Premium) also increase how visible your profile and proposals are to clients. Remember: a subscription buys the right to take part and be seen. Clients still choose who wins.',
     'faq.vendor.q5': 'Can I contact clients directly for sales?',
@@ -344,7 +344,7 @@ export const ui = {
     'faq.pricing.title': 'Pricing & Billing',
     'faq.pricing.desc': 'Subscription plans and payment information',
     'faq.pricing.q1': 'How does the subscription model work?',
-    'faq.pricing.a1': 'Oyifa is free for clients: posting requirements and receiving proposals never costs anything. Only vendors pay, choosing a simple monthly plan (Basic, Standard, or Premium) to submit proposals and increase their visibility. Plans are billed monthly or annually; annual plans save ~17%.',
+    'faq.pricing.a1': 'Oyifa is free for clients: posting requirements and receiving proposals never costs anything. Only vendors pay, choosing a simple monthly plan (Standard or Premium) to submit proposals and increase their visibility. Plans are billed monthly or annually; annual plans save ~17%.',
     'faq.pricing.q2': 'What payment methods do you accept?',
     'faq.pricing.a2': 'We accept major credit and debit cards through Stripe. All payments are processed securely with PCI compliance. Regional currencies are supported for all GCC countries.',
     'faq.pricing.q3': 'Can I change my plan?',
@@ -368,7 +368,7 @@ export const ui = {
     'faq.cta.title': 'Still Have Questions?',
     'faq.cta.desc': 'Our support team is here to help you succeed with Oyifa.',
     'faq.cta.contact': 'Contact Support',
-    'faq.cta.start': 'Start Free Plan',
+    'faq.cta.start': 'Get Started',
 
     // Privacy Page
     'privacy.meta.title': 'Privacy Policy',
@@ -949,7 +949,7 @@ export const ui = {
     'faq.vendor.q2': 'كيف أقدم عرضاً؟',
     'faq.vendor.a2': 'انقر على أي مناقصة لعرض التفاصيل، ثم قدم عرضك مع النهج التقني والجدول الزمني والشروط التجارية. يمكنك إرفاق المستندات الداعمة وعينات المحفظة.',
     'faq.vendor.q3': 'كم عدد العروض التي يمكنني تقديمها؟',
-    'faq.vendor.a3': 'تحدد خطة اشتراكك أرصدة العروض الشهرية: تشمل الأساسية 20 عرضاً شهرياً، والقياسية 50، والمتميزة عروضاً غير محدودة (ضمن الاستخدام العادل). كما تمنح الخطط الأعلى ملفك وعروضك ظهوراً أكبر للعملاء.',
+    'faq.vendor.a3': 'تحدد خطة اشتراكك أرصدة العروض الشهرية: تشمل القياسية 30 عرضاً شهرياً، والمتميزة عروضاً غير محدودة (ضمن الاستخدام العادل). كما تمنح باقة المتميز ملفك وعروضك ظهوراً أكبر للعملاء.',
     'faq.vendor.q4': 'كيف يمكنني تحسين فرصي في الفوز؟',
     'faq.vendor.a4': 'أكمل ملفك بالكامل، وحافظ على شهادات محدثة، واستجب بسرعة، وقدّم عروضاً مفصلة ومخصصة. كما تزيد الخطط الأعلى (قياسي، متميز) من ظهور ملفك وعروضك للعملاء. تذكّر: الاشتراك يشتري حق المشاركة والظهور، لكن العملاء هم من يختارون الفائز.',
     'faq.vendor.q5': 'هل يمكنني الاتصال بالعملاء مباشرة للمبيعات؟',
@@ -957,7 +957,7 @@ export const ui = {
     'faq.pricing.title': 'الأسعار والفواتير',
     'faq.pricing.desc': 'خطط الاشتراك ومعلومات الدفع',
     'faq.pricing.q1': 'كيف يعمل نموذج الاشتراك؟',
-    'faq.pricing.a1': 'أويفا مجانية للعملاء: نشر المتطلبات وتلقّي العروض لا يكلّف شيئاً أبداً. يدفع الموردون فقط، باختيار خطة شهرية بسيطة (أساسي أو قياسي أو متميز) لتقديم العروض وزيادة ظهورهم. تُفوتر الخطط شهرياً أو سنوياً؛ وتوفّر الخطط السنوية ~17%.',
+    'faq.pricing.a1': 'أويفا مجانية للعملاء: نشر المتطلبات وتلقّي العروض لا يكلّف شيئاً أبداً. يدفع الموردون فقط، باختيار خطة شهرية بسيطة (قياسي أو متميز) لتقديم العروض وزيادة ظهورهم. تُفوتر الخطط شهرياً أو سنوياً؛ وتوفّر الخطط السنوية ~17%.',
     'faq.pricing.q2': 'ما طرق الدفع التي تقبلونها؟',
     'faq.pricing.a2': 'نقبل بطاقات الائتمان والخصم الرئيسية عبر Stripe. تتم معالجة جميع المدفوعات بشكل آمن مع الامتثال لـ PCI. العملات الإقليمية مدعومة لجميع دول الخليج.',
     'faq.pricing.q3': 'هل يمكنني تغيير خطتي؟',
@@ -981,7 +981,7 @@ export const ui = {
     'faq.cta.title': 'لا تزال لديك أسئلة؟',
     'faq.cta.desc': 'فريق الدعم لدينا هنا لمساعدتك على النجاح مع أويفا.',
     'faq.cta.contact': 'اتصل بالدعم',
-    'faq.cta.start': 'ابدأ خطة مجانية',
+    'faq.cta.start': 'ابدأ الآن',
 
     // Privacy Page (abbreviated)
     'privacy.meta.title': 'سياسة الخصوصية',

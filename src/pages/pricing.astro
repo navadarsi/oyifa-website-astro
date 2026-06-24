@@ -18,14 +18,14 @@ const gccCountries = [
   { code: 'KW', name: 'Kuwait', currency: 'KWD', symbol: 'KWD' },
 ];
 
-// Vendor pricing by currency — Free / Standard / Premium. Annual = 10× monthly (2 months free).
+// Vendor pricing by currency — Standard / Premium. Annual = 10× monthly (2 months free).
 const pricing = {
-  AED: { free: { monthly: 0, yearly: 0 }, standard: { monthly: 499, yearly: 4990 }, premium: { monthly: 999, yearly: 9990 } },
-  SAR: { free: { monthly: 0, yearly: 0 }, standard: { monthly: 499, yearly: 4990 }, premium: { monthly: 999, yearly: 9990 } },
-  QAR: { free: { monthly: 0, yearly: 0 }, standard: { monthly: 499, yearly: 4990 }, premium: { monthly: 999, yearly: 9990 } },
-  BHD: { free: { monthly: 0, yearly: 0 }, standard: { monthly: 49, yearly: 490 }, premium: { monthly: 99, yearly: 990 } },
-  OMR: { free: { monthly: 0, yearly: 0 }, standard: { monthly: 49, yearly: 490 }, premium: { monthly: 99, yearly: 990 } },
-  KWD: { free: { monthly: 0, yearly: 0 }, standard: { monthly: 39, yearly: 390 }, premium: { monthly: 79, yearly: 790 } },
+  AED: { standard: { monthly: 499, yearly: 4990 }, premium: { monthly: 999, yearly: 9990 } },
+  SAR: { standard: { monthly: 499, yearly: 4990 }, premium: { monthly: 999, yearly: 9990 } },
+  QAR: { standard: { monthly: 499, yearly: 4990 }, premium: { monthly: 999, yearly: 9990 } },
+  BHD: { standard: { monthly: 49, yearly: 490 }, premium: { monthly: 99, yearly: 990 } },
+  OMR: { standard: { monthly: 49, yearly: 490 }, premium: { monthly: 99, yearly: 990 } },
+  KWD: { standard: { monthly: 39, yearly: 390 }, premium: { monthly: 79, yearly: 790 } },
 };
 
 const defaultCountry = gccCountries[0];
@@ -307,12 +307,12 @@ const features = [
 
 <script define:vars={{ monthlyNote: t('pricing.billing.monthly_note'), yearlyNote: t('pricing.billing.yearly_note'), perMonth: t('pricing.per_month'), perYear: t('pricing.per_year') }}>
   const pricing = {
-    AED: { free: { monthly: 0, yearly: 0 }, standard: { monthly: 499, yearly: 4990 }, premium: { monthly: 999, yearly: 9990 } },
-    SAR: { free: { monthly: 0, yearly: 0 }, standard: { monthly: 499, yearly: 4990 }, premium: { monthly: 999, yearly: 9990 } },
-    QAR: { free: { monthly: 0, yearly: 0 }, standard: { monthly: 499, yearly: 4990 }, premium: { monthly: 999, yearly: 9990 } },
-    BHD: { free: { monthly: 0, yearly: 0 }, standard: { monthly: 49, yearly: 490 }, premium: { monthly: 99, yearly: 990 } },
-    OMR: { free: { monthly: 0, yearly: 0 }, standard: { monthly: 49, yearly: 490 }, premium: { monthly: 99, yearly: 990 } },
-    KWD: { free: { monthly: 0, yearly: 0 }, standard: { monthly: 39, yearly: 390 }, premium: { monthly: 79, yearly: 790 } },
+    AED: { standard: { monthly: 499, yearly: 4990 }, premium: { monthly: 999, yearly: 9990 } },
+    SAR: { standard: { monthly: 499, yearly: 4990 }, premium: { monthly: 999, yearly: 9990 } },
+    QAR: { standard: { monthly: 499, yearly: 4990 }, premium: { monthly: 999, yearly: 9990 } },
+    BHD: { standard: { monthly: 49, yearly: 490 }, premium: { monthly: 99, yearly: 990 } },
+    OMR: { standard: { monthly: 49, yearly: 490 }, premium: { monthly: 99, yearly: 990 } },
+    KWD: { standard: { monthly: 39, yearly: 390 }, premium: { monthly: 79, yearly: 790 } },
   };
 
   let isYearly = false;
